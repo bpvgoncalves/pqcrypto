@@ -6,10 +6,24 @@
 #include <R_ext/Visibility.h>
 
 // keygen_kyber.cpp
+cpp11::list cpp_keygen_kyber512();
+extern "C" SEXP _pqcrypto_cpp_keygen_kyber512() {
+  BEGIN_CPP11
+    return cpp11::as_sexp(cpp_keygen_kyber512());
+  END_CPP11
+}
+// keygen_kyber.cpp
 cpp11::list cpp_keygen_kyber768();
 extern "C" SEXP _pqcrypto_cpp_keygen_kyber768() {
   BEGIN_CPP11
     return cpp11::as_sexp(cpp_keygen_kyber768());
+  END_CPP11
+}
+// keygen_kyber.cpp
+cpp11::list cpp_keygen_kyber1024();
+extern "C" SEXP _pqcrypto_cpp_keygen_kyber1024() {
+  BEGIN_CPP11
+    return cpp11::as_sexp(cpp_keygen_kyber1024());
   END_CPP11
 }
 // sha_3.cpp
@@ -22,8 +36,10 @@ extern "C" SEXP _pqcrypto_sha_3_512(SEXP input) {
 
 extern "C" {
 static const R_CallMethodDef CallEntries[] = {
-    {"_pqcrypto_cpp_keygen_kyber768", (DL_FUNC) &_pqcrypto_cpp_keygen_kyber768, 0},
-    {"_pqcrypto_sha_3_512",           (DL_FUNC) &_pqcrypto_sha_3_512,           1},
+    {"_pqcrypto_cpp_keygen_kyber1024", (DL_FUNC) &_pqcrypto_cpp_keygen_kyber1024, 0},
+    {"_pqcrypto_cpp_keygen_kyber512",  (DL_FUNC) &_pqcrypto_cpp_keygen_kyber512,  0},
+    {"_pqcrypto_cpp_keygen_kyber768",  (DL_FUNC) &_pqcrypto_cpp_keygen_kyber768,  0},
+    {"_pqcrypto_sha_3_512",            (DL_FUNC) &_pqcrypto_sha_3_512,            1},
     {NULL, NULL, 0}
 };
 }
