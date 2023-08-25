@@ -1,10 +1,16 @@
 
-#' keygen
+#' Kyber Key Generation
 #'
-#' @return
+#' @param param_set  Type of key to be generated. Use 512 for Kyber-512, 768 (default) for Kyber-768
+#' or 1024 for Kyber-1024.
+#'
+#' @return A `keypair` object
 #' @export
 #'
 #' @examples
+#' key <- keygen_kyber()
+#' key$key_type
+#'
 keygen_kyber <- function(param_set = 768) {
 
   param_set <- as.integer(param_set)
