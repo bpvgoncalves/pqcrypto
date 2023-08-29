@@ -8,6 +8,14 @@ cpp_encap_kyber512 <- function(pub_key) {
   .Call(`_pqcrypto_cpp_encap_kyber512`, pub_key)
 }
 
+cpp_encap_kyber768 <- function(pub_key) {
+  .Call(`_pqcrypto_cpp_encap_kyber768`, pub_key)
+}
+
+cpp_encap_kyber1024 <- function(pub_key) {
+  .Call(`_pqcrypto_cpp_encap_kyber1024`, pub_key)
+}
+
 cpp_keygen_kyber512 <- function() {
   .Call(`_pqcrypto_cpp_keygen_kyber512`)
 }

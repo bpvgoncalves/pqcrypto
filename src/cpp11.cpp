@@ -19,6 +19,20 @@ extern "C" SEXP _pqcrypto_cpp_encap_kyber512(SEXP pub_key) {
     return cpp11::as_sexp(cpp_encap_kyber512(cpp11::as_cpp<cpp11::decay_t<cpp11::integers>>(pub_key)));
   END_CPP11
 }
+// encap_kyber.cpp
+cpp11::list cpp_encap_kyber768(cpp11::integers pub_key);
+extern "C" SEXP _pqcrypto_cpp_encap_kyber768(SEXP pub_key) {
+  BEGIN_CPP11
+    return cpp11::as_sexp(cpp_encap_kyber768(cpp11::as_cpp<cpp11::decay_t<cpp11::integers>>(pub_key)));
+  END_CPP11
+}
+// encap_kyber.cpp
+cpp11::list cpp_encap_kyber1024(cpp11::integers pub_key);
+extern "C" SEXP _pqcrypto_cpp_encap_kyber1024(SEXP pub_key) {
+  BEGIN_CPP11
+    return cpp11::as_sexp(cpp_encap_kyber1024(cpp11::as_cpp<cpp11::decay_t<cpp11::integers>>(pub_key)));
+  END_CPP11
+}
 // keygen_kyber.cpp
 cpp11::list cpp_keygen_kyber512();
 extern "C" SEXP _pqcrypto_cpp_keygen_kyber512() {
@@ -51,7 +65,9 @@ extern "C" SEXP _pqcrypto_sha_3_512(SEXP input) {
 extern "C" {
 static const R_CallMethodDef CallEntries[] = {
     {"_pqcrypto_cpp_decap_kyber512",   (DL_FUNC) &_pqcrypto_cpp_decap_kyber512,   2},
+    {"_pqcrypto_cpp_encap_kyber1024",  (DL_FUNC) &_pqcrypto_cpp_encap_kyber1024,  1},
     {"_pqcrypto_cpp_encap_kyber512",   (DL_FUNC) &_pqcrypto_cpp_encap_kyber512,   1},
+    {"_pqcrypto_cpp_encap_kyber768",   (DL_FUNC) &_pqcrypto_cpp_encap_kyber768,   1},
     {"_pqcrypto_cpp_keygen_kyber1024", (DL_FUNC) &_pqcrypto_cpp_keygen_kyber1024, 0},
     {"_pqcrypto_cpp_keygen_kyber512",  (DL_FUNC) &_pqcrypto_cpp_keygen_kyber512,  0},
     {"_pqcrypto_cpp_keygen_kyber768",  (DL_FUNC) &_pqcrypto_cpp_keygen_kyber768,  0},
