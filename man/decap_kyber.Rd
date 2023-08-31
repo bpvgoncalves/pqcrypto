@@ -2,15 +2,18 @@
 % Please edit documentation in R/decap_kyber.R
 \name{decap_kyber}
 \alias{decap_kyber}
-\title{Title}
+\title{Kyber shared secret/shared key encapsulation}
 \usage{
-decap_kyber(sk, ct)
+decap_kyber(encapsulation, secret_key)
 }
 \arguments{
-\item{sk}{Receiver's secret key}
+\item{encapsulation}{Received encapsulation object.}
 
-\item{ct}{Cipher text}
+\item{secret_key}{Receiver's secret key}
+}
+\value{
+The shared secret
 }
 \description{
-Title
+Kyber shared secret/shared key encapsulation
 }
