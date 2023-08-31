@@ -2,13 +2,21 @@
 % Please edit documentation in R/encap_kyber.R
 \name{encap_kyber}
 \alias{encap_kyber}
-\title{Title}
+\title{Kyber shared secret/shared key encapsulation}
 \usage{
-encap_kyber(pk)
+encap_kyber(pub_key)
 }
 \arguments{
-\item{pk}{Receiver's public key}
+\item{pub_key}{Receiver's public key}
+}
+\value{
+A secret key and its encapsulation to be shared with the owner of the used public key.
 }
 \description{
-Title
+Kyber shared secret/shared key encapsulation
+}
+\examples{
+key <- keygen_kyber(512)
+s_s <- encap_kyber(key$public)  # This generates an encapsulation readable only by key$private
+
 }
