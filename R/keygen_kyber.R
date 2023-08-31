@@ -4,7 +4,7 @@
 #' @param param_set  Type of key to be generated. Use 512 for Kyber-512, 768 (default) for Kyber-768
 #' or 1024 for Kyber-1024.
 #'
-#' @return A `keypair` object
+#' @return A `keypair` object.
 #' @export
 #'
 #' @examples
@@ -24,10 +24,16 @@ keygen_kyber <- function(param_set = 768) {
     stop("Unknown 'parameter set'. Acceptable values: 512, 768 or 1024.")
   }
 
-  keypair <- list(key_type = paste0("Kyber-", param_set),
-                  secret = structure(key[[1]], class="secret_key"),
-                  public = structure(key[[2]], class="public_key"))
-  attr(keypair, "key_param") <- param_set
+  keypair <- list(key_type = "kyber",
+                  parameters = param_set,
+                  secret = structure(key[[1]],
+                                     key_type = "kyber",
+                                     param = param_set,
+                                     class="secret_key"),
+                  public = structure(key[[2]],
+                                     key_type="kyber",
+                                     param = param_set,
+                                     class="public_key"))
   class(keypair) <- c("keypair", "kyber")
 
   rm(key)

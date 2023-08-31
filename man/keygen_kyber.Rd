@@ -11,7 +11,7 @@ keygen_kyber(param_set = 768)
 or 1024 for Kyber-1024.}
 }
 \value{
-A \code{keypair} object
+A \code{keypair} object.
 }
 \description{
 Kyber Key Generation
