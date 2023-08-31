@@ -4,6 +4,14 @@ cpp_decap_kyber512 <- function(secret_key, cipher_text) {
   .Call(`_pqcrypto_cpp_decap_kyber512`, secret_key, cipher_text)
 }
 
+cpp_decap_kyber768 <- function(secret_key, cipher_text) {
+  .Call(`_pqcrypto_cpp_decap_kyber768`, secret_key, cipher_text)
+}
+
+cpp_decap_kyber1024 <- function(secret_key, cipher_text) {
+  .Call(`_pqcrypto_cpp_decap_kyber1024`, secret_key, cipher_text)
+}
+
 cpp_encap_kyber512 <- function(pub_key) {
   .Call(`_pqcrypto_cpp_encap_kyber512`, pub_key)
 }
