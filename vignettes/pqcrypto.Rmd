@@ -1,0 +1,20 @@
+---
+title: "pqcrypto - Post-Quantum Cryptography"
+output: rmarkdown::html_vignette
+vignette: >
+  %\VignetteIndexEntry{pqcrypto - Post-Quantum Cryptography}
+  %\VignetteEngine{knitr::rmarkdown}
+  %\VignetteEncoding{UTF-8}
+---
+
+```{r, include = FALSE}
+knitr::opts_chunk$set(
+  collapse = TRUE,
+  comment = "#>"
+)
+```
+
+
+## A brief introduction
+
+Cryptography is the practice of securing communication and data through the use of mathematical techniques and algorithms.
