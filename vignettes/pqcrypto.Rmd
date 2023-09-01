@@ -17,4 +17,14 @@ knitr::opts_chunk$set(
 
 ## A brief introduction
 
-Cryptography is the practice of securing communication and data through the use of mathematical techniques and algorithms.
+Cryptography is the study and practice of techniques to secure communications and data confidentiality, integrity and authenticity through the use of mathematical techniques and algorithms.
+
+**Symmetric key cryptography** uses algorithms that use of the same cryptographic key (aka, symmetric key or secret key) for plain text encryption and for cipher text decryption. This requires that all parties have access to the same key.
+
+**Asymmetric key cryptography**, also known as public-key cryptography, uses pairs of related keys - public key and private key - generated based on 'hard-to-solve' mathematical problems and are widely used for securing communications and data in various applications. 
+
+The rise of quantum computing brings challenges to the security provided by existing asymmetric key algorithms because such computers have the potential to use different algorithms to solve some mathematical problems much faster than classical computers.  
+This includes the ability to factor large numbers (e.g. [Shor's Algorithm](https://en.wikipedia.org/wiki/Shor%27s_algorithm)) and compute discrete logarithms, which are fundamental operations in many asymmetric encryption schemes like [RSA](https://en.wikipedia.org/wiki/RSA_(cryptosystem)) or [Diffie-Hellman](https://en.wikipedia.org/wiki/Diffie%E2%80%93Hellman_key_exchange).
+
+The National Institute of Standards and Technology (NIST) has been actively involved in the research and standardization of post-quantum cryptography (PQC) algorithms to address these threats. NIST initiated a public competition known as the "NIST Post-Quantum Cryptography Standardization" to identify and evaluate new cryptographic algorithms that can resist attacks from both classical and quantum computers. This competition is still ongoing and as of the time of this writing (01/Sep/2023), NIST is [requesting comments](https://csrc.nist.gov/news/2023/three-draft-fips-for-post-quantum-cryptography) on 3 drafts for proposed "Federal Information Processing Standards" (FIPS) covering key encapsulation (FIPS-203) and digital signatures (FIPS-204 and FIPS-205).
+
