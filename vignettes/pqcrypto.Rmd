@@ -28,3 +28,41 @@ This includes the ability to factor large numbers (e.g. [Shor's Algorithm](https
 
 The National Institute of Standards and Technology (NIST) has been actively involved in the research and standardization of post-quantum cryptography (PQC) algorithms to address these threats. NIST initiated a public competition known as the "NIST Post-Quantum Cryptography Standardization" to identify and evaluate new cryptographic algorithms that can resist attacks from both classical and quantum computers. This competition is still ongoing and as of the time of this writing (01/Sep/2023), NIST is [requesting comments](https://csrc.nist.gov/news/2023/three-draft-fips-for-post-quantum-cryptography) on 3 drafts for proposed "Federal Information Processing Standards" (FIPS) covering key encapsulation (FIPS-203) and digital signatures (FIPS-204 and FIPS-205).
 
+
+## The `pqcrypto` package
+
+The `pqcrypto` package makes available to R users some of the latest developments in post-quantum cryptography, covering:
+
+  - Secure key establishment (secret key encapsulation);
+  - Digital signatures.
+
+
+### Secure Key Establishment
+*Alice* wants to send *Bob* a secret message. They may meet in person beforehand and agree on a secret key to be used on their communication, but this may not be possible! They need to find a way to exchange such secret key using public channels!
+This is possible using key encapsulation techniques. In the example below Bob will generate a key-pair and make his public key available publicly. Alice will use Bob's public key to generate an encapsulation of a secret key to be shared between them. This encapsulated key is only readable by someone in possession of the matching private key. 
+
+```{r key_generation}
+library(pqcrypto)
+
+# Bob generates a key-pair with default parameters
+bob_keypair <- keygen_kyber()
+
+# Bob makes his public key widely available (e.g. he publishes it on his webpage or blog)
+bob_public_key <- bob_keypair$public
+
+# Alice generates a shared secret key and its encapsulation.
+result <- encap_kyber(bob_public_key)
+
+# Alice keeps the shared secret for herself and sends the encapsulation to Bob.
+alice_shared_secret <- result$shared_secret
+send_to_bob <- result$encapsulation
+
+# Bob receives the key encapsulation from Alice and uses his private key to get the shared secret.
+bob_shared_secret <- decap_kyber(send_to_bob, bob_keypair$private)
+
+# If everything went well, they both share a secret key. This can be used to apply symmetric 
+# encryption (e.g. AES) to a message they want to exchange. 
+identical(alice_shared_secret, bob_shared_secret)
+
+```
+
