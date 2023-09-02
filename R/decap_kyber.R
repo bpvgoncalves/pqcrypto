@@ -10,8 +10,20 @@
 #' @export
 #'
 #' @examples
+#' key <- keygen_kyber(512)
+#' ss1 <- encap_kyber(key$public)  # This generates an encapsulation readable only by key$private
+#' ss2 <- decap_kyber(ss1$encapsulation, key$private)
+#' identical(ss1$shared_secret, ss2)
 #'
 decap_kyber <- function(encapsulation, private_key) {
+
+  if (!inherits(private_key, "private_key")) {
+    stop("'private_key' parameter does not have the expected class.")
+  }
+
+  if (attr(private_key, "key_type") != "kyber") {
+    stop("Wrong private key type. Make sure you are using a 'Kyber' private key.")
+  }
 
   if (attr(private_key, "param") == 512) {
     out <- cpp_decap_kyber512(private_key, encapsulation)
