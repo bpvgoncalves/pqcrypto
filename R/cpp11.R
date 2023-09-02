@@ -35,7 +35,3 @@ cpp_keygen_kyber768 <- function() {
 cpp_keygen_kyber1024 <- function() {
   .Call(`_pqcrypto_cpp_keygen_kyber1024`)
 }
-
-sha_3_512 <- function(input) {
-  .Call(`_pqcrypto_sha_3_512`, input)
-}
