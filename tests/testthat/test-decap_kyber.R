@@ -24,3 +24,10 @@ test_that("kyber-1024 decapsulation works", {
   expect_equal(length(ss2), 32)
   expect_identical(ss1$shared_secret, ss2)
 })
+
+test_that("kyber-x decapsulation fails on wrong parameter", {
+  key <- keygen_kyber(512)
+  ss <- encap_kyber(key$public)
+  expect_error(decap_kyber(ss1$encapsulation, "not_a_key"))
+  expect_error(decap_kyber(ss1$encapsulation, key$public))
+})
