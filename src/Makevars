@@ -1,11 +1,13 @@
 PKG_CPPFLAGS      = -I.                     \
                     -Ikyber                 \
+                    -Idilithium
 
 PKG_CXXFLAGS      = $(CXX_VISIBILITY)
 
 PKG_CFLAGS        = $(C_VISIBILITY)
 
-PKG_LIBS          = libkyber512.a libkyber768.a libkyber1024.a
+PKG_LIBS          = libkyber512.a  libkyber768.a  libkyber1024.a        \
+                    libdilithium2.a  libdilithium3.a  libdilithium5.a
 
 BUILD_DIR         = ../build
 
@@ -16,11 +18,25 @@ HEADS_KYBER       = kyber/params.h  kyber/kem.h  kyber/indcpa.h  kyber/polyvec.h
                     kyber/fips202.h  kyber/randombytes.h
 SRCS_KYBER        = kyber/kem.c  kyber/indcpa.c  kyber/polyvec.c  kyber/poly.c  kyber/ntt.c       \
                     kyber/cbd.c  kyber/reduce.c  kyber/verify.c  kyber/fips202.c                  \
-                    kyber/symmetric-shake.c kyber/randombytes.c
+                    kyber/symmetric-shake.c  kyber/randombytes.c
 
 OBJS_KYBER512     = $(SRCS_KYBER:%=$(BUILD_DIR)/%.k512.o)
 OBJS_KYBER768     = $(SRCS_KYBER:%=$(BUILD_DIR)/%.k768.o)
 OBJS_KYBER1024    = $(SRCS_KYBER:%=$(BUILD_DIR)/%.k1024.o)
+
+#### Dilithium config ####
+# Based on information provided by the pq-crystal's original Makefile
+HEADS_DILITHIUM   = dilithium/config.h  dilithium/params.h  dilithium/api.h  dilithium/sign.h      \
+                    dilithium/packing.h  dilithium/polyvec.h  dilithium/poly.h  dilithium/ntt.h    \
+                    dilithium/reduce.h  dilithium/rounding.h  dilithium/symmetric.h                \
+                    dilithium/randombytes.h  dilithium/fips202.h
+SRCS_DILITHIUM    = dilithium/sign.c  dilithium/packing.c  dilithium/polyvec.c  dilithium/poly.c   \
+                    dilithium/ntt.c  dilithium/reduce.c  dilithium/rounding.c  dilithium/fips202.c \
+                    dilithium/symmetric-shake.c  dilithium/randombytes.c
+
+OBJS_DILITHIUM2   = $(SRCS_DILITHIUM:%=$(BUILD_DIR)/%.d2.o)
+OBJS_DILITHIUM3   = $(SRCS_DILITHIUM:%=$(BUILD_DIR)/%.d3.o)
+OBJS_DILITHIUM5   = $(SRCS_DILITHIUM:%=$(BUILD_DIR)/%.d5.o)
 
 .PHONY: all clean
 
@@ -40,6 +56,18 @@ $(BUILD_DIR)/%.k1024.o: $(SRCS_KYBER) $(HEADS_KYBER)
 	@mkdir -p $(dir $@)
 	$(CC) $(PKG_CPPFLAGS) $(PKG_CFLAGS) -fPIC -DKYBER_K=4 -c $* -o $@
 
+$(BUILD_DIR)/%.d2.o: $(SRCS_DILITHIUM) $(HEADS_DILITHIUM)
+	@mkdir -p $(dir $@)
+	$(CC) $(PKG_CPPFLAGS) $(PKG_CFLAGS) -fPIC -DDILITHIUM_MODE=2 -c $* -o $@
+
+$(BUILD_DIR)/%.d3.o: $(SRCS_DILITHIUM) $(HEADS_DILITHIUM)
+	@mkdir -p $(dir $@)
+	$(CC) $(PKG_CPPFLAGS) $(PKG_CFLAGS) -fPIC -DDILITHIUM_MODE=3 -c $* -o $@
+
+$(BUILD_DIR)/%.d5.o: $(SRCS_DILITHIUM) $(HEADS_DILITHIUM)
+	@mkdir -p $(dir $@)
+	$(CC) $(PKG_CPPFLAGS) $(PKG_CFLAGS) -fPIC -DDILITHIUM_MODE=5 -c $* -o $@
+
 libkyber512.a: $(OBJS_KYBER512)
 	ar r $@ $^
 
@@ -47,6 +75,15 @@ libkyber768.a: $(OBJS_KYBER768)
 	ar r $@ $^
 
 libkyber1024.a: $(OBJS_KYBER1024)
+	ar r $@ $^
+
+libdilithium2.a: $(OBJS_DILITHIUM2)
+	ar r $@ $^
+
+libdilithium3.a: $(OBJS_DILITHIUM3)
+	ar r $@ $^
+
+libdilithium5.a: $(OBJS_DILITHIUM5)
 	ar r $@ $^
 
 clean:
