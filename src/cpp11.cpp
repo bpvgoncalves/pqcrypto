@@ -54,6 +54,20 @@ extern "C" SEXP _pqcrypto_cpp_keygen_dilithium2() {
     return cpp11::as_sexp(cpp_keygen_dilithium2());
   END_CPP11
 }
+// keygen_dilithium.cpp
+cpp11::list cpp_keygen_dilithium3();
+extern "C" SEXP _pqcrypto_cpp_keygen_dilithium3() {
+  BEGIN_CPP11
+    return cpp11::as_sexp(cpp_keygen_dilithium3());
+  END_CPP11
+}
+// keygen_dilithium.cpp
+cpp11::list cpp_keygen_dilithium5();
+extern "C" SEXP _pqcrypto_cpp_keygen_dilithium5() {
+  BEGIN_CPP11
+    return cpp11::as_sexp(cpp_keygen_dilithium5());
+  END_CPP11
+}
 // keygen_kyber.cpp
 cpp11::list cpp_keygen_kyber512();
 extern "C" SEXP _pqcrypto_cpp_keygen_kyber512() {
@@ -85,6 +99,8 @@ static const R_CallMethodDef CallEntries[] = {
     {"_pqcrypto_cpp_encap_kyber512",    (DL_FUNC) &_pqcrypto_cpp_encap_kyber512,    1},
     {"_pqcrypto_cpp_encap_kyber768",    (DL_FUNC) &_pqcrypto_cpp_encap_kyber768,    1},
     {"_pqcrypto_cpp_keygen_dilithium2", (DL_FUNC) &_pqcrypto_cpp_keygen_dilithium2, 0},
+    {"_pqcrypto_cpp_keygen_dilithium3", (DL_FUNC) &_pqcrypto_cpp_keygen_dilithium3, 0},
+    {"_pqcrypto_cpp_keygen_dilithium5", (DL_FUNC) &_pqcrypto_cpp_keygen_dilithium5, 0},
     {"_pqcrypto_cpp_keygen_kyber1024",  (DL_FUNC) &_pqcrypto_cpp_keygen_kyber1024,  0},
     {"_pqcrypto_cpp_keygen_kyber512",   (DL_FUNC) &_pqcrypto_cpp_keygen_kyber512,   0},
     {"_pqcrypto_cpp_keygen_kyber768",   (DL_FUNC) &_pqcrypto_cpp_keygen_kyber768,   0},

@@ -28,6 +28,14 @@ cpp_keygen_dilithium2 <- function() {
   .Call(`_pqcrypto_cpp_keygen_dilithium2`)
 }
 
+cpp_keygen_dilithium3 <- function() {
+  .Call(`_pqcrypto_cpp_keygen_dilithium3`)
+}
+
+cpp_keygen_dilithium5 <- function() {
+  .Call(`_pqcrypto_cpp_keygen_dilithium5`)
+}
+
 cpp_keygen_kyber512 <- function() {
   .Call(`_pqcrypto_cpp_keygen_kyber512`)
 }
