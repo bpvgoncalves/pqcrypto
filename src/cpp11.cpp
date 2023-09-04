@@ -96,6 +96,13 @@ extern "C" SEXP _pqcrypto_cpp_sign_dilithium(SEXP message, SEXP private_key) {
     return cpp11::as_sexp(cpp_sign_dilithium(cpp11::as_cpp<cpp11::decay_t<cpp11::integers>>(message), cpp11::as_cpp<cpp11::decay_t<cpp11::integers>>(private_key)));
   END_CPP11
 }
+// verify_dilithium.cpp
+int cpp_verify_dilithium(cpp11::integers signature, cpp11::integers message, cpp11::integers public_key);
+extern "C" SEXP _pqcrypto_cpp_verify_dilithium(SEXP signature, SEXP message, SEXP public_key) {
+  BEGIN_CPP11
+    return cpp11::as_sexp(cpp_verify_dilithium(cpp11::as_cpp<cpp11::decay_t<cpp11::integers>>(signature), cpp11::as_cpp<cpp11::decay_t<cpp11::integers>>(message), cpp11::as_cpp<cpp11::decay_t<cpp11::integers>>(public_key)));
+  END_CPP11
+}
 
 extern "C" {
 static const R_CallMethodDef CallEntries[] = {
@@ -112,6 +119,7 @@ static const R_CallMethodDef CallEntries[] = {
     {"_pqcrypto_cpp_keygen_kyber512",   (DL_FUNC) &_pqcrypto_cpp_keygen_kyber512,   0},
     {"_pqcrypto_cpp_keygen_kyber768",   (DL_FUNC) &_pqcrypto_cpp_keygen_kyber768,   0},
     {"_pqcrypto_cpp_sign_dilithium",    (DL_FUNC) &_pqcrypto_cpp_sign_dilithium,    2},
+    {"_pqcrypto_cpp_verify_dilithium",  (DL_FUNC) &_pqcrypto_cpp_verify_dilithium,  3},
     {NULL, NULL, 0}
 };
 }
