@@ -4,11 +4,13 @@
 \alias{keygen_dilithium}
 \title{Dilithium Key Generation}
 \usage{
-keygen_dilithium(version = 2)
+keygen_dilithium(strength = 3)
 }
 \arguments{
-\item{version}{Type of key to be generated. Use 2 for Dilithium2, 3 for Dilithium3
-or 5 for Dilithium5.}
+\item{strength}{Type of key strength to be generated. Different strengths are available.
+Use 2 for Dilithium2 (claimed strength category 2), 3 for Dilithium3 (default, claimed strength
+category 3) or 5 for Dilithium5 (claimed strength category 5). For more information about
+strength categories see the vignette.}
 }
 \value{
 A \code{keypair} object.
