@@ -47,3 +47,7 @@ cpp_keygen_kyber768 <- function() {
 cpp_keygen_kyber1024 <- function() {
   .Call(`_pqcrypto_cpp_keygen_kyber1024`)
 }
+
+cpp_sign_dilithium <- function(message, private_key) {
+  .Call(`_pqcrypto_cpp_sign_dilithium`, message, private_key)
+}
