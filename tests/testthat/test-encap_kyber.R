@@ -29,4 +29,11 @@ test_that("kyber-x encapsulation fails on wrong parameter", {
 
   expect_error(encap_kyber("not_a_valid_parameter"))
   expect_error(encap_kyber(key$private))   # must be public!
+
+  manipulated_key <- key
+  attr(manipulated_key$public, "param") <- 888
+  expect_error(encap_kyber(manipulated_key$public))
+
+  invalid_key_algo <- keygen_dilithium()
+  expect_error(encap_kyber(invalid_key_algo$public))  # invalid algorithm
 })
