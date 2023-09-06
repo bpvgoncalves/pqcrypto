@@ -32,36 +32,42 @@ cpp11::integers cpp_sign_dilithium(cpp11::integers message, cpp11::integers priv
       break;
   }
 
-  uint8_t sign[cr_bytes];
-  size_t * sign_len;
+  uint8_t* sign = new uint8_t[cr_bytes];
+  size_t sign_len;
 
-  uint8_t msg[msg_len];
+  uint8_t* msg = new uint8_t[msg_len];
   for(size_t i = 0; i < msg_len; ++i) {
     msg[i] = message[i];
   }
 
-  uint8_t prvt_k[pk_len];
+  uint8_t* prvt_k = new uint8_t[pk_len];
   for(int i = 0; i < pk_len; ++i) {
     prvt_k[i] = private_key[i];
   }
 
-  int ret;
+  int result;
   switch (algo) {
     case 2:
-      ret = pqcrystals_dilithium2_ref_signature(sign, sign_len, msg, msg_len, prvt_k);
+      result = pqcrystals_dilithium2_ref_signature(sign, &sign_len, msg, msg_len, prvt_k);
       break;
     case 3:
-      ret = pqcrystals_dilithium3_ref_signature(sign, sign_len, msg, msg_len, prvt_k);
+      result = pqcrystals_dilithium3_ref_signature(sign, &sign_len, msg, msg_len, prvt_k);
       break;
     case 5:
-      ret = pqcrystals_dilithium5_ref_signature(sign, sign_len, msg, msg_len, prvt_k);
+      result = pqcrystals_dilithium5_ref_signature(sign, &sign_len, msg, msg_len, prvt_k);
       break;
   }
+  if (result != 0) {
+    cpp11::stop("Something went wrong with the signature generation.");
+  }
 
-  cpp11::writable::integers signature(*sign_len);
-  for(size_t i = 0; i < *sign_len; ++i) {
+  cpp11::writable::integers signature(sign_len);
+  for(size_t i = 0; i < sign_len; ++i) {
     signature[i] = sign[i];
   }
 
+  delete[] sign;
+  delete[] msg;
+  delete[] prvt_k;
   return signature;
 }

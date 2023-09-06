@@ -9,19 +9,19 @@ int cpp_verify_dilithium(cpp11::integers signature,
                          cpp11::integers public_key) {
 
   size_t sign_len = signature.size();
-  uint8_t sign[sign_len];
+  uint8_t* sign = new uint8_t[sign_len];
   for(size_t i = 0; i < sign_len; ++i) {
     sign[i] = signature[i];
   }
 
   size_t msg_len = message.size();
-  uint8_t msg[msg_len];
+  uint8_t* msg = new uint8_t[msg_len];
   for(size_t i = 0; i < msg_len; ++i) {
     msg[i] = message[i];
   }
 
   int pk_len = public_key.size();
-  uint8_t pub_k[pk_len];
+  uint8_t* pub_k = new uint8_t[pk_len];
   for(int i = 0; i < pk_len; ++i) {
     pub_k[i] = public_key[i];
   }
@@ -45,5 +45,8 @@ int cpp_verify_dilithium(cpp11::integers signature,
     break;
   }
 
+  delete[] sign;
+  delete[] msg;
+  delete[] pub_k;
   return result;
 }
