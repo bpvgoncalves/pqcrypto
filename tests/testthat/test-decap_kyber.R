@@ -37,4 +37,14 @@ test_that("kyber-x decapsulation fails on wrong parameter", {
 
   invalid_key_algo <- keygen_dilithium()
   expect_error(decap_kyber(ss$encapsulation, invalid_key_algo$private))  # invalid algorithm
+
+  bad_encapsulation <- as.integer(runif(768, 0, 256))  # wrong type, right size
+  expect_error(decap_kyber(bad_encapsulation, key$private))
+
+  bad_encapsulation <- as.integer(runif(1234, 0, 256))  # wrong type, wrong size
+  expect_error(decap_kyber(bad_encapsulation, key$private))
+
+  class(bad_encapsulation) <- "pqcrypto_encapsulation"  # right type, wrong size
+  expect_error(decap_kyber(bad_encapsulation, key$private))
+
 })

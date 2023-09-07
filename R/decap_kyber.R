@@ -18,6 +18,7 @@
 #'
 decap_kyber <- function(encapsulation, private_key) {
 
+
   if (!inherits(private_key, "pqcrypto_private_key")) {
     pq_stop(c(x = "'private_key' parameter does not have the expected class.",
               i = "'private_key' must have `pqcrypto_private_key` class."))
@@ -37,6 +38,7 @@ decap_kyber <- function(encapsulation, private_key) {
   } else {
     pq_stop(c(x = "The suplied private key has invalid parameters."))
   }
+  class(out) <- "pqcrypto_shared_secret"
 
-  return(out)
+  invisible(out)
 }
