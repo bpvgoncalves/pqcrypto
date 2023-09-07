@@ -1,15 +1,15 @@
 
-#' Kyber Key Generation
+#' Key-Pair Generation - Kyber
 #'
-#' @param param_set  Type of key to be generated. Use 512 for Kyber-512, 768 (default) for Kyber-768
-#' or 1024 for Kyber-1024.
+#' @param param_set  Type of key to be generated.
+#'    Use 512 for Kyber-512, 768 (default) for Kyber-768 or 1024 for Kyber-1024.
 #'
 #' @return A `keypair` object.
 #' @export
 #'
 #' @examples
 #' key <- keygen_kyber()
-#' key$key_type
+#' key$algorithm
 #'
 keygen_kyber <- function(param_set = 768) {
 
@@ -21,20 +21,21 @@ keygen_kyber <- function(param_set = 768) {
   } else if (param_set == 1024L) {
     key <- cpp_keygen_kyber1024()
   } else {
-    stop("Unknown 'parameter set'. Acceptable values: 512, 768 or 1024.")
+    pq_stop(c(x = "Unknown 'param_set' value: {.val {param_set}}.",
+              i = "Acceptable values are 512, 768 or 1024."))
   }
 
-  keypair <- list(key_type = "kyber",
+  keypair <- list(algorithm = "kyber",
                   parameters = param_set,
                   private = structure(key[[1]],
-                                      key_type = "kyber",
+                                      algorithm = "kyber",
                                       param = param_set,
-                                      class="private_key"),
+                                      class="pqcrypto_private_key"),
                   public = structure(key[[2]],
-                                     key_type="kyber",
+                                     algorithm="kyber",
                                      param = param_set,
-                                     class="public_key"))
-  class(keypair) <- c("keypair", "kyber")
+                                     class="pqcrypto_public_key"))
+  class(keypair) <- "pqcrypto_keypair"
 
   rm(key)
   return(keypair)

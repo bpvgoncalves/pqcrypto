@@ -24,6 +24,18 @@ cpp_encap_kyber1024 <- function(pub_key) {
   .Call(`_pqcrypto_cpp_encap_kyber1024`, pub_key)
 }
 
+cpp_keygen_dilithium2 <- function() {
+  .Call(`_pqcrypto_cpp_keygen_dilithium2`)
+}
+
+cpp_keygen_dilithium3 <- function() {
+  .Call(`_pqcrypto_cpp_keygen_dilithium3`)
+}
+
+cpp_keygen_dilithium5 <- function() {
+  .Call(`_pqcrypto_cpp_keygen_dilithium5`)
+}
+
 cpp_keygen_kyber512 <- function() {
   .Call(`_pqcrypto_cpp_keygen_kyber512`)
 }
@@ -34,4 +46,12 @@ cpp_keygen_kyber768 <- function() {
 
 cpp_keygen_kyber1024 <- function() {
   .Call(`_pqcrypto_cpp_keygen_kyber1024`)
+}
+
+cpp_sign_dilithium <- function(message, private_key) {
+  .Call(`_pqcrypto_cpp_sign_dilithium`, message, private_key)
+}
+
+cpp_verify_dilithium <- function(signature, message, public_key) {
+  .Call(`_pqcrypto_cpp_verify_dilithium`, signature, message, public_key)
 }
