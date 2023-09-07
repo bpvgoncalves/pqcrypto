@@ -87,7 +87,7 @@ test_that("Dilithium digital signature fails on wrong parameters", {
   expect_error(sign_dilithium(key$private, "text_message")) # wrong key algorithm
 
   small_key <- key$private[1:25]
-  class(small_key) <- "private_key"
-  attr(small_key, "key_type") <- "dilithium"
+  class(small_key) <- "pqcrypto_private_key"
+  attr(small_key, "algorithm") <- "dilithium"
   expect_error(sign_dilithium(small_key, "text_message"))   # c++ error
 })

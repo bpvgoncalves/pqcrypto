@@ -31,6 +31,11 @@ sign_dilithium <- function(private_key, message) {
               i = "Make sure you are using a 'Dilithium' private key."))
   }
 
+  if (!(length(private_key) %in% c(2560, 4032, 4896))) {
+    pq_stop(c(x = "Wrong private key size.",
+              i = "Make sure you are using a 'Dilithium' private key."))
+  }
+
   message <- msg_to_raw(message)
 
   dig_signature <- cpp_sign_dilithium(message, private_key)

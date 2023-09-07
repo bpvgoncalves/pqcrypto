@@ -26,10 +26,6 @@ cpp11::raws cpp_sign_dilithium(cpp11::raws message, cpp11::raws private_key) {
       cr_bytes = pqcrystals_dilithium5_BYTES;
       algo = 5;
       break;
-
-    default:
-      cpp11::stop("Wrong 'private key' lenght.");
-      break;
   }
 
   uint8_t* sign = new uint8_t[cr_bytes];
