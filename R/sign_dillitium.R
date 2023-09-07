@@ -31,31 +31,3 @@ sign_dilithium <- function(private_key, msg) {
   class(dig_signature) <- "pqcrypto_signature"
   dig_signature
 }
-
-
-
-msg_to_integer <- function(msg) {
-
-
-
-  if (!is.raw(msg)) {
-
-    if (length(msg) != 1) {
-      stop("Unexpected non-scalar input 'msg'.")
-    }
-
-    if (is.null(msg) || is.na(msg) || is.nan(msg) || is.infinite(msg)) {
-      stop("Message cannot be NULL, NA, NaN or INF.")
-    }
-
-    if (is.character(msg)) {
-      msg <- charToRaw(msg)
-    } else if (is.numeric(msg) || is.logical(msg)) {
-      msg <- charToRaw(as.character(msg))
-    } else {
-      msg <- serialize(msg, NULL)
-    }
-  }
-
-  as.integer(msg)
-}
