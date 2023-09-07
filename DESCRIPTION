@@ -6,6 +6,8 @@ Authors@R:
            comment = c(ORCID = "0000-0002-0797-7717"))
 Description: This package makes available to R users some of the latest developments in post-quantum cryptography.
 License: GPL (>= 3)
+Imports: 
+    cli
 Suggests: 
     knitr,
     rmarkdown,

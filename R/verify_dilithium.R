@@ -1,38 +1,51 @@
 
 #' Dilithium Digital Signature - Verify
 #'
-#' @param msg        The message
-#' @param signature  The signature
-#' @param public_key    The public key
+#' Verifies that the signature of a given message is valid.
 #'
-#' @return  TRUE if the signature verifies or FALSE otherwise.
+#' @param message     The message that has been signed.
+#' @param signature   The signature produced by `sign_dilithium()`.
+#' @param public_key  The public key paired with the private key used for signing.
+#'
+#' @return  Prints the signature validation outcome and silently returns TRUE
+#'    if the signature verifies successfully or FALSE otherwise.
+#'
 #' @export
 #'
 #' @examples
 #' key <- keygen_dilithium(2)
 #' important_message <- "Hello world!!"
-#' sig <- sign_dilithium(key$private, important_message)
-#' verify_dilithium(important_message, sig, key$public)
+#' signature <- sign_dilithium(key$private, important_message)
+#' verify_dilithium(important_message, signature, key$public)
 #'
-verify_dilithium <- function(msg, signature, public_key) {
+verify_dilithium <- function(message, signature, public_key) {
 
-  msg <- msg_to_integer(msg)
+  message <- msg_to_integer(message)
 
   if (!inherits(signature, "pqcrypto_signature")) {
-    stop("'signature' parameter does not have the expected class.")
+    cli::cli_abort(c(x = "'signature' parameter does not have the expected class.",
+                     i = "'signature' must have `pqcrypto_signature` class."))
   }
 
   if (!inherits(public_key, "public_key")) {
-    stop("'public_key' parameter does not have the expected class.")
+    cli::cli_abort(c(x = "'public_key' parameter does not have the expected class.",
+                     i = "'public_key' must have `public_key` class."))
   }
 
   if (attr(public_key, "key_type") != "dilithium") {
-    stop("Wrong public key type. Make sure you are using a 'Dilithium' public key.")
+    cli::cli_abort(c(x = "Wrong public key algorithm.",
+                     i = "Make sure you are using a 'Dilithium' public key."))
   }
 
-  result <- cpp_verify_dilithium(signature, msg, public_key)
+  result <- cpp_verify_dilithium(signature, message, public_key)
   result <- !as.logical(result)
 
-  print(result)
+  if (result) {
+    cli::cli_bullets(c(v = "The signature has been verified successfully."))
+  } else {
+    cli::cli_bullets(c(x = "The signature could not be verified successfully.",
+                       i = "This may indicate that the message was tampered with."))
+  }
+
   invisible(result)
 }
