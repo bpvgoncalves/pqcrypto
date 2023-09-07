@@ -6,45 +6,45 @@
 #include <R_ext/Visibility.h>
 
 // decap_kyber.cpp
-cpp11::integers cpp_decap_kyber512(cpp11::integers secret_key, cpp11::integers cipher_text);
+cpp11::raws cpp_decap_kyber512(cpp11::raws secret_key, cpp11::raws cipher_text);
 extern "C" SEXP _pqcrypto_cpp_decap_kyber512(SEXP secret_key, SEXP cipher_text) {
   BEGIN_CPP11
-    return cpp11::as_sexp(cpp_decap_kyber512(cpp11::as_cpp<cpp11::decay_t<cpp11::integers>>(secret_key), cpp11::as_cpp<cpp11::decay_t<cpp11::integers>>(cipher_text)));
+    return cpp11::as_sexp(cpp_decap_kyber512(cpp11::as_cpp<cpp11::decay_t<cpp11::raws>>(secret_key), cpp11::as_cpp<cpp11::decay_t<cpp11::raws>>(cipher_text)));
   END_CPP11
 }
 // decap_kyber.cpp
-cpp11::integers cpp_decap_kyber768(cpp11::integers secret_key, cpp11::integers cipher_text);
+cpp11::raws cpp_decap_kyber768(cpp11::raws secret_key, cpp11::raws cipher_text);
 extern "C" SEXP _pqcrypto_cpp_decap_kyber768(SEXP secret_key, SEXP cipher_text) {
   BEGIN_CPP11
-    return cpp11::as_sexp(cpp_decap_kyber768(cpp11::as_cpp<cpp11::decay_t<cpp11::integers>>(secret_key), cpp11::as_cpp<cpp11::decay_t<cpp11::integers>>(cipher_text)));
+    return cpp11::as_sexp(cpp_decap_kyber768(cpp11::as_cpp<cpp11::decay_t<cpp11::raws>>(secret_key), cpp11::as_cpp<cpp11::decay_t<cpp11::raws>>(cipher_text)));
   END_CPP11
 }
 // decap_kyber.cpp
-cpp11::integers cpp_decap_kyber1024(cpp11::integers secret_key, cpp11::integers cipher_text);
+cpp11::raws cpp_decap_kyber1024(cpp11::raws secret_key, cpp11::raws cipher_text);
 extern "C" SEXP _pqcrypto_cpp_decap_kyber1024(SEXP secret_key, SEXP cipher_text) {
   BEGIN_CPP11
-    return cpp11::as_sexp(cpp_decap_kyber1024(cpp11::as_cpp<cpp11::decay_t<cpp11::integers>>(secret_key), cpp11::as_cpp<cpp11::decay_t<cpp11::integers>>(cipher_text)));
+    return cpp11::as_sexp(cpp_decap_kyber1024(cpp11::as_cpp<cpp11::decay_t<cpp11::raws>>(secret_key), cpp11::as_cpp<cpp11::decay_t<cpp11::raws>>(cipher_text)));
   END_CPP11
 }
 // encap_kyber.cpp
-cpp11::list cpp_encap_kyber512(cpp11::integers pub_key);
+cpp11::list cpp_encap_kyber512(cpp11::raws pub_key);
 extern "C" SEXP _pqcrypto_cpp_encap_kyber512(SEXP pub_key) {
   BEGIN_CPP11
-    return cpp11::as_sexp(cpp_encap_kyber512(cpp11::as_cpp<cpp11::decay_t<cpp11::integers>>(pub_key)));
+    return cpp11::as_sexp(cpp_encap_kyber512(cpp11::as_cpp<cpp11::decay_t<cpp11::raws>>(pub_key)));
   END_CPP11
 }
 // encap_kyber.cpp
-cpp11::list cpp_encap_kyber768(cpp11::integers pub_key);
+cpp11::list cpp_encap_kyber768(cpp11::raws pub_key);
 extern "C" SEXP _pqcrypto_cpp_encap_kyber768(SEXP pub_key) {
   BEGIN_CPP11
-    return cpp11::as_sexp(cpp_encap_kyber768(cpp11::as_cpp<cpp11::decay_t<cpp11::integers>>(pub_key)));
+    return cpp11::as_sexp(cpp_encap_kyber768(cpp11::as_cpp<cpp11::decay_t<cpp11::raws>>(pub_key)));
   END_CPP11
 }
 // encap_kyber.cpp
-cpp11::list cpp_encap_kyber1024(cpp11::integers pub_key);
+cpp11::list cpp_encap_kyber1024(cpp11::raws pub_key);
 extern "C" SEXP _pqcrypto_cpp_encap_kyber1024(SEXP pub_key) {
   BEGIN_CPP11
-    return cpp11::as_sexp(cpp_encap_kyber1024(cpp11::as_cpp<cpp11::decay_t<cpp11::integers>>(pub_key)));
+    return cpp11::as_sexp(cpp_encap_kyber1024(cpp11::as_cpp<cpp11::decay_t<cpp11::raws>>(pub_key)));
   END_CPP11
 }
 // keygen_dilithium.cpp

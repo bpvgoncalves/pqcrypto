@@ -5,7 +5,7 @@ extern "C" {
 
 
 [[cpp11::register]]
-cpp11::list cpp_encap_kyber512(cpp11::integers pub_key) {
+cpp11::list cpp_encap_kyber512(cpp11::raws pub_key) {
 
   uint8_t c_text[pqcrystals_kyber512_CIPHERTEXTBYTES];
   uint8_t s_secret[pqcrystals_kyber512_BYTES];
@@ -16,12 +16,12 @@ cpp11::list cpp_encap_kyber512(cpp11::integers pub_key) {
   }
   int result = pqcrystals_kyber512_ref_enc(c_text, s_secret, p_key);
 
-  cpp11::writable::integers cipher_text(pqcrystals_kyber512_CIPHERTEXTBYTES);
+  cpp11::writable::raws cipher_text(pqcrystals_kyber512_CIPHERTEXTBYTES);
   for(int i = 0; i < pqcrystals_kyber512_CIPHERTEXTBYTES; ++i) {
     cipher_text[i] = c_text[i];
   }
 
-  cpp11::writable::integers shared_secret(pqcrystals_kyber512_BYTES);
+  cpp11::writable::raws shared_secret(pqcrystals_kyber512_BYTES);
   for(int i = 0; i < pqcrystals_kyber512_BYTES; ++i) {
     shared_secret[i] = s_secret[i];
   }
@@ -30,7 +30,7 @@ cpp11::list cpp_encap_kyber512(cpp11::integers pub_key) {
 }
 
 [[cpp11::register]]
-cpp11::list cpp_encap_kyber768(cpp11::integers pub_key) {
+cpp11::list cpp_encap_kyber768(cpp11::raws pub_key) {
 
   uint8_t c_text[pqcrystals_kyber768_CIPHERTEXTBYTES];
   uint8_t s_secret[pqcrystals_kyber768_BYTES];
@@ -41,12 +41,12 @@ cpp11::list cpp_encap_kyber768(cpp11::integers pub_key) {
   }
   int result = pqcrystals_kyber768_ref_enc(c_text, s_secret, p_key);
 
-  cpp11::writable::integers cipher_text(pqcrystals_kyber768_CIPHERTEXTBYTES);
+  cpp11::writable::raws cipher_text(pqcrystals_kyber768_CIPHERTEXTBYTES);
   for(int i = 0; i < pqcrystals_kyber768_CIPHERTEXTBYTES; ++i) {
     cipher_text[i] = c_text[i];
   }
 
-  cpp11::writable::integers shared_secret(pqcrystals_kyber768_BYTES);
+  cpp11::writable::raws shared_secret(pqcrystals_kyber768_BYTES);
   for(int i = 0; i < pqcrystals_kyber768_BYTES; ++i) {
     shared_secret[i] = s_secret[i];
   }
@@ -55,7 +55,7 @@ cpp11::list cpp_encap_kyber768(cpp11::integers pub_key) {
 }
 
 [[cpp11::register]]
-cpp11::list cpp_encap_kyber1024(cpp11::integers pub_key) {
+cpp11::list cpp_encap_kyber1024(cpp11::raws pub_key) {
 
   uint8_t c_text[pqcrystals_kyber1024_CIPHERTEXTBYTES];
   uint8_t s_secret[pqcrystals_kyber1024_BYTES];
@@ -66,12 +66,12 @@ cpp11::list cpp_encap_kyber1024(cpp11::integers pub_key) {
   }
   int result = pqcrystals_kyber1024_ref_enc(c_text, s_secret, p_key);
 
-  cpp11::writable::integers cipher_text(pqcrystals_kyber1024_CIPHERTEXTBYTES);
+  cpp11::writable::raws cipher_text(pqcrystals_kyber1024_CIPHERTEXTBYTES);
   for(int i = 0; i < pqcrystals_kyber1024_CIPHERTEXTBYTES; ++i) {
     cipher_text[i] = c_text[i];
   }
 
-  cpp11::writable::integers shared_secret(pqcrystals_kyber1024_BYTES);
+  cpp11::writable::raws shared_secret(pqcrystals_kyber1024_BYTES);
   for(int i = 0; i < pqcrystals_kyber1024_BYTES; ++i) {
     shared_secret[i] = s_secret[i];
   }

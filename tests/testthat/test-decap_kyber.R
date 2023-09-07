@@ -8,7 +8,7 @@ test_that("kyber-512 decapsulation works", {
   expect_identical(ss1$shared_secret, ss2)
 
   # encapsulation gets changed
-  transmission_error <- as.integer(runif(768, 0, 256))
+  transmission_error <- as.raw(runif(768, 0, 256))
   class(transmission_error) <- "pqcrypto_encapsulation"
   expect_false(identical(decap_kyber(transmission_error, key$private),
                          ss1$shared_secret))
@@ -22,7 +22,7 @@ test_that("kyber-768 decapsulation works", {
   expect_equal(length(ss2), 32)
   expect_identical(ss1$shared_secret, ss2)
 
-  transmission_error <- as.integer(runif(1088, 0, 256))
+  transmission_error <- as.raw(runif(1088, 0, 256))
   class(transmission_error) <- "pqcrypto_encapsulation"
   expect_false(identical(decap_kyber(transmission_error, key$private),
                          ss1$shared_secret))
@@ -35,7 +35,7 @@ test_that("kyber-1024 decapsulation works", {
   expect_equal(length(ss2), 32)
   expect_identical(ss1$shared_secret, ss2)
 
-  transmission_error <- as.integer(runif(1568, 0, 256))
+  transmission_error <- as.raw(runif(1568, 0, 256))
   class(transmission_error) <- "pqcrypto_encapsulation"
   expect_false(identical(decap_kyber(transmission_error, key$private),
                          ss1$shared_secret))
