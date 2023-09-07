@@ -66,6 +66,46 @@ identical(alice_shared_secret, bob_shared_secret)
 
 ```
 
+
+### Digital Signatures
+Digital signatures is a cryptographic technique that can be used to verify a message, document, or transaction __integrity and authenticity__. It provides a way to ensure that the sender of the message is who they claim to be and that the message has not been tampered with during transmission. 
+Once the 
+
+##### Example
+
+Alice sent a message to Bob and he wants to make sure the message has not been change. In the example below Alice will generate a key-pair and make her public key publicly available. Alice will send a message and a digital signature generated for that message with her private key and Bob will use Alices's public key to verify the message is authentic.
+
+```{r digital_signatures}
+library(pqcrypto)
+
+# Alice generates a key-pair with default parameters
+alice_keypair <- keygen_dilithium()
+
+# Alice makes her public key widely available (e.g. he publishes it on her webpage or blog)
+alice_public_key <- alice_keypair$public
+
+# Alice writes a message and creates a signature for it.
+message_to_bob <- "Hi Bob! Do you want to have some drinks tonight? ;) Alice <3"
+message_signature <- sign_dilithium(alice_keypair$private, message_to_bob)
+
+# In a perfect World, Bob would have received the message and the signature from Alice.
+# He would have used Alice's public key and checked that the message is authentic. Cheers!
+verify_dilithium(message_to_bob, message_signature, alice_public_key)
+
+# But the World is far from perfect!
+# Carla, another of Bob's friends who has a crush on him, doesn't want the couple to meet.
+# She intercepts Alice's message and change it, but since she does not have access to
+# Alice's private key, she cannot forge a new signature. She sends the new message anyway
+# in the hope that Bob does not verify it.
+message_to_bob <- "Hi Bob. Please meet me at the airport by 8pm! Alice"
+
+# Bob receives the message, presumably from Alice, and checks if it is authentic, to discover
+# the message has been tampered.
+verify_dilithium(message_to_bob, message_signature, alice_public_key)
+
+```
+
+
 ### NIST's Strength Categories
 
 NIST defines 5 different broad security strength categories as per the table bellow. For an Algorithm to comply with one of them it must be expected that at least the same resources are required to break it as those to preform the corresponding attack type.
