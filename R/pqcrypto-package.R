@@ -17,6 +17,4 @@
 ## usethis namespace: start
 #' @useDynLib pqcrypto, .registration = TRUE
 ## usethis namespace: end
-#' @importFrom cli cli_bullets
-#' @importFrom cli cli_abort
 NULL
