@@ -41,7 +41,7 @@ int cpp_verify_dilithium(cpp11::integers signature,
     break;
 
   default:
-    cpp11::stop("Wrong 'signature' lenght.");
+    cpp11::stop("Wrong 'signature' length.");
     break;
   }
 
