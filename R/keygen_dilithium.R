@@ -1,4 +1,5 @@
-#' Key pair Generation - Dilithium
+
+#' Key-Pair Generation - Dilithium
 #'
 #' @param strength  Type of key strength to be generated.
 #'    Different strengths are available. Use 2 for Dilithium2 (claimed strength
@@ -12,7 +13,7 @@
 #'
 #' @examples
 #' key <- keygen_dilithium()
-#' key$key_type
+#' key$algorithm
 #'
 keygen_dilithium <- function(strength = 3) {
 

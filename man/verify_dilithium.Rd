@@ -13,7 +13,8 @@ possible to sign any type of R objects, not only text strings.}
 
 \item{signature}{The signature produced by \code{sign_dilithium()}.}
 
-\item{public_key}{The public key paired with the private key used for signing.}
+\item{public_key}{The public key created by \code{keygen_dilithium()} that is
+paired with the private key used for signing.}
 }
 \value{
 Prints the signature validation outcome and silently returns TRUE

@@ -2,7 +2,7 @@
 % Please edit documentation in R/keygen_dilithium.R
 \name{keygen_dilithium}
 \alias{keygen_dilithium}
-\title{Key pair Generation - Dilithium}
+\title{Key-Pair Generation - Dilithium}
 \usage{
 keygen_dilithium(strength = 3)
 }
@@ -17,10 +17,10 @@ For more information about strength categories see the vignette.}
 A \code{keypair} object.
 }
 \description{
-Key pair Generation - Dilithium
+Key-Pair Generation - Dilithium
 }
 \examples{
 key <- keygen_dilithium()
-key$key_type
+key$algorithm
 
 }

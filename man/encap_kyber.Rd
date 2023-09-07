@@ -2,7 +2,7 @@
 % Please edit documentation in R/encap_kyber.R
 \name{encap_kyber}
 \alias{encap_kyber}
-\title{Kyber shared secret/shared key encapsulation}
+\title{Kyber Shared Secret - Create}
 \usage{
 encap_kyber(pub_key)
 }
@@ -13,7 +13,7 @@ encap_kyber(pub_key)
 A secret key and its encapsulation to be shared with the owner of the used public key.
 }
 \description{
-Kyber shared secret/shared key encapsulation
+Creates a secret key and encapsulates it for secure transmission.
 }
 \examples{
 key <- keygen_kyber(512)

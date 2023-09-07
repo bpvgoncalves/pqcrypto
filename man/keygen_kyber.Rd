@@ -2,22 +2,22 @@
 % Please edit documentation in R/keygen_kyber.R
 \name{keygen_kyber}
 \alias{keygen_kyber}
-\title{Kyber Key Generation}
+\title{Key-Pair Generation - Kyber}
 \usage{
 keygen_kyber(param_set = 768)
 }
 \arguments{
-\item{param_set}{Type of key to be generated. Use 512 for Kyber-512, 768 (default) for Kyber-768
-or 1024 for Kyber-1024.}
+\item{param_set}{Type of key to be generated.
+Use 512 for Kyber-512, 768 (default) for Kyber-768 or 1024 for Kyber-1024.}
 }
 \value{
 A \code{keypair} object.
 }
 \description{
-Kyber Key Generation
+Key-Pair Generation - Kyber
 }
 \examples{
 key <- keygen_kyber()
-key$key_type
+key$algorithm
 
 }

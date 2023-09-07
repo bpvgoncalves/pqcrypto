@@ -7,7 +7,8 @@
 #'    As in `sign_dilithium()`, message may be interpreted in lax terms. It is
 #'    possible to sign any type of R objects, not only text strings.
 #' @param signature   The signature produced by `sign_dilithium()`.
-#' @param public_key  The public key paired with the private key used for signing.
+#' @param public_key  The public key created by `keygen_dilithium()` that is
+#'    paired with the private key used for signing.
 #'
 #' @return  Prints the signature validation outcome and silently returns TRUE
 #'    if the signature verifies successfully or FALSE otherwise.
