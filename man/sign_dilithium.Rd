@@ -2,20 +2,23 @@
 % Please edit documentation in R/sign_dillitium.R
 \name{sign_dilithium}
 \alias{sign_dilithium}
-\title{Dilithium Digital Signature}
+\title{Dilithium Digital Signature - Sign}
 \usage{
-sign_dilithium(private_key, msg)
+sign_dilithium(private_key, message)
 }
 \arguments{
-\item{private_key}{The private key used for message signing.}
+\item{private_key}{A private key produced by \code{keygen_dilithium()} to be used
+for message signing.}
 
-\item{msg}{The message to be signed.}
+\item{message}{The message to be signed. Message may be interpreted in
+very lax terms. Pretty much any R object can be signed, not only
+character strings.}
 }
 \value{
-A 'pqcrypto_signature' object.
+A \code{pqcrypto_signature}' object.
 }
 \description{
-Dilithium Digital Signature
+Produces a digital signature of a given message.
 }
 \examples{
 key <- keygen_dilithium(2)

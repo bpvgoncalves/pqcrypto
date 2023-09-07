@@ -1,13 +1,13 @@
-
-
-#' Dilithium Key Generation
+#' Key pair Generation - Dilithium
 #'
-#' @param strength  Type of key strength to be generated. Different strengths are available.
-#' Use 2 for Dilithium2 (claimed strength category 2), 3 for Dilithium3 (default, claimed strength
-#' category 3) or 5 for Dilithium5 (claimed strength category 5). For more information about
-#' strength categories see the vignette.
+#' @param strength  Type of key strength to be generated.
+#'    Different strengths are available. Use 2 for Dilithium2 (claimed strength
+#'    category 2), 3 for Dilithium3 (default, claimed strength category 3) or 5
+#'    for Dilithium5 (claimed strength category 5).
+#'    For more information about strength categories see the vignette.
 #'
 #' @return A `keypair` object.
+#'
 #' @export
 #'
 #' @examples
@@ -23,7 +23,8 @@ keygen_dilithium <- function(strength = 3) {
   } else if (strength == 5) {
     key <- cpp_keygen_dilithium5()
   } else {
-    stop("Unknown 'strength'. Acceptable values: 2, 3 or 5.")
+    pq_stop(c(x = "Unknown 'strength' value: {.val {strength}}.",
+              i = "Acceptable values are 2, 3 or 5."))
   }
 
   keypair <- list(key_type = "dilithium",

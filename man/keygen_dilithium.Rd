@@ -2,21 +2,22 @@
 % Please edit documentation in R/keygen_dilithium.R
 \name{keygen_dilithium}
 \alias{keygen_dilithium}
-\title{Dilithium Key Generation}
+\title{Key pair Generation - Dilithium}
 \usage{
 keygen_dilithium(strength = 3)
 }
 \arguments{
-\item{strength}{Type of key strength to be generated. Different strengths are available.
-Use 2 for Dilithium2 (claimed strength category 2), 3 for Dilithium3 (default, claimed strength
-category 3) or 5 for Dilithium5 (claimed strength category 5). For more information about
-strength categories see the vignette.}
+\item{strength}{Type of key strength to be generated.
+Different strengths are available. Use 2 for Dilithium2 (claimed strength
+category 2), 3 for Dilithium3 (default, claimed strength category 3) or 5
+for Dilithium5 (claimed strength category 5).
+For more information about strength categories see the vignette.}
 }
 \value{
 A \code{keypair} object.
 }
 \description{
-Dilithium Key Generation
+Key pair Generation - Dilithium
 }
 \examples{
 key <- keygen_dilithium()

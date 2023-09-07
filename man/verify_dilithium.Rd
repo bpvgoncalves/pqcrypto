@@ -4,25 +4,28 @@
 \alias{verify_dilithium}
 \title{Dilithium Digital Signature - Verify}
 \usage{
-verify_dilithium(msg, signature, public_key)
+verify_dilithium(message, signature, public_key)
 }
 \arguments{
-\item{msg}{The message}
+\item{message}{The message that has been signed.
+As in \code{sign_dilithium()}, message may be interpreted in lax terms. It is
+possible to sign any type of R objects, not only text strings.}
 
-\item{signature}{The signature}
+\item{signature}{The signature produced by \code{sign_dilithium()}.}
 
-\item{public_key}{The public key}
+\item{public_key}{The public key paired with the private key used for signing.}
 }
 \value{
-TRUE if the signature verifies or FALSE otherwise.
+Prints the signature validation outcome and silently returns TRUE
+if the signature verifies successfully or FALSE otherwise.
 }
 \description{
-Dilithium Digital Signature - Verify
+Verifies that the signature of a given message is valid.
 }
 \examples{
 key <- keygen_dilithium(2)
 important_message <- "Hello world!!"
-sig <- sign_dilithium(key$private, important_message)
-verify_dilithium(important_message, sig, key$public)
+signature <- sign_dilithium(key$private, important_message)
+verify_dilithium(important_message, signature, key$public)
 
 }

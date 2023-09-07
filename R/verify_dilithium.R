@@ -4,6 +4,8 @@
 #' Verifies that the signature of a given message is valid.
 #'
 #' @param message     The message that has been signed.
+#'    As in `sign_dilithium()`, message may be interpreted in lax terms. It is
+#'    possible to sign any type of R objects, not only text strings.
 #' @param signature   The signature produced by `sign_dilithium()`.
 #' @param public_key  The public key paired with the private key used for signing.
 #'
@@ -23,28 +25,28 @@ verify_dilithium <- function(message, signature, public_key) {
   message <- msg_to_integer(message)
 
   if (!inherits(signature, "pqcrypto_signature")) {
-    cli::cli_abort(c(x = "'signature' parameter does not have the expected class.",
-                     i = "'signature' must have `pqcrypto_signature` class."))
+    pq_stop(c(x = "'signature' parameter does not have the expected class.",
+              i = "'signature' must have `pqcrypto_signature` class."))
   }
 
   if (!inherits(public_key, "public_key")) {
-    cli::cli_abort(c(x = "'public_key' parameter does not have the expected class.",
-                     i = "'public_key' must have `public_key` class."))
+    pq_stop(c(x = "'public_key' parameter does not have the expected class.",
+              i = "'public_key' must have `public_key` class."))
   }
 
   if (attr(public_key, "key_type") != "dilithium") {
-    cli::cli_abort(c(x = "Wrong public key algorithm.",
-                     i = "Make sure you are using a 'Dilithium' public key."))
+    pq_stop(c(x = "Wrong public key algorithm.",
+              i = "Make sure you are using a 'Dilithium' public key."))
   }
 
   result <- cpp_verify_dilithium(signature, message, public_key)
   result <- !as.logical(result)
 
   if (result) {
-    cli::cli_bullets(c(v = "The signature has been verified successfully."))
+    pq_msg(c(v = "The signature has been verified successfully."))
   } else {
-    cli::cli_bullets(c(x = "The signature could not be verified successfully.",
-                       i = "This may indicate that the message was tampered with."))
+    pq_msg(c(x = "The signature could not be verified successfully.",
+             i = "This may indicate that the message was tampered with."))
   }
 
   invisible(result)
