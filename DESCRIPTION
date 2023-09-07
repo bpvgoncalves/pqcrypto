@@ -1,6 +1,6 @@
 Package: pqcrypto
 Title: Post-Quantum Cryptography
-Version: 0.1.0
+Version: 0.1.0.9000
 Authors@R: 
     person("Bruno", "Gonçalves", , 
            "bpvgoncalves@users.noreply.github.com", 
