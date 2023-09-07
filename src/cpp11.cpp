@@ -90,17 +90,17 @@ extern "C" SEXP _pqcrypto_cpp_keygen_kyber1024() {
   END_CPP11
 }
 // sign_dilithium.cpp
-cpp11::integers cpp_sign_dilithium(cpp11::integers message, cpp11::integers private_key);
+cpp11::raws cpp_sign_dilithium(cpp11::raws message, cpp11::raws private_key);
 extern "C" SEXP _pqcrypto_cpp_sign_dilithium(SEXP message, SEXP private_key) {
   BEGIN_CPP11
-    return cpp11::as_sexp(cpp_sign_dilithium(cpp11::as_cpp<cpp11::decay_t<cpp11::integers>>(message), cpp11::as_cpp<cpp11::decay_t<cpp11::integers>>(private_key)));
+    return cpp11::as_sexp(cpp_sign_dilithium(cpp11::as_cpp<cpp11::decay_t<cpp11::raws>>(message), cpp11::as_cpp<cpp11::decay_t<cpp11::raws>>(private_key)));
   END_CPP11
 }
 // verify_dilithium.cpp
-int cpp_verify_dilithium(cpp11::integers signature, cpp11::integers message, cpp11::integers public_key);
+int cpp_verify_dilithium(cpp11::raws signature, cpp11::raws message, cpp11::raws public_key);
 extern "C" SEXP _pqcrypto_cpp_verify_dilithium(SEXP signature, SEXP message, SEXP public_key) {
   BEGIN_CPP11
-    return cpp11::as_sexp(cpp_verify_dilithium(cpp11::as_cpp<cpp11::decay_t<cpp11::integers>>(signature), cpp11::as_cpp<cpp11::decay_t<cpp11::integers>>(message), cpp11::as_cpp<cpp11::decay_t<cpp11::integers>>(public_key)));
+    return cpp11::as_sexp(cpp_verify_dilithium(cpp11::as_cpp<cpp11::decay_t<cpp11::raws>>(signature), cpp11::as_cpp<cpp11::decay_t<cpp11::raws>>(message), cpp11::as_cpp<cpp11::decay_t<cpp11::raws>>(public_key)));
   END_CPP11
 }
 

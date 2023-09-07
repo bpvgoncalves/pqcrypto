@@ -4,9 +4,9 @@ extern "C" {
 }
 
 [[cpp11::register]]
-int cpp_verify_dilithium(cpp11::integers signature,
-                         cpp11::integers message,
-                         cpp11::integers public_key) {
+int cpp_verify_dilithium(cpp11::raws signature,
+                         cpp11::raws message,
+                         cpp11::raws public_key) {
 
   size_t sign_len = signature.size();
   uint8_t* sign = new uint8_t[sign_len];

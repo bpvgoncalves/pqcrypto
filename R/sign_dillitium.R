@@ -31,7 +31,7 @@ sign_dilithium <- function(private_key, message) {
               i = "Make sure you are using a 'Dilithium' private key."))
   }
 
-  message <- msg_to_integer(message)
+  message <- msg_to_raw(message)
 
   dig_signature <- cpp_sign_dilithium(message, private_key)
   attr(dig_signature, "algorithm") <- "dilithium"

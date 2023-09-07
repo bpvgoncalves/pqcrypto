@@ -23,7 +23,7 @@
 #'
 verify_dilithium <- function(message, signature, public_key) {
 
-  message <- msg_to_integer(message)
+  message <- msg_to_raw(message)
 
   if (!inherits(signature, "pqcrypto_signature")) {
     pq_stop(c(x = "'signature' parameter does not have the expected class.",

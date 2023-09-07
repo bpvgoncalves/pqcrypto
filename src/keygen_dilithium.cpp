@@ -13,8 +13,8 @@ cpp11::list cpp_keygen_dilithium2() {
     cpp11::stop("Something went wrong with the key generation.");
   }
 
-  cpp11::writable::integers ret_sk(pqcrystals_dilithium2_SECRETKEYBYTES);
-  cpp11::writable::integers ret_pk(pqcrystals_dilithium2_PUBLICKEYBYTES);
+  cpp11::writable::raws ret_sk(pqcrystals_dilithium2_SECRETKEYBYTES);
+  cpp11::writable::raws ret_pk(pqcrystals_dilithium2_PUBLICKEYBYTES);
   for(int i = 0; i < pqcrystals_dilithium2_SECRETKEYBYTES; ++i) {
     ret_sk[i] = secretkey[i];
   }
@@ -35,8 +35,8 @@ cpp11::list cpp_keygen_dilithium3() {
     cpp11::stop("Something went wrong with the key generation.");
   }
 
-  cpp11::writable::integers ret_sk(pqcrystals_dilithium3_SECRETKEYBYTES);
-  cpp11::writable::integers ret_pk(pqcrystals_dilithium3_PUBLICKEYBYTES);
+  cpp11::writable::raws ret_sk(pqcrystals_dilithium3_SECRETKEYBYTES);
+  cpp11::writable::raws ret_pk(pqcrystals_dilithium3_PUBLICKEYBYTES);
   for(int i = 0; i < pqcrystals_dilithium3_SECRETKEYBYTES; ++i) {
     ret_sk[i] = secretkey[i];
   }
@@ -57,8 +57,8 @@ cpp11::list cpp_keygen_dilithium5() {
     cpp11::stop("Something went wrong with the key generation.");
   }
 
-  cpp11::writable::integers ret_sk(pqcrystals_dilithium5_SECRETKEYBYTES);
-  cpp11::writable::integers ret_pk(pqcrystals_dilithium5_PUBLICKEYBYTES);
+  cpp11::writable::raws ret_sk(pqcrystals_dilithium5_SECRETKEYBYTES);
+  cpp11::writable::raws ret_pk(pqcrystals_dilithium5_PUBLICKEYBYTES);
   for(int i = 0; i < pqcrystals_dilithium5_SECRETKEYBYTES; ++i) {
     ret_sk[i] = secretkey[i];
   }

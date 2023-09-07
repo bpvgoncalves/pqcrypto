@@ -9,7 +9,11 @@ test_that("Digital signatures verification - Dilithium2", {
   expect_false(verify_dilithium("tampered_message", signature, key$public))
 
   forged_signature <- signature
-  if (forged_signature[1] != 0L) forged_signature[1] <- 0L else forged_signature[1] <- 255L
+  if (forged_signature[1] != as.raw(0L)) {
+    forged_signature[1] <- as.raw(0L)
+  } else {
+    forged_signature[1] <- as.raw(255L)
+  }
   expect_false(verify_dilithium(important_message, forged_signature, key$public))
 })
 
@@ -24,7 +28,12 @@ test_that("Digital signatures verification - Dilithium3", {
   expect_false(verify_dilithium("tampered_message", signature, key$public))
 
   forged_signature <- signature
-  if (forged_signature[1] != 0L) forged_signature[1] <- 0L else forged_signature[1] <- 255L
+  forged_signature <- signature
+  if (forged_signature[1] != as.raw(0L)) {
+    forged_signature[1] <- as.raw(0L)
+  } else {
+    forged_signature[1] <- as.raw(255L)
+  }
   expect_false(verify_dilithium(important_message, forged_signature, key$public))
 })
 
@@ -39,7 +48,12 @@ test_that("Digital signatures verification - Dilithium5", {
   expect_false(verify_dilithium("tampered_message", signature, key$public))
 
   forged_signature <- signature
-  if (forged_signature[1] != 0L) forged_signature[1] <- 0L else forged_signature[1] <- 255L
+  forged_signature <- signature
+  if (forged_signature[1] != as.raw(0L)) {
+    forged_signature[1] <- as.raw(0L)
+  } else {
+    forged_signature[1] <- as.raw(255L)
+  }
   expect_false(verify_dilithium(important_message, forged_signature, key$public))
 })
 
