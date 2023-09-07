@@ -15,11 +15,13 @@
 encap_kyber <- function(pub_key) {
 
   if (!inherits(pub_key, "pqcrypto_public_key")) {
-    stop("'pub_key' parameter does not have the expected class.")
+    pq_stop(c(x = "'pub_key' parameter does not have the expected class.",
+              i = "'pub_key' must have `pqcrypto_public_key` class."))
   }
 
   if (attr(pub_key, "algorithm") != "kyber") {
-    stop("Wrong public key type. Make sure you are using a 'Kyber' public key.")
+    pq_stop(c(x = "Wrong public key algorithm.",
+              i = "Make sure you are using a 'Kyber' public key."))
   }
 
   if (attr(pub_key, "param") == 512) {
@@ -29,7 +31,7 @@ encap_kyber <- function(pub_key) {
   } else if (attr(pub_key, "param") == 1024)  {
     out <- cpp_encap_kyber1024(pub_key)
   } else {
-    stop("Unknown key parameters set.")
+    pq_stop(c(x = "The suplied public key has invalid parameters."))
   }
 
   encap <- list(shared_secret = out[[2]],

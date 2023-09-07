@@ -18,11 +18,13 @@
 decap_kyber <- function(encapsulation, private_key) {
 
   if (!inherits(private_key, "pqcrypto_private_key")) {
-    stop("'private_key' parameter does not have the expected class.")
+    pq_stop(c(x = "'private_key' parameter does not have the expected class.",
+              i = "'private_key' must have `pqcrypto_private_key` class."))
   }
 
   if (attr(private_key, "algorithm") != "kyber") {
-    stop("Wrong private key type. Make sure you are using a 'Kyber' private key.")
+    pq_stop(c(x = "Wrong private key algorithm.",
+              i = "Make sure you are using a 'Kyber' private key."))
   }
 
   if (attr(private_key, "param") == 512) {
@@ -32,7 +34,7 @@ decap_kyber <- function(encapsulation, private_key) {
   } else if (attr(private_key, "param") == 1024) {
     out <- cpp_decap_kyber1024(private_key, encapsulation)
   } else {
-    stop("The suplied private key has invalid parameters.")
+    pq_stop(c(x = "The suplied private key has invalid parameters."))
   }
 
   return(out)

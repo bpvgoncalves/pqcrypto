@@ -21,7 +21,8 @@ keygen_kyber <- function(param_set = 768) {
   } else if (param_set == 1024L) {
     key <- cpp_keygen_kyber1024()
   } else {
-    stop("Unknown 'parameter set'. Acceptable values: 512, 768 or 1024.")
+    pq_stop(c(x = "Unknown 'param_set' value: {.val {param_set}}.",
+              i = "Acceptable values are 512, 768 or 1024."))
   }
 
   keypair <- list(algorithm = "kyber",
