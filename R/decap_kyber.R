@@ -17,11 +17,11 @@
 #'
 decap_kyber <- function(encapsulation, private_key) {
 
-  if (!inherits(private_key, "private_key")) {
+  if (!inherits(private_key, "pqcrypto_private_key")) {
     stop("'private_key' parameter does not have the expected class.")
   }
 
-  if (attr(private_key, "key_type") != "kyber") {
+  if (attr(private_key, "algorithm") != "kyber") {
     stop("Wrong private key type. Make sure you are using a 'Kyber' private key.")
   }
 

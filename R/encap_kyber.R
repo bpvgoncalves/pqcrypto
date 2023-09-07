@@ -14,11 +14,11 @@
 #'
 encap_kyber <- function(pub_key) {
 
-  if (!inherits(pub_key, "public_key")) {
+  if (!inherits(pub_key, "pqcrypto_public_key")) {
     stop("'pub_key' parameter does not have the expected class.")
   }
 
-  if (attr(pub_key, "key_type") != "kyber") {
+  if (attr(pub_key, "algorithm") != "kyber") {
     stop("Wrong public key type. Make sure you are using a 'Kyber' public key.")
   }
 

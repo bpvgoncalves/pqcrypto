@@ -24,17 +24,17 @@ keygen_kyber <- function(param_set = 768) {
     stop("Unknown 'parameter set'. Acceptable values: 512, 768 or 1024.")
   }
 
-  keypair <- list(key_type = "kyber",
+  keypair <- list(algorithm = "kyber",
                   parameters = param_set,
                   private = structure(key[[1]],
-                                      key_type = "kyber",
+                                      algorithm = "kyber",
                                       param = param_set,
-                                      class="private_key"),
+                                      class="pqcrypto_private_key"),
                   public = structure(key[[2]],
-                                     key_type="kyber",
+                                     algorithm="kyber",
                                      param = param_set,
-                                     class="public_key"))
-  class(keypair) <- c("keypair", "kyber")
+                                     class="pqcrypto_public_key"))
+  class(keypair) <- "pqcrypto_keypair"
 
   rm(key)
   return(keypair)
