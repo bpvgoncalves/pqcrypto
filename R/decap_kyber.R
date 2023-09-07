@@ -18,6 +18,10 @@
 #'
 decap_kyber <- function(encapsulation, private_key) {
 
+  if (!inherits(encapsulation, "pqcrypto_encapsulation")) {
+    pq_stop(c(x = "'encapsulation' parameter does not have the expected class.",
+              i = "'encapsulation' must have `pqcrypto_encapsulation` class."))
+  }
 
   if (!inherits(private_key, "pqcrypto_private_key")) {
     pq_stop(c(x = "'private_key' parameter does not have the expected class.",
@@ -29,11 +33,24 @@ decap_kyber <- function(encapsulation, private_key) {
               i = "Make sure you are using a 'Kyber' private key."))
   }
 
+  encap_len <- length(encapsulation)
   if (attr(private_key, "param") == 512) {
+    if (encap_len != 768) {
+      pq_stop(c(x = "Encapsulation size mismatch with the expected size for the private key used.",
+                i = "Make sure you are using right private key."))
+    }
     out <- cpp_decap_kyber512(private_key, encapsulation)
   } else if (attr(private_key, "param") == 768) {
+    if (encap_len != 1088) {
+      pq_stop(c(x = "Encapsulation size mismatch with the expected size for the private key used.",
+                i = "Make sure you are using right private key."))
+    }
     out <- cpp_decap_kyber768(private_key, encapsulation)
   } else if (attr(private_key, "param") == 1024) {
+    if (encap_len != 1568) {
+      pq_stop(c(x = "Encapsulation size mismatch with the expected size for the private key used.",
+                i = "Make sure you are using right private key."))
+    }
     out <- cpp_decap_kyber1024(private_key, encapsulation)
   } else {
     pq_stop(c(x = "The suplied private key has invalid parameters."))

@@ -6,6 +6,12 @@ test_that("kyber-512 decapsulation works", {
   ss2 <- decap_kyber(ss1$encapsulation, key$private)
   expect_equal(length(ss2), 32)
   expect_identical(ss1$shared_secret, ss2)
+
+  # encapsulation gets changed
+  transmission_error <- as.integer(runif(768, 0, 256))
+  class(transmission_error) <- "pqcrypto_encapsulation"
+  expect_false(identical(decap_kyber(transmission_error, key$private),
+                         ss1$shared_secret))
 })
 
 
@@ -15,6 +21,11 @@ test_that("kyber-768 decapsulation works", {
   ss2 <- decap_kyber(ss1$encapsulation, key$private)
   expect_equal(length(ss2), 32)
   expect_identical(ss1$shared_secret, ss2)
+
+  transmission_error <- as.integer(runif(1088, 0, 256))
+  class(transmission_error) <- "pqcrypto_encapsulation"
+  expect_false(identical(decap_kyber(transmission_error, key$private),
+                         ss1$shared_secret))
 })
 
 test_that("kyber-1024 decapsulation works", {
@@ -23,11 +34,18 @@ test_that("kyber-1024 decapsulation works", {
   ss2 <- decap_kyber(ss1$encapsulation, key$private)
   expect_equal(length(ss2), 32)
   expect_identical(ss1$shared_secret, ss2)
+
+  transmission_error <- as.integer(runif(1568, 0, 256))
+  class(transmission_error) <- "pqcrypto_encapsulation"
+  expect_false(identical(decap_kyber(transmission_error, key$private),
+                         ss1$shared_secret))
 })
 
 test_that("kyber-x decapsulation fails on wrong parameter", {
   key <- keygen_kyber(512)
   ss <- encap_kyber(key$public)
+
+  # Bad key
   expect_error(decap_kyber(ss$encapsulation, "not_a_key"))
   expect_error(decap_kyber(ss$encapsulation, key$public))
 
@@ -38,7 +56,8 @@ test_that("kyber-x decapsulation fails on wrong parameter", {
   invalid_key_algo <- keygen_dilithium()
   expect_error(decap_kyber(ss$encapsulation, invalid_key_algo$private))  # invalid algorithm
 
-  bad_encapsulation <- as.integer(runif(768, 0, 256))  # wrong type, right size
+  # Bad encapsulation
+  bad_encapsulation <- as.integer(runif(768, 0, 256))   # wrong type, right size
   expect_error(decap_kyber(bad_encapsulation, key$private))
 
   bad_encapsulation <- as.integer(runif(1234, 0, 256))  # wrong type, wrong size
@@ -46,5 +65,4 @@ test_that("kyber-x decapsulation fails on wrong parameter", {
 
   class(bad_encapsulation) <- "pqcrypto_encapsulation"  # right type, wrong size
   expect_error(decap_kyber(bad_encapsulation, key$private))
-
 })
