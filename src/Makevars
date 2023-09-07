@@ -88,4 +88,4 @@ libdilithium5.a: $(OBJS_DILITHIUM5)
 
 clean:
 	rm -r $(BUILD_DIR)
-	rm -r *.o *.a *.so
+	rm -r *.o *.a *.so *.lib *.dll
