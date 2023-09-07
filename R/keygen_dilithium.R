@@ -27,17 +27,17 @@ keygen_dilithium <- function(strength = 3) {
               i = "Acceptable values are 2, 3 or 5."))
   }
 
-  keypair <- list(key_type = "dilithium",
+  keypair <- list(algorithm = "dilithium",
                   strength = strength,
                   private = structure(key[[1]],
-                                      key_type = "dilithium",
+                                      algorithm = "dilithium",
                                       strength = strength,
-                                      class = "private_key"),
+                                      class = "pqcrypto_private_key"),
                   public = structure(key[[2]],
-                                     key_type = "dilithium",
+                                     algorithm = "dilithium",
                                      strength = strength,
-                                     class = "public_key"))
-  class(keypair) <- c("keypair", "dilithium")
+                                     class = "pqcrypto_public_key"))
+  class(keypair) <- c("pqcrypto_keypair")
 
   rm(key)
   return(keypair)

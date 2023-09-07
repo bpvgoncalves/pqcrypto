@@ -29,12 +29,12 @@ verify_dilithium <- function(message, signature, public_key) {
               i = "'signature' must have `pqcrypto_signature` class."))
   }
 
-  if (!inherits(public_key, "public_key")) {
+  if (!inherits(public_key, "pqcrypto_public_key")) {
     pq_stop(c(x = "'public_key' parameter does not have the expected class.",
               i = "'public_key' must have `public_key` class."))
   }
 
-  if (attr(public_key, "key_type") != "dilithium") {
+  if (attr(public_key, "algorithm") != "dilithium") {
     pq_stop(c(x = "Wrong public key algorithm.",
               i = "Make sure you are using a 'Dilithium' public key."))
   }

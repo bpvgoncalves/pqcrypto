@@ -21,12 +21,12 @@
 #'
 sign_dilithium <- function(private_key, message) {
 
-  if (!inherits(private_key, "private_key")) {
+  if (!inherits(private_key, "pqcrypto_private_key")) {
     pq_stop(c(x = "'private_key' parameter does not have the expected class.",
               i = "'private_key' must have `private_key` class."))
   }
 
-  if (attr(private_key, "key_type") != "dilithium") {
+  if (attr(private_key, "algorithm") != "dilithium") {
     pq_stop(c(x = "Wrong private key algorithm.",
               i = "Make sure you are using a 'Dilithium' private key."))
   }
