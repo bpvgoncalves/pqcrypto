@@ -18,3 +18,59 @@
 #' @useDynLib pqcrypto, .registration = TRUE
 ## usethis namespace: end
 NULL
+
+
+#' @export
+print.pqcrypto_keypair <- function(x, ...) {
+  if (requireNamespace("cli", quietly = TRUE)) {
+    cli::cli_h3("pqcrypto - Key-Pair")
+    cli::cli_bullets(paste0(" Algorithm: ", x$algorithm))
+  } else {
+    message(paste0("-- pqcrypto - Key-Pair\n",
+                   "Algorithm: ", x$algorithm, "\n"))
+  }
+}
+
+#' @export
+print.pqcrypto_private_key <- function(x, ...) {
+  if (requireNamespace("cli", quietly = TRUE)) {
+    cli::cli_h3("pqcrypto - Private Key")
+    cli::cli_bullets(paste0(" Algorithm: ", attr(x, "algorithm")))
+  } else {
+    message(paste0("-- pqcrypto - Private Key\n",
+                   "Algorithm: ", attr(x, "algorithm"), "\n"))
+  }
+}
+
+#' @export
+print.pqcrypto_public_key <- function(x, ...) {
+  if (requireNamespace("cli", quietly = TRUE)) {
+    cli::cli_h3("pqcrypto - Public Key")
+    cli::cli_bullets(paste0("Algorithm:  ", attr(x, "algorithm")))
+    cli::cli_bullets(paste0("Key Length: ", length(x)))
+  } else {
+    message(paste0("-- pqcrypto - Public Key\n",
+                   "Algorithm: ", attr(x, "algorithm"), "\n",
+                   "Key Length: ", length(x), "\n"))
+  }
+}
+
+#' @export
+print.pqcrypto_shared_secret <- function(x, ...) {
+  if (requireNamespace("cli", quietly = TRUE)) {
+    cli::cli_h3("pqcrypto - Shared Secret")
+  } else {
+    message(paste0("-- pqcrypto - Shared Secret\n"))
+  }
+}
+
+#' @export
+print.pqcrypto_signature <- function(x, ...) {
+  if (requireNamespace("cli", quietly = TRUE)) {
+    cli::cli_h3("pqcrypto - Digital Signature")
+    cli::cli_bullets(paste0("Algorithm:  ", attr(x, "algorithm")))
+  } else {
+    message(paste0("\n-- pqcrypto - Digital Signature\n",
+                   "Algorithm: ", attr(x, "algorithm")))
+  }
+}
