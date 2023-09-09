@@ -12,7 +12,12 @@ PKG_LIBS          = $(BUILD_DIR)/libkyber512.a    \
                     $(BUILD_DIR)/libdilithium2.a  \
                     $(BUILD_DIR)/libdilithium3.a  \
                     $(BUILD_DIR)/libdilithium5.a  \
-                    $(BUILD_DIR)/libsphincs_sk128s.a  \
+                    $(BUILD_DIR)/libsphincssk128s.a  \
+                    $(BUILD_DIR)/libsphincssk128f.a  \
+                    $(BUILD_DIR)/libsphincssk192s.a  \
+                    $(BUILD_DIR)/libsphincssk192f.a  \
+                    $(BUILD_DIR)/libsphincssk256s.a  \
+                    $(BUILD_DIR)/libsphincssk256f.a
 
 BUILD_DIR         = ../build
 
@@ -52,11 +57,21 @@ SRCS_SPHINCS      = sphincs/address.c  sphincs/randombytes.c  sphincs/merkle.c  
                     sphincs/wotsx1.c  sphincs/utils.c  sphincs/utilsx1.c  sphincs/fors.c  \
                     sphincs/sign.c
 
-HEADS_SPHINCS_SK128 = $(HEADS_SPHINCS)  sphincs/fips202.h
-SRCS_SPHINCS_SK128 = $(SRCS_SPHINCS)  sphincs/fips202.c  sphincs/hash_shake.c    \
-                     sphincs/thash_shake_robust.c
+HEADS_SPHINCS_SHAKE = $(HEADS_SPHINCS)  sphincs/fips202.h
+SRCS_SPHINCS_SHAKE  = $(SRCS_SPHINCS)  sphincs/fips202.c  sphincs/hash_shake.c    \
+                      sphincs/thash_shake_robust.c
 
-OBJS_SPHINCS_SK128s = $(SRCS_SPHINCS_SK128:%=$(BUILD_DIR)/%.spsk128s.o)
+HEADS_SPHINCS_SHA2  = $(HEADS_SPHINCS)  sphincs/sha2.h
+SRCS_SPHINCS_SHA2   = $(SRCS_SPHINCS)  sphincs/sha2.c  sphincs/hash_sha2.c        \
+                      sphincs/thash_sha2_robust.c
+
+OBJS_SPHINCS_SK128s = $(SRCS_SPHINCS_SHAKE:%=$(BUILD_DIR)/%.spsk128s.o)
+OBJS_SPHINCS_SK128f = $(SRCS_SPHINCS_SHAKE:%=$(BUILD_DIR)/%.spsk128f.o)
+OBJS_SPHINCS_SK192s = $(SRCS_SPHINCS_SHAKE:%=$(BUILD_DIR)/%.spsk192s.o)
+OBJS_SPHINCS_SK192f = $(SRCS_SPHINCS_SHAKE:%=$(BUILD_DIR)/%.spsk192f.o)
+OBJS_SPHINCS_SK256s = $(SRCS_SPHINCS_SHAKE:%=$(BUILD_DIR)/%.spsk256s.o)
+OBJS_SPHINCS_SK256f = $(SRCS_SPHINCS_SHAKE:%=$(BUILD_DIR)/%.spsk256f.o)
+
 .PHONY: all clean
 
 all: $(SHLIB)
@@ -87,9 +102,29 @@ $(BUILD_DIR)/%.d5.o: $(SRCS_DILITHIUM) $(HEADS_DILITHIUM)
 	@mkdir -p $(dir $@)
 	$(CC) $(PKG_CPPFLAGS) $(PKG_CFLAGS) -fPIC -DDILITHIUM_MODE=5 -c $* -o $@
 
-$(BUILD_DIR)/%.spsk128s.o: $(HEADS_SPHINCS_SK128) $(SRCS_SPHINCS_SK128)
+$(BUILD_DIR)/%.spsk128s.o: $(HEADS_SPHINCS_SHAKE) $(SRCS_SPHINCS_SHAKE)
 	@mkdir -p $(dir $@)
 	$(CC) $(PKG_CPPFLAGS) $(PKG_CFLAGS) -fPIC -O3 -std=c99 -DPARAMS=1 -c $* -o $@
+
+$(BUILD_DIR)/%.spsk128f.o: $(HEADS_SPHINCS_SHAKE) $(SRCS_SPHINCS_SHAKE)
+	@mkdir -p $(dir $@)
+	$(CC) $(PKG_CPPFLAGS) $(PKG_CFLAGS) -fPIC -O3 -std=c99 -DPARAMS=2 -c $* -o $@
+
+$(BUILD_DIR)/%.spsk192s.o: $(HEADS_SPHINCS_SHAKE) $(SRCS_SPHINCS_SHAKE)
+	@mkdir -p $(dir $@)
+	$(CC) $(PKG_CPPFLAGS) $(PKG_CFLAGS) -fPIC -O3 -std=c99 -DPARAMS=3 -c $* -o $@
+
+$(BUILD_DIR)/%.spsk192f.o: $(HEADS_SPHINCS_SHAKE) $(SRCS_SPHINCS_SHAKE)
+	@mkdir -p $(dir $@)
+	$(CC) $(PKG_CPPFLAGS) $(PKG_CFLAGS) -fPIC -O3 -std=c99 -DPARAMS=4 -c $* -o $@
+
+$(BUILD_DIR)/%.spsk256s.o: $(HEADS_SPHINCS_SHAKE) $(SRCS_SPHINCS_SHAKE)
+	@mkdir -p $(dir $@)
+	$(CC) $(PKG_CPPFLAGS) $(PKG_CFLAGS) -fPIC -O3 -std=c99 -DPARAMS=5 -c $* -o $@
+
+$(BUILD_DIR)/%.spsk256f.o: $(HEADS_SPHINCS_SHAKE) $(SRCS_SPHINCS_SHAKE)
+	@mkdir -p $(dir $@)
+	$(CC) $(PKG_CPPFLAGS) $(PKG_CFLAGS) -fPIC -O3 -std=c99 -DPARAMS=6 -c $* -o $@
 
 $(BUILD_DIR)/libkyber512.a: $(OBJS_KYBER512)
 	ar r $@ $^
@@ -109,7 +144,22 @@ $(BUILD_DIR)/libdilithium3.a: $(OBJS_DILITHIUM3)
 $(BUILD_DIR)/libdilithium5.a: $(OBJS_DILITHIUM5)
 	ar r $@ $^
 
-$(BUILD_DIR)/libsphincs_sk128s.a: $(OBJS_SPHINCS_SK128s)
+$(BUILD_DIR)/libsphincssk128s.a: $(OBJS_SPHINCS_SK128s)
+	ar r $@ $^
+
+$(BUILD_DIR)/libsphincssk128f.a: $(OBJS_SPHINCS_SK128f)
+	ar r $@ $^
+
+$(BUILD_DIR)/libsphincssk192s.a: $(OBJS_SPHINCS_SK192s)
+	ar r $@ $^
+
+$(BUILD_DIR)/libsphincssk192f.a: $(OBJS_SPHINCS_SK192f)
+	ar r $@ $^
+
+$(BUILD_DIR)/libsphincssk256s.a: $(OBJS_SPHINCS_SK256s)
+	ar r $@ $^
+
+$(BUILD_DIR)/libsphincssk256f.a: $(OBJS_SPHINCS_SK256f)
 	ar r $@ $^
 
 clean:

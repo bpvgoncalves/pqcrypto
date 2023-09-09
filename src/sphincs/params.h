@@ -17,13 +17,27 @@
 #elif PARAMS == 2
   #include "params/params-sphincs-shake-128f.h"
   #define SPX_NAMESPACE(s) SPX_SHAKE128F_##s
+#elif PARAMS == 3
+  #include "params/params-sphincs-shake-192s.h"
+  #define SPX_NAMESPACE(s) SPX_SHAKE192S_##s
+#elif PARAMS == 4
+  #include "params/params-sphincs-shake-192f.h"
+  #define SPX_NAMESPACE(s) SPX_SHAKE192F_##s
+#elif PARAMS == 5
+  #include "params/params-sphincs-shake-256s.h"
+  #define SPX_NAMESPACE(s) SPX_SHAKE256S_##s
+#elif PARAMS == 6
+  #include "params/params-sphincs-shake-256f.h"
+  #define SPX_NAMESPACE(s) SPX_SHAKE256F_##s
+#else
+  #error "PARAMS must be between 1 and 6."
 #endif
 
-#define CRYPTO_ALGNAME "SPHINCS+"
-#define CRYPTO_SECRETKEYBYTES SPX_SK_BYTES
-#define CRYPTO_PUBLICKEYBYTES SPX_PK_BYTES
-#define CRYPTO_BYTES SPX_BYTES
-#define CRYPTO_SEEDBYTES (3*SPX_N)
+#define CRYPTO_ALGNAME         "SPHINCS+"
+#define CRYPTO_SECRETKEYBYTES  SPX_SK_BYTES
+#define CRYPTO_PUBLICKEYBYTES  SPX_PK_BYTES
+#define CRYPTO_BYTES           SPX_BYTES
+#define CRYPTO_SEEDBYTES       (3*SPX_N)
 
 #define crypto_sign_secretkeybytes SPX_NAMESPACE(crypto_sign_secretkeybytes)
 unsigned long long crypto_sign_secretkeybytes(void);
