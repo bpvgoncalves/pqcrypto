@@ -48,6 +48,10 @@ cpp_keygen_kyber1024 <- function() {
   .Call(`_pqcrypto_cpp_keygen_kyber1024`)
 }
 
+cpp_keygen_sphincsshake128s <- function() {
+  .Call(`_pqcrypto_cpp_keygen_sphincsshake128s`)
+}
+
 cpp_sign_dilithium <- function(message, private_key) {
   .Call(`_pqcrypto_cpp_sign_dilithium`, message, private_key)
 }
