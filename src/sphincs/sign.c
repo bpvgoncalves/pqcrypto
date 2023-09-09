@@ -2,7 +2,7 @@
 #include <string.h>
 #include <stdint.h>
 
-#include "api.h"
+// #include "api.h"
 #include "params.h"
 #include "wots.h"
 #include "fors.h"

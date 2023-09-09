@@ -11,7 +11,8 @@ PKG_LIBS          = $(BUILD_DIR)/libkyber512.a    \
                     $(BUILD_DIR)/libkyber1024.a   \
                     $(BUILD_DIR)/libdilithium2.a  \
                     $(BUILD_DIR)/libdilithium3.a  \
-                    $(BUILD_DIR)/libdilithium5.a
+                    $(BUILD_DIR)/libdilithium5.a  \
+                    $(BUILD_DIR)/libsphincs_sk128s.a  \
 
 BUILD_DIR         = ../build
 
@@ -42,6 +43,20 @@ OBJS_DILITHIUM2   = $(SRCS_DILITHIUM:%=$(BUILD_DIR)/%.d2.o)
 OBJS_DILITHIUM3   = $(SRCS_DILITHIUM:%=$(BUILD_DIR)/%.d3.o)
 OBJS_DILITHIUM5   = $(SRCS_DILITHIUM:%=$(BUILD_DIR)/%.d5.o)
 
+#### Sphincs+ config ####
+# Based on information provided by the sphincs+ original Makefile
+HEADS_SPHINCS     = sphincs/params.h  sphincs/address.h  sphincs/randombytes.h  sphincs/merkle.h  \
+                    sphincs/wots.h  sphincs/wotsx1.h  sphincs/utils.h  sphincs/utilsx1.h  \
+                    sphincs/fors.h  sphincs/api.h  sphincs/hash.h  sphincs/thash.h
+SRCS_SPHINCS      = sphincs/address.c  sphincs/randombytes.c  sphincs/merkle.c  sphincs/wots.c    \
+                    sphincs/wotsx1.c  sphincs/utils.c  sphincs/utilsx1.c  sphincs/fors.c  \
+                    sphincs/sign.c
+
+HEADS_SPHINCS_SK128 = $(HEADS_SPHINCS)  sphincs/fips202.h
+SRCS_SPHINCS_SK128 = $(SRCS_SPHINCS)  sphincs/fips202.c  sphincs/hash_shake.c    \
+                     sphincs/thash_shake_robust.c
+
+OBJS_SPHINCS_SK128s = $(SRCS_SPHINCS_SK128:%=$(BUILD_DIR)/%.spsk128s.o)
 .PHONY: all clean
 
 all: $(SHLIB)
@@ -72,6 +87,10 @@ $(BUILD_DIR)/%.d5.o: $(SRCS_DILITHIUM) $(HEADS_DILITHIUM)
 	@mkdir -p $(dir $@)
 	$(CC) $(PKG_CPPFLAGS) $(PKG_CFLAGS) -fPIC -DDILITHIUM_MODE=5 -c $* -o $@
 
+$(BUILD_DIR)/%.spsk128s.o: $(HEADS_SPHINCS_SK128) $(SRCS_SPHINCS_SK128)
+	@mkdir -p $(dir $@)
+	$(CC) $(PKG_CPPFLAGS) $(PKG_CFLAGS) -fPIC -O3 -std=c99 -DPARAMS=1 -c $* -o $@
+
 $(BUILD_DIR)/libkyber512.a: $(OBJS_KYBER512)
 	ar r $@ $^
 
@@ -88,6 +107,9 @@ $(BUILD_DIR)/libdilithium3.a: $(OBJS_DILITHIUM3)
 	ar r $@ $^
 
 $(BUILD_DIR)/libdilithium5.a: $(OBJS_DILITHIUM5)
+	ar r $@ $^
+
+$(BUILD_DIR)/libsphincs_sk128s.a: $(OBJS_SPHINCS_SK128s)
 	ar r $@ $^
 
 clean:
