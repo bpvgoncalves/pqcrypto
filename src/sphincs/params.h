@@ -27,8 +27,8 @@
   #include "params/params-sphincs-shake-256s.h"
   #define SPX_NAMESPACE(s) SPX_SHAKE256S_##s
 #elif PARAMS == 6
-  #include "params/params-sphincs-sha2-256f.h"
-  #define SPX_NAMESPACE(s) SPX_SHA256F_##s
+  #include "params/params-sphincs-shake-256f.h"
+  #define SPX_NAMESPACE(s) SPX_SHAKE256F_##s
 #elif PARAMS == 7
   #include "params/params-sphincs-sha2-128s.h"
   #define SPX_NAMESPACE(s) SPX_SHA128S_##s
