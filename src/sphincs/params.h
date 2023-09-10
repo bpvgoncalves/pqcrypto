@@ -4,12 +4,12 @@
 #endif
 
 /*
- *  1: shake128s
- *  2: shake128f
- *  3: shake192s
- *  4: shake192f
- *  5: shake256s
- *  6: shake256f
+ *  1: shake128s     7: sha128s
+ *  2: shake128f     8: sha128f
+ *  3: shake192s     9: sha192s
+ *  4: shake192f    10: sha192f
+ *  5: shake256s    11: sha256s
+ *  6: shake256f    12: sha256f
  */
 #if PARAMS == 1
   #include "params/params-sphincs-shake-128s.h"
@@ -27,10 +27,28 @@
   #include "params/params-sphincs-shake-256s.h"
   #define SPX_NAMESPACE(s) SPX_SHAKE256S_##s
 #elif PARAMS == 6
-  #include "params/params-sphincs-shake-256f.h"
-  #define SPX_NAMESPACE(s) SPX_SHAKE256F_##s
+  #include "params/params-sphincs-sha2-256f.h"
+  #define SPX_NAMESPACE(s) SPX_SHA256F_##s
+#elif PARAMS == 7
+  #include "params/params-sphincs-sha2-128s.h"
+  #define SPX_NAMESPACE(s) SPX_SHA128S_##s
+#elif PARAMS == 8
+  #include "params/params-sphincs-sha2-128f.h"
+  #define SPX_NAMESPACE(s) SPX_SHA128F_##s
+#elif PARAMS == 9
+  #include "params/params-sphincs-sha2-192s.h"
+  #define SPX_NAMESPACE(s) SPX_SHA192S_##s
+#elif PARAMS == 10
+  #include "params/params-sphincs-sha2-192f.h"
+  #define SPX_NAMESPACE(s) SPX_SHA192F_##s
+#elif PARAMS == 11
+  #include "params/params-sphincs-sha2-256s.h"
+  #define SPX_NAMESPACE(s) SPX_SHA256S_##s
+#elif PARAMS == 12
+  #include "params/params-sphincs-sha2-256f.h"
+  #define SPX_NAMESPACE(s) SPX_SHA256F_##s
 #else
-  #error "PARAMS must be between 1 and 6."
+  #error "PARAMS must be between 1 and 12."
 #endif
 
 #define CRYPTO_ALGNAME         "SPHINCS+"

@@ -1,6 +1,7 @@
 PKG_CPPFLAGS      = -I.                     \
                     -Ikyber                 \
-                    -Idilithium
+                    -Idilithium             \
+                    -Isphincs
 
 PKG_CXXFLAGS      = $(CXX_VISIBILITY)
 
@@ -17,7 +18,13 @@ PKG_LIBS          = $(BUILD_DIR)/libkyber512.a    \
                     $(BUILD_DIR)/libsphincssk192s.a  \
                     $(BUILD_DIR)/libsphincssk192f.a  \
                     $(BUILD_DIR)/libsphincssk256s.a  \
-                    $(BUILD_DIR)/libsphincssk256f.a
+                    $(BUILD_DIR)/libsphincssk256f.a  \
+                    $(BUILD_DIR)/libsphincssh128s.a  \
+                    $(BUILD_DIR)/libsphincssh128f.a  \
+                    $(BUILD_DIR)/libsphincssh192s.a  \
+                    $(BUILD_DIR)/libsphincssh192f.a  \
+                    $(BUILD_DIR)/libsphincssh256s.a  \
+                    $(BUILD_DIR)/libsphincssh256f.a
 
 BUILD_DIR         = ../build
 
@@ -71,7 +78,12 @@ OBJS_SPHINCS_SK192s = $(SRCS_SPHINCS_SHAKE:%=$(BUILD_DIR)/%.spsk192s.o)
 OBJS_SPHINCS_SK192f = $(SRCS_SPHINCS_SHAKE:%=$(BUILD_DIR)/%.spsk192f.o)
 OBJS_SPHINCS_SK256s = $(SRCS_SPHINCS_SHAKE:%=$(BUILD_DIR)/%.spsk256s.o)
 OBJS_SPHINCS_SK256f = $(SRCS_SPHINCS_SHAKE:%=$(BUILD_DIR)/%.spsk256f.o)
-
+OBJS_SPHINCS_SH128s = $(SRCS_SPHINCS_SHA2:%=$(BUILD_DIR)/%.spsh128s.o)
+OBJS_SPHINCS_SH128f = $(SRCS_SPHINCS_SHA2:%=$(BUILD_DIR)/%.spsh128f.o)
+OBJS_SPHINCS_SH192s = $(SRCS_SPHINCS_SHA2:%=$(BUILD_DIR)/%.spsh192s.o)
+OBJS_SPHINCS_SH192f = $(SRCS_SPHINCS_SHA2:%=$(BUILD_DIR)/%.spsh192f.o)
+OBJS_SPHINCS_SH256s = $(SRCS_SPHINCS_SHA2:%=$(BUILD_DIR)/%.spsh256s.o)
+OBJS_SPHINCS_SH256f = $(SRCS_SPHINCS_SHA2:%=$(BUILD_DIR)/%.spsh256f.o)
 .PHONY: all clean
 
 all: $(SHLIB)
@@ -126,6 +138,31 @@ $(BUILD_DIR)/%.spsk256f.o: $(HEADS_SPHINCS_SHAKE) $(SRCS_SPHINCS_SHAKE)
 	@mkdir -p $(dir $@)
 	$(CC) $(PKG_CPPFLAGS) $(PKG_CFLAGS) -fPIC -O3 -std=c99 -DPARAMS=6 -c $* -o $@
 
+$(BUILD_DIR)/%.spsh128s.o: $(HEADS_SPHINCS_SHA2) $(SRCS_SPHINCS_SHA2)
+	@mkdir -p $(dir $@)
+	$(CC) $(PKG_CPPFLAGS) $(PKG_CFLAGS) -fPIC -O3 -std=c99 -DPARAMS=7 -c $* -o $@
+
+$(BUILD_DIR)/%.spsh128f.o: $(HEADS_SPHINCS_SHA2) $(SRCS_SPHINCS_SHA2)
+	@mkdir -p $(dir $@)
+	$(CC) $(PKG_CPPFLAGS) $(PKG_CFLAGS) -fPIC -O3 -std=c99 -DPARAMS=8 -c $* -o $@
+
+$(BUILD_DIR)/%.spsh192s.o: $(HEADS_SPHINCS_SHA2) $(SRCS_SPHINCS_SHA2)
+	@mkdir -p $(dir $@)
+	$(CC) $(PKG_CPPFLAGS) $(PKG_CFLAGS) -fPIC -O3 -std=c99 -DPARAMS=9 -c $* -o $@
+
+$(BUILD_DIR)/%.spsh192f.o: $(HEADS_SPHINCS_SHA2) $(SRCS_SPHINCS_SHA2)
+	@mkdir -p $(dir $@)
+	$(CC) $(PKG_CPPFLAGS) $(PKG_CFLAGS) -fPIC -O3 -std=c99 -DPARAMS=10 -c $* -o $@
+
+$(BUILD_DIR)/%.spsh256s.o: $(HEADS_SPHINCS_SHA2) $(SRCS_SPHINCS_SHA2)
+	@mkdir -p $(dir $@)
+	$(CC) $(PKG_CPPFLAGS) $(PKG_CFLAGS) -fPIC -O3 -std=c99 -DPARAMS=11 -c $* -o $@
+
+$(BUILD_DIR)/%.spsh256f.o: $(HEADS_SPHINCS_SHA2) $(SRCS_SPHINCS_SHA2)
+	@mkdir -p $(dir $@)
+	$(CC) $(PKG_CPPFLAGS) $(PKG_CFLAGS) -fPIC -O3 -std=c99 -DPARAMS=12 -c $* -o $@
+
+
 $(BUILD_DIR)/libkyber512.a: $(OBJS_KYBER512)
 	ar r $@ $^
 
@@ -160,6 +197,24 @@ $(BUILD_DIR)/libsphincssk256s.a: $(OBJS_SPHINCS_SK256s)
 	ar r $@ $^
 
 $(BUILD_DIR)/libsphincssk256f.a: $(OBJS_SPHINCS_SK256f)
+	ar r $@ $^
+
+$(BUILD_DIR)/libsphincssh128s.a: $(OBJS_SPHINCS_SH128s)
+	ar r $@ $^
+
+$(BUILD_DIR)/libsphincssh128f.a: $(OBJS_SPHINCS_SH128f)
+	ar r $@ $^
+
+$(BUILD_DIR)/libsphincssh192s.a: $(OBJS_SPHINCS_SH192s)
+	ar r $@ $^
+
+$(BUILD_DIR)/libsphincssh192f.a: $(OBJS_SPHINCS_SH192f)
+	ar r $@ $^
+
+$(BUILD_DIR)/libsphincssh256s.a: $(OBJS_SPHINCS_SH256s)
+	ar r $@ $^
+
+$(BUILD_DIR)/libsphincssh256f.a: $(OBJS_SPHINCS_SH256f)
 	ar r $@ $^
 
 clean:
