@@ -52,6 +52,26 @@ cpp_keygen_sphincsshake128s <- function() {
   .Call(`_pqcrypto_cpp_keygen_sphincsshake128s`)
 }
 
+cpp_keygen_sphincsshake128f <- function() {
+  .Call(`_pqcrypto_cpp_keygen_sphincsshake128f`)
+}
+
+cpp_keygen_sphincsshake192s <- function() {
+  .Call(`_pqcrypto_cpp_keygen_sphincsshake192s`)
+}
+
+cpp_keygen_sphincsshake192f <- function() {
+  .Call(`_pqcrypto_cpp_keygen_sphincsshake192f`)
+}
+
+cpp_keygen_sphincsshake256s <- function() {
+  .Call(`_pqcrypto_cpp_keygen_sphincsshake256s`)
+}
+
+cpp_keygen_sphincsshake256f <- function() {
+  .Call(`_pqcrypto_cpp_keygen_sphincsshake256f`)
+}
+
 cpp_sign_dilithium <- function(message, private_key) {
   .Call(`_pqcrypto_cpp_sign_dilithium`, message, private_key)
 }

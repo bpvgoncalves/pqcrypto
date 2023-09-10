@@ -96,6 +96,41 @@ extern "C" SEXP _pqcrypto_cpp_keygen_sphincsshake128s() {
     return cpp11::as_sexp(cpp_keygen_sphincsshake128s());
   END_CPP11
 }
+// keygen_sphincs.cpp
+cpp11::list cpp_keygen_sphincsshake128f();
+extern "C" SEXP _pqcrypto_cpp_keygen_sphincsshake128f() {
+  BEGIN_CPP11
+    return cpp11::as_sexp(cpp_keygen_sphincsshake128f());
+  END_CPP11
+}
+// keygen_sphincs.cpp
+cpp11::list cpp_keygen_sphincsshake192s();
+extern "C" SEXP _pqcrypto_cpp_keygen_sphincsshake192s() {
+  BEGIN_CPP11
+    return cpp11::as_sexp(cpp_keygen_sphincsshake192s());
+  END_CPP11
+}
+// keygen_sphincs.cpp
+cpp11::list cpp_keygen_sphincsshake192f();
+extern "C" SEXP _pqcrypto_cpp_keygen_sphincsshake192f() {
+  BEGIN_CPP11
+    return cpp11::as_sexp(cpp_keygen_sphincsshake192f());
+  END_CPP11
+}
+// keygen_sphincs.cpp
+cpp11::list cpp_keygen_sphincsshake256s();
+extern "C" SEXP _pqcrypto_cpp_keygen_sphincsshake256s() {
+  BEGIN_CPP11
+    return cpp11::as_sexp(cpp_keygen_sphincsshake256s());
+  END_CPP11
+}
+// keygen_sphincs.cpp
+cpp11::list cpp_keygen_sphincsshake256f();
+extern "C" SEXP _pqcrypto_cpp_keygen_sphincsshake256f() {
+  BEGIN_CPP11
+    return cpp11::as_sexp(cpp_keygen_sphincsshake256f());
+  END_CPP11
+}
 // sign_dilithium.cpp
 cpp11::raws cpp_sign_dilithium(cpp11::raws message, cpp11::raws private_key);
 extern "C" SEXP _pqcrypto_cpp_sign_dilithium(SEXP message, SEXP private_key) {
@@ -125,7 +160,12 @@ static const R_CallMethodDef CallEntries[] = {
     {"_pqcrypto_cpp_keygen_kyber1024",        (DL_FUNC) &_pqcrypto_cpp_keygen_kyber1024,        0},
     {"_pqcrypto_cpp_keygen_kyber512",         (DL_FUNC) &_pqcrypto_cpp_keygen_kyber512,         0},
     {"_pqcrypto_cpp_keygen_kyber768",         (DL_FUNC) &_pqcrypto_cpp_keygen_kyber768,         0},
+    {"_pqcrypto_cpp_keygen_sphincsshake128f", (DL_FUNC) &_pqcrypto_cpp_keygen_sphincsshake128f, 0},
     {"_pqcrypto_cpp_keygen_sphincsshake128s", (DL_FUNC) &_pqcrypto_cpp_keygen_sphincsshake128s, 0},
+    {"_pqcrypto_cpp_keygen_sphincsshake192f", (DL_FUNC) &_pqcrypto_cpp_keygen_sphincsshake192f, 0},
+    {"_pqcrypto_cpp_keygen_sphincsshake192s", (DL_FUNC) &_pqcrypto_cpp_keygen_sphincsshake192s, 0},
+    {"_pqcrypto_cpp_keygen_sphincsshake256f", (DL_FUNC) &_pqcrypto_cpp_keygen_sphincsshake256f, 0},
+    {"_pqcrypto_cpp_keygen_sphincsshake256s", (DL_FUNC) &_pqcrypto_cpp_keygen_sphincsshake256s, 0},
     {"_pqcrypto_cpp_sign_dilithium",          (DL_FUNC) &_pqcrypto_cpp_sign_dilithium,          2},
     {"_pqcrypto_cpp_verify_dilithium",        (DL_FUNC) &_pqcrypto_cpp_verify_dilithium,        3},
     {NULL, NULL, 0}
