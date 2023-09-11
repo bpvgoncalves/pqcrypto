@@ -76,6 +76,14 @@ cpp_sign_dilithium <- function(message, private_key) {
   .Call(`_pqcrypto_cpp_sign_dilithium`, message, private_key)
 }
 
+cpp_sign_sphincs_shake <- function(message, private_key, is_fast) {
+  .Call(`_pqcrypto_cpp_sign_sphincs_shake`, message, private_key, is_fast)
+}
+
 cpp_verify_dilithium <- function(signature, message, public_key) {
   .Call(`_pqcrypto_cpp_verify_dilithium`, signature, message, public_key)
+}
+
+cpp_verify_sphincs_shake <- function(signature, message, public_key) {
+  .Call(`_pqcrypto_cpp_verify_sphincs_shake`, signature, message, public_key)
 }
