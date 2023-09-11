@@ -6,7 +6,7 @@ extern "C" {
 [[cpp11::register]]
 cpp11::raws cpp_sign_sphincs_shake(cpp11::raws message,
                                    cpp11::raws private_key,
-                                   cpp11::logicals is_fast) {
+                                   bool is_fast) {
 
   size_t msg_len = message.size();
   uint8_t* msg = new uint8_t[msg_len];

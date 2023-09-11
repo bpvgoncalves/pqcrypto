@@ -139,10 +139,10 @@ extern "C" SEXP _pqcrypto_cpp_sign_dilithium(SEXP message, SEXP private_key) {
   END_CPP11
 }
 // sign_sphincs.cpp
-cpp11::raws cpp_sign_sphincs_shake(cpp11::raws message, cpp11::raws private_key, cpp11::logicals is_fast);
+cpp11::raws cpp_sign_sphincs_shake(cpp11::raws message, cpp11::raws private_key, bool is_fast);
 extern "C" SEXP _pqcrypto_cpp_sign_sphincs_shake(SEXP message, SEXP private_key, SEXP is_fast) {
   BEGIN_CPP11
-    return cpp11::as_sexp(cpp_sign_sphincs_shake(cpp11::as_cpp<cpp11::decay_t<cpp11::raws>>(message), cpp11::as_cpp<cpp11::decay_t<cpp11::raws>>(private_key), cpp11::as_cpp<cpp11::decay_t<cpp11::logicals>>(is_fast)));
+    return cpp11::as_sexp(cpp_sign_sphincs_shake(cpp11::as_cpp<cpp11::decay_t<cpp11::raws>>(message), cpp11::as_cpp<cpp11::decay_t<cpp11::raws>>(private_key), cpp11::as_cpp<cpp11::decay_t<bool>>(is_fast)));
   END_CPP11
 }
 // verify_dilithium.cpp
