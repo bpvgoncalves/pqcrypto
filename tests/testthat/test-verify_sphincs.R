@@ -111,3 +111,24 @@ test_that("Sphincs+ signature validation (shake, 256, fast)", {
   }
   expect_false(verify_sphincs(important_message, forged_signature, key$public))
 })
+
+test_that("Sphincs+ digital signatures verification fails with bad parameters", {
+
+  key <- keygen_sphincs()
+  important_message <- "Hello world!!"
+  signature <- sign_sphincs(key$private, important_message)
+
+  expect_error(verify_sphincs(important_message, "not_a_signature", key$public))  # bad signature
+  expect_error(verify_sphincs(important_message, signature, key$private))  # bad key type
+
+  small_signature <- signature[1:100]
+  class(small_signature) <- "pqcrypto_signature"
+  expect_error(verify_sphincs(important_message, small_signature, key$public))  # c++ error
+
+  key <- keygen_kyber()
+  expect_error(verify_sphincs(important_message, signature, key$public)) # bad key algorithm
+
+  key <- keygen_dilithium()
+  expect_error(verify_sphincs(important_message, signature, key$public)) # bad key algorithm
+
+})

@@ -148,4 +148,20 @@ test_that("Sphincs+ signature (shake, 256, small)", {
   expect_equal(length(sig), 49856)
 })
 
+test_that("Sphincs+ digital signature fails on wrong parameters", {
 
+  key <- keygen_sphincs()
+  expect_error(sign_sphincs("not_a_key", "text_message")) # wrong key object
+  expect_error(sign_sphincs(key$public, "text_message"))  # wrong key
+
+  key <- keygen_kyber()
+  expect_error(sign_sphincs(key$private, "text_message")) # wrong key algorithm
+
+  key <- keygen_dilithium()
+  expect_error(sign_sphincs(key$private, "text_message")) # wrong key algorithm
+
+  small_key <- key$private[1:25]
+  class(small_key) <- "pqcrypto_private_key"
+  attr(small_key, "algorithm") <- "sphincs+"
+  expect_error(sign_sphincs(small_key, "text_message"))   # wrong key size
+})
