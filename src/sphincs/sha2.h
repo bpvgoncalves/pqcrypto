@@ -18,14 +18,22 @@
 #include <stddef.h>
 #include <stdint.h>
 
+#define sha256_inc_init SPX_NAMESPACE(sha256_inc_init)
 void sha256_inc_init(uint8_t *state);
+#define sha256_inc_blocks SPX_NAMESPACE(sha256_inc_blocks)
 void sha256_inc_blocks(uint8_t *state, const uint8_t *in, size_t inblocks);
+#define sha256_inc_finalize SPX_NAMESPACE(sha256_inc_finalize)
 void sha256_inc_finalize(uint8_t *out, uint8_t *state, const uint8_t *in, size_t inlen);
+#define sha256 SPX_NAMESPACE(sha256)
 void sha256(uint8_t *out, const uint8_t *in, size_t inlen);
 
+#define sha512_inc_init SPX_NAMESPACE(sha512_inc_init)
 void sha512_inc_init(uint8_t *state);
+#define sha512_inc_blocks SPX_NAMESPACE(sha512_inc_blocks)
 void sha512_inc_blocks(uint8_t *state, const uint8_t *in, size_t inblocks);
+#define sha512_inc_finalize SPX_NAMESPACE(sha512_inc_finalize)
 void sha512_inc_finalize(uint8_t *out, uint8_t *state, const uint8_t *in, size_t inlen);
+#define sha512 SPX_NAMESPACE(sha512)
 void sha512(uint8_t *out, const uint8_t *in, size_t inlen);
 
 #define mgf1_256 SPX_NAMESPACE(mgf1_256)
