@@ -24,9 +24,11 @@ if the signature verifies successfully or FALSE otherwise.
 Verifies that the signature of a given message is valid.
 }
 \examples{
-key <- keygen_sphincs("shake", 256, "fast")
+key <- keygen_sphincs("sha2", 256, "fast")
 important_message <- "Hello world!!"
 signature <- sign_sphincs(key$private, important_message)
-verify_sphincs(important_message, signature, key$public)
+verify_sphincs(important_message, signature, key$public)   # Should be OK
 
+# Try to verify an tampered message
+verify_sphincs("not_the_message", signature, key$public)   # Should Fail
 }

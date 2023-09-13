@@ -16,11 +16,13 @@
 #' @export
 #'
 #' @examples
-#' key <- keygen_sphincs("shake", 256, "fast")
+#' key <- keygen_sphincs("sha2", 256, "fast")
 #' important_message <- "Hello world!!"
 #' signature <- sign_sphincs(key$private, important_message)
-#' verify_sphincs(important_message, signature, key$public)
+#' verify_sphincs(important_message, signature, key$public)   # Should be OK
 #'
+#' # Try to verify an tampered message
+#' verify_sphincs("not_the_message", signature, key$public)   # Should Fail
 verify_sphincs <- function(message, signature, public_key) {
 
   message <- msg_to_raw(message)
@@ -40,7 +42,11 @@ verify_sphincs <- function(message, signature, public_key) {
               i = "Make sure you are using a 'Sphincs+' public key."))
   }
 
-  result <- cpp_verify_sphincs_shake(signature, message, public_key)
+  if (attr(public_key, "params")$hash == "shake") {
+    result <- cpp_verify_sphincs_shake(signature, message, public_key)
+  } else {
+    result <- cpp_verify_sphincs_sha2(signature, message, public_key)
+  }
   result <- !as.logical(result)
 
   if (result) {

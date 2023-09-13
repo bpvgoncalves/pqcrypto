@@ -5,15 +5,23 @@
 #' @param category   Security category: 128 (claimed security category 1), 192 (default, claimed
 #'    security category 2) and 256 (claimed security category 3).
 #'    For more details regarding security categories please refer to the vignette.
-#' @param type       Type of signature to produce: 'fast' (but larger) or 'small' (but slower).
+#' @param type       Type of signature to produce: 'fast' (but having a larger size) or 'small'
+#'    (but being slower to compute).
 #'
 #' @return A `pqcrypto_keypair` object.
 #'
 #' @export
 #'
 #' @examples
-#' key <- keygen_sphincs()
-#' key$algorithm
+#' # Generate key with default parameters
+#' key1 <- keygen_sphincs()
+#' key1$algorithm
+#' key1$param$hash
+#'
+#' # Generate key with custom parameters
+#' key2 <- keygen_sphincs("sha2", 128, "small")
+#' key2$algorithm
+#' key2$param$hash
 #'
 keygen_sphincs <- function(hash_type = "shake", category = 192, type = "fast") {
 
@@ -50,6 +58,26 @@ keygen_sphincs <- function(hash_type = "shake", category = 192, type = "fast") {
         key <- cpp_keygen_sphincsshake256f()
       } else {
         key <- cpp_keygen_sphincsshake256s()
+      }
+    }
+  } else {
+    if (category == 128) {
+      if (type == "fast") {
+        key <- cpp_keygen_sphincssha128f()
+      } else {
+        key <- cpp_keygen_sphincssha128s()
+      }
+    } else if (category == 192) {
+      if (type == "fast") {
+        key <- cpp_keygen_sphincssha192f()
+      } else {
+        key <- cpp_keygen_sphincssha192s()
+      }
+    } else {
+      if (type == "fast") {
+        key <- cpp_keygen_sphincssha256f()
+      } else {
+        key <- cpp_keygen_sphincssha256s()
       }
     }
   }

@@ -23,7 +23,7 @@ Produces a digital signature of a given message.
 \examples{
 key <- keygen_sphincs()
 important_message <- "Hello world!!"
-sig <- sign_sphincs(key$private, important_message)
-sig[1:10]   # first 10 bytes of the signature
+signature <- sign_sphincs(key$private, important_message)
+signature[1:16]   # first 16 bytes of the signature
 
 }

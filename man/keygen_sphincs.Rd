@@ -13,7 +13,8 @@ keygen_sphincs(hash_type = "shake", category = 192, type = "fast")
 security category 2) and 256 (claimed security category 3).
 For more details regarding security categories please refer to the vignette.}
 
-\item{type}{Type of signature to produce: 'fast' (but larger) or 'small' (but slower).}
+\item{type}{Type of signature to produce: 'fast' (but having a larger size) or 'small'
+(but being slower to compute).}
 }
 \value{
 A \code{pqcrypto_keypair} object.
@@ -22,7 +23,14 @@ A \code{pqcrypto_keypair} object.
 Key-Pair Generation - Sphincs+
 }
 \examples{
-key <- keygen_sphincs()
-key$algorithm
+# Generate key with default parameters
+key1 <- keygen_sphincs()
+key1$algorithm
+key1$param$hash
+
+# Generate key with custom parameters
+key2 <- keygen_sphincs("sha2", 128, "small")
+key2$algorithm
+key2$param$hash
 
 }

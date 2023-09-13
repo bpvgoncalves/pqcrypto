@@ -16,8 +16,8 @@
 #' @examples
 #' key <- keygen_sphincs()
 #' important_message <- "Hello world!!"
-#' sig <- sign_sphincs(key$private, important_message)
-#' sig[1:10]   # first 10 bytes of the signature
+#' signature <- sign_sphincs(key$private, important_message)
+#' signature[1:16]   # first 16 bytes of the signature
 #'
 sign_sphincs <- function(private_key, message) {
 
@@ -39,7 +39,12 @@ sign_sphincs <- function(private_key, message) {
   message <- msg_to_raw(message)
   fast_signature <- ifelse(attr(private_key, "params")$type == "fast", TRUE, FALSE)
 
-  dig_signature <- cpp_sign_sphincs_shake(message, private_key, fast_signature)
+  if (attr(private_key, "params")$hash == "shake") {
+    dig_signature <- cpp_sign_sphincs_shake(message, private_key, fast_signature)
+  } else if (attr(private_key, "params")$hash == "sha2") {
+    dig_signature <- cpp_sign_sphincs_sha2(message, private_key, fast_signature)
+  }
+
   attr(dig_signature, "algorithm") <- "sphincs+"
   class(dig_signature) <- "pqcrypto_signature"
   dig_signature
