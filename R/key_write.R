@@ -10,33 +10,36 @@
 #' @examples
 write_key <- function(key, pass = NULL) {
 
-  public <- function(k) {
+  raw_to_b64 <- function(k) {
     if (requireNamespace("openssl", quietly = TRUE)) {
       base64text <- openssl::base64_encode(serialize(k, NULL), TRUE)
     } else if (requireNamespace("base64enc", quietly = TRUE)) {
-      base64text <- base64enc::base64encode(serialize(k, NULL), 64, "\n")
+      base64text <- paste0(base64enc::base64encode(serialize(k, NULL), 64, "\n"), "\n")
     } else {
-      pq_msg(x="Unable to write public key if openssl or base64enc packages are not present.")
+      pq_msg(c(x="Unable to write keys to file if openssl or base64enc packages are not present."))
       return(NULL)
     }
+    invisible(base64text)
+  }
+
+  public <- function(k) {
     paste0("-----BEGIN PUBLIC KEY-----\n",
-           base64text, "\n",
+           raw_to_b64(k),
            "-----END PUBLIC KEY-----\n")
   }
 
   private <- function(k) {
     paste0("-----BEGIN PRIVATE KEY-----\n",
-           base64enc::base64encode(serialize(k, NULL), 64, "\n"), "\n",
+           raw_to_b64(k),
            "-----END PRIVATE KEY-----\n")
   }
 
   private_enc <- function(k, pass) {
     enc <- openssl::aes_cbc_encrypt(serialize(k, NULL), openssl::sha256(charToRaw(pass)))
     paste0("-----BEGIN ENCRYPTED PRIVATE KEY-----\n",
-           base64enc::base64encode(enc, 64, "\n"), "\n",
+           raw_to_b64(enc),
            "-----END ENCRYPTED PRIVATE KEY-----\n")
   }
-
 
   if (inherits(key, "pqcrypto_keypair")) {
     if (!is.null(pass)) {
