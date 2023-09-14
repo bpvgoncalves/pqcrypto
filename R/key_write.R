@@ -8,7 +8,7 @@
 #' @export
 #'
 #' @examples
-write_key <- function(key, pass = NULL) {
+write_key <- function(key, path = tempdir(), pass = NULL) {
 
   raw_to_b64 <- function(k) {
     if (requireNamespace("openssl", quietly = TRUE)) {
@@ -55,8 +55,16 @@ write_key <- function(key, pass = NULL) {
     }
     cert_pub <- public(key$public)
 
-    cat(cert_prv, "\n", cert_pub, sep = "")
-
+    if (is.null(path)) {
+      cat(cert_prv, "\n", cert_pub, sep = "")
+    } else {
+      ff <- file(paste0(path, "/keypair"), "wt")
+      cat(cert_prv, file = ff)
+      close(ff)
+      ff <- file(paste0(path, "/keypair.pub"), "wt")
+      cat(cert_pub, file = ff)
+      close(ff)
+    }
 
   } else if (inherits(key, "pqcrypto_private_key")) {
     if (!is.null(pass)) {
@@ -64,13 +72,24 @@ write_key <- function(key, pass = NULL) {
     } else {
       cert_prv <- private(key)
     }
-    cat(cert_prv)
+    if (is.null(path)) {
+      cat(cert_prv)
+    } else {
+      ff <- file(paste0(path, "/keypair"), "wt")
+      cat(cert_prv, file = ff)
+      close(ff)
+    }
     invisible(cert_prv)
-
 
   } else if (inherits(key, "pqcrypto_public_key")) {
     cert_pub <- public(key)
-    cat(cert_pub)
+    if (is.null(path)) {
+      cat(cert_pub)
+    } else {
+      ff <- file(paste0(path, "/keypair.pub"), "wt")
+      cat(cert_pub, file = ff)
+      close(ff)
+    }
     invisible(cert_pub)
 
   } else {
