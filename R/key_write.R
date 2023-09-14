@@ -35,7 +35,13 @@ write_key <- function(key, pass = NULL) {
   }
 
   private_enc <- function(k, pass) {
-    enc <- openssl::aes_cbc_encrypt(serialize(k, NULL), openssl::sha256(charToRaw(pass)))
+    if (requireNamespace("openssl", quietly = TRUE)) {
+      enc <- openssl::aes_cbc_encrypt(serialize(k, NULL),
+                                      openssl::sha256(charToRaw(pass)))
+    } else {
+      pq_msg(c(x="Private key encryption requires openssl package."))
+      return(NULL)
+    }
     paste0("-----BEGIN ENCRYPTED PRIVATE KEY-----\n",
            raw_to_b64(enc),
            "-----END ENCRYPTED PRIVATE KEY-----\n")
