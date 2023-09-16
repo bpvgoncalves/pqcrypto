@@ -11,8 +11,10 @@ Description: This package makes available to R users some of the latest
     and digital signatures.
 License: GPL (>= 3)
 Suggests: 
+    base64enc,
     cli,
     knitr,
+    openssl,
     rmarkdown,
     testthat (>= 3.0.0)
 LinkingTo: 
