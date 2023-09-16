@@ -84,3 +84,14 @@ test_that("Read Sphincs+ key-pair", {
   unlink(paste0(path, "/keypair.pub"))
 
 })
+
+test_that("Fails on bad file", {
+
+  file <- tempfile()
+  writeLines("qwerty", file(file))
+
+  expect_error(open_key(file))
+
+  unlink(file)
+
+})
