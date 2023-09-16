@@ -32,6 +32,9 @@ open_key <- function(file_name, password = NULL) {
     invisible(key)
   }
 
+  if(!file.exists(file_name)) {
+    pq_stop(c(x = "Invalid 'file_name'."))
+  }
   keydata <- readLines(file_name)
   base64text <- paste0(keydata[2:(length(keydata)-1)], collapse = "\n")
 

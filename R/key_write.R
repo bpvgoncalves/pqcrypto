@@ -63,6 +63,10 @@ write_key <- function(key, path = tempdir(), password = NULL) {
            "-----END ENCRYPTED PRIVATE KEY-----\n")
   }
 
+  if(!is.null(path) && !dir.exists(path)) {
+    pq_stop(c(x = "Unable to find the specified 'path' to write into."))
+  }
+
   if (inherits(key, "pqcrypto_keypair")) {
     if (!is.null(password)) {
       cert_prv <- private_enc(key$private, as.character(password))
