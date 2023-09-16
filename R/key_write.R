@@ -1,14 +1,30 @@
 
-#' Title
+#' Key Management - Save
 #'
-#' @param key
-#' @param pass
+#' Saves a key-pair, a private key or a public key as a text file.
+#' **NOTE**: While the text file resembles a PEM encoded key, current implementation is not strictly
+#' following RFC7468 (Textual Encodings of PKIX, PKCS, and CMS Structures), RFC5280 (Internet X.509
+#' Public Key Infrastructure Certificate and Certificate Revocation List (CRL) Profile) and RFC5958
+#' (Asymmetric Key Packages).
 #'
-#' @return
+#' @param key       A key-pair produced by `keygen_kyber()`, `keygen_dilithium()` or
+#'    `keygen_sphincs()`, or a private key or public key belonging to such a key-pair.
+#' @param path      A path where the text file(s) containing the key(s) should be saved.
+#'    Defaults to the temporary directory. If NULL, the resulting encoded key is printed to the
+#'    console.
+#' @param password  A password to be used for private key encryption. If not provided, which is
+#'    **not advisable** when saving private keys (or the full key-pair) because the private key will
+#'    not be encrypted which is **potentially unsafe**.
+#'
+#' @return Invisibly the encoded key. Saves it to a file or displays it on the console.
+#'
 #' @export
 #'
 #' @examples
-write_key <- function(key, path = tempdir(), pass = NULL) {
+#' key <- keygen_sphincs()
+#' write_key(key$public, NULL)   # NULL used here to force console output instead of file saving
+#'
+write_key <- function(key, path = tempdir(), password = NULL) {
 
   raw_to_b64 <- function(k) {
     if (requireNamespace("openssl", quietly = TRUE)) {
@@ -34,10 +50,10 @@ write_key <- function(key, path = tempdir(), pass = NULL) {
            "-----END PRIVATE KEY-----\n")
   }
 
-  private_enc <- function(k, pass) {
+  private_enc <- function(k, password) {
     if (requireNamespace("openssl", quietly = TRUE)) {
       enc <- openssl::aes_cbc_encrypt(serialize(k, NULL),
-                                      openssl::sha256(charToRaw(pass)))
+                                      openssl::sha256(charToRaw(password)))
     } else {
       pq_msg(c(x="Private key encryption requires openssl package."))
       return(NULL)
@@ -48,8 +64,8 @@ write_key <- function(key, path = tempdir(), pass = NULL) {
   }
 
   if (inherits(key, "pqcrypto_keypair")) {
-    if (!is.null(pass)) {
-      cert_prv <- private_enc(key$private, as.character(pass))
+    if (!is.null(password)) {
+      cert_prv <- private_enc(key$private, as.character(password))
     } else {
       cert_prv <- private(key$private)
     }
@@ -67,8 +83,8 @@ write_key <- function(key, path = tempdir(), pass = NULL) {
     }
 
   } else if (inherits(key, "pqcrypto_private_key")) {
-    if (!is.null(pass)) {
-      cert_prv <- private_enc(key, pass)
+    if (!is.null(password)) {
+      cert_prv <- private_enc(key, password)
     } else {
       cert_prv <- private(key)
     }
