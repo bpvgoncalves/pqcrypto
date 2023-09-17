@@ -45,7 +45,7 @@ open_key <- function(file_name, password = NULL) {
     if (!is.null(password)) {
       if (requireNamespace("openssl", quietly = TRUE)) {
         raw_data <- unserialize(b64_to_raw(base64text))
-        raw_key <- openssl::aes_cbc_decrypt(raw_data, openssl::sha256(charToRaw(password)))
+        raw_key <- openssl::aes_cbc_decrypt(raw_data, key_from_pass(as.character(password)))
       } else {
         pq_msg(c(x="Reading encrypted private key files requires openssl package."))
         return(NULL)

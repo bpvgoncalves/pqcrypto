@@ -53,7 +53,7 @@ write_key <- function(key, path = tempdir(), password = NULL) {
   private_enc <- function(k, password) {
     if (requireNamespace("openssl", quietly = TRUE)) {
       enc <- openssl::aes_cbc_encrypt(serialize(k, NULL),
-                                      openssl::sha256(charToRaw(password)))
+                                      key_from_pass(as.character(password)))
     } else {
       pq_msg(c(x="Private key encryption requires openssl package."))
       return(NULL)
