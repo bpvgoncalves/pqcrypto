@@ -41,3 +41,7 @@ key_from_pass <- function(x) {
   }
   openssl::sha3(p, 256)
 }
+
+get_timestamp <- function() {
+  strftime(Sys.time(), "%Y-%m-%dT%H:%M:%OS3Z", tz="UTC")
+}
