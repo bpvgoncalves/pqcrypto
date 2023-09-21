@@ -21,17 +21,17 @@ encap_kyber <- function(pub_key) {
               i = "'pub_key' must have `pqcrypto_public_key` class."))
   }
 
-  if (attr(pub_key, "algorithm") != "kyber") {
+  if (!grepl("1.3.6.1.4.1.54392.5.1859.1.1.?", pub_key$algorithm)) {
     pq_stop(c(x = "Wrong public key algorithm.",
               i = "Make sure you are using a 'Kyber' public key."))
   }
 
-  if (attr(pub_key, "param") == 512) {
-    out <- cpp_encap_kyber512(pub_key)
-  } else if (attr(pub_key, "param") == 768) {
-    out <- cpp_encap_kyber768(pub_key)
-  } else if (attr(pub_key, "param") == 1024)  {
-    out <- cpp_encap_kyber1024(pub_key)
+  if (pub_key$algorithm == "1.3.6.1.4.1.54392.5.1859.1.1.1") {
+    out <- cpp_encap_kyber512(pub_key$key)
+  } else if (pub_key$algorithm == "1.3.6.1.4.1.54392.5.1859.1.1.2") {
+    out <- cpp_encap_kyber768(pub_key$key)
+  } else if (pub_key$algorithm == "1.3.6.1.4.1.54392.5.1859.1.1.3")  {
+    out <- cpp_encap_kyber1024(pub_key$key)
   } else {
     pq_stop(c(x = "The suplied public key has invalid parameters."))
   }

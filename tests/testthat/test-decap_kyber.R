@@ -73,7 +73,7 @@ test_that("kyber-x decapsulation fails on wrong parameter", {
   expect_error(decap_kyber(ss$encapsulation, "not_a_key"))
 
   manipulated_key <- key
-  attr(manipulated_key$private, "param") <- 1234
+  manipulated_key$private$algorithm <- "1.3.6.1.4.1.54392.5.1859.0"
   expect_error(decap_kyber(ss$encapsulation, manipulated_key$private))
 
   invalid_key_algo <- keygen_dilithium()
