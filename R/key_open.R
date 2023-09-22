@@ -38,14 +38,24 @@ open_key <- function(file_name, password = NULL) {
   keydata <- readLines(file_name)
   base64text <- paste0(keydata[2:(length(keydata)-1)], collapse = "\n")
 
-  if (keydata[1] %in% c("-----BEGIN PUBLIC KEY-----", "-----BEGIN PRIVATE KEY-----")) {
+  if (keydata[1] == "-----BEGIN PUBLIC KEY-----") {
     raw_key <- b64_to_raw(base64text)
+    class(raw_key) <- "pqcrypto_der_public_key"
+
+  } else if (keydata[1] == "-----BEGIN PRIVATE KEY-----") {
+    raw_key <- b64_to_raw(base64text)
+    class(raw_key) <- "pqcrypto_der_private_key"
 
   } else if (keydata[1] == "-----BEGIN ENCRYPTED PRIVATE KEY-----") {
     if (!is.null(password)) {
       if (requireNamespace("openssl", quietly = TRUE)) {
-        raw_data <- unserialize(b64_to_raw(base64text))
-        raw_key <- openssl::aes_cbc_decrypt(raw_data, key_from_pass(as.character(password)))
+        enc_key <- b64_to_raw(base64text)
+        class(enc_key) <- "pqcrypto_der_encrypted_private_key"
+
+        enc_data <- as.key(enc_key)
+        raw_key <- openssl::aes_cbc_decrypt(enc_data, key_from_pass(as.character(password)))
+        class(raw_key) <- "pqcrypto_der_private_key"
+
       } else {
         pq_msg(c(x="Reading encrypted private key files requires openssl package."))
         return(NULL)
@@ -58,5 +68,5 @@ open_key <- function(file_name, password = NULL) {
               i="Make sure the `file_name` argument points to a file created by `write_key()`."))
   }
 
-  unserialize(raw_key)
+  as.key(raw_key)
 }
