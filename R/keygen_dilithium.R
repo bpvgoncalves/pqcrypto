@@ -19,26 +19,27 @@ keygen_dilithium <- function(strength = 3) {
 
   if (strength == 2) {
     key <- cpp_keygen_dilithium2()
+    algo <- "1.3.6.1.4.1.54392.5.1859.1.2.1"
   } else if (strength == 3) {
     key <- cpp_keygen_dilithium3()
+    algo <- "1.3.6.1.4.1.54392.5.1859.1.2.2"
   } else if (strength == 5) {
     key <- cpp_keygen_dilithium5()
+    algo <- "1.3.6.1.4.1.54392.5.1859.1.2.3"
   } else {
     pq_stop(c(x = "Unknown 'strength' value: {.val {strength}}.",
               i = "Acceptable values are 2, 3 or 5."))
   }
 
-  keypair <- list(algorithm = "dilithium",
-                  strength = strength,
-                  private = structure(key[[1]],
-                                      algorithm = "dilithium",
-                                      strength = strength,
-                                      class = "pqcrypto_private_key"),
-                  public = structure(key[[2]],
-                                     algorithm = "dilithium",
-                                     strength = strength,
-                                     class = "pqcrypto_public_key"))
-  class(keypair) <- c("pqcrypto_keypair")
+  keypair <- list(creation = get_timestamp(),
+                  private = list(version = 0L,
+                                 algorithm = algo,
+                                 key = key[[1]]),
+                  public = list(algorithm = algo,
+                                key = key[[2]]))
+  class(keypair$private) <- "pqcrypto_private_key"
+  class(keypair$public) <- "pqcrypto_public_key"
+  class(keypair) <- "pqcrypto_keypair"
 
   rm(key)
   return(keypair)

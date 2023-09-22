@@ -26,19 +26,19 @@ sign_dilithium <- function(private_key, message) {
               i = "'private_key' must have `pqcrypto_private_key` class."))
   }
 
-  if (attr(private_key, "algorithm") != "dilithium") {
+  if (!grepl("1.3.6.1.4.1.54392.5.1859.1.2.?", private_key$algorithm)) {
     pq_stop(c(x = "Wrong private key algorithm.",
               i = "Make sure you are using a 'Dilithium' private key."))
   }
 
-  if (!(length(private_key) %in% c(2560, 4032, 4896))) {
+  if (!(length(private_key$key) %in% c(2560, 4032, 4896))) {
     pq_stop(c(x = "Wrong private key size.",
               i = "Make sure you are using a 'Dilithium' private key."))
   }
 
   message <- msg_to_raw(message)
 
-  dig_signature <- cpp_sign_dilithium(message, private_key)
+  dig_signature <- cpp_sign_dilithium(message, private_key$key)
   attr(dig_signature, "algorithm") <- "dilithium"
   class(dig_signature) <- "pqcrypto_signature"
   dig_signature

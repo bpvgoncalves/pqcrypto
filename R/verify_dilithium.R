@@ -35,12 +35,12 @@ verify_dilithium <- function(message, signature, public_key) {
               i = "'public_key' must have `public_key` class."))
   }
 
-  if (attr(public_key, "algorithm") != "dilithium") {
+  if (!grepl("1.3.6.1.4.1.54392.5.1859.1.2.?", public_key$algorithm)) {
     pq_stop(c(x = "Wrong public key algorithm.",
               i = "Make sure you are using a 'Dilithium' public key."))
   }
 
-  result <- cpp_verify_dilithium(signature, message, public_key)
+  result <- cpp_verify_dilithium(signature, message, public_key$key)
   result <- !as.logical(result)
 
   if (result) {
