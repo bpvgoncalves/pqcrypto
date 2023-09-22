@@ -26,23 +26,26 @@ sign_sphincs <- function(private_key, message) {
               i = "'private_key' must have `pqcrypto_private_key` class."))
   }
 
-  if (attr(private_key, "algorithm") != "sphincs+") {
+  if (!grepl("1.3.6.1.4.1.54392.5.1859.1.3.?", private_key$algorithm)) {
     pq_stop(c(x = "Wrong private key algorithm.",
               i = "Make sure you are using a 'Sphincs+' private key."))
   }
 
-  if (!(length(private_key) %in% c(64, 96, 128))) {
+  if (!(length(private_key$key) %in% c(64, 96, 128))) {
     pq_stop(c(x = "Wrong private key size.",
               i = "Make sure you are using a 'Sphincs+' private key."))
   }
 
   message <- msg_to_raw(message)
-  fast_signature <- ifelse(attr(private_key, "params")$type == "fast", TRUE, FALSE)
 
-  if (attr(private_key, "params")$hash == "shake") {
-    dig_signature <- cpp_sign_sphincs_shake(message, private_key, fast_signature)
-  } else if (attr(private_key, "params")$hash == "sha2") {
-    dig_signature <- cpp_sign_sphincs_sha2(message, private_key, fast_signature)
+  last_digit <- as.integer(substring(private_key$algorithm,
+                                     regexpr("\\.[^\\.]*$", private_key$algorithm)+1))
+  fast_signature <- ifelse(last_digit %in% c(3, 4, 7, 8, 11, 12), TRUE, FALSE)
+
+  if (last_digit %% 2 == 0) {
+    dig_signature <- cpp_sign_sphincs_shake(message, private_key$key, fast_signature)
+  } else if (last_digit %% 2 == 1) {
+    dig_signature <- cpp_sign_sphincs_sha2(message, private_key$key, fast_signature)
   }
 
   attr(dig_signature, "algorithm") <- "sphincs+"

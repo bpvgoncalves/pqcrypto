@@ -37,15 +37,17 @@ verify_sphincs <- function(message, signature, public_key) {
               i = "'public_key' must have `public_key` class."))
   }
 
-  if (attr(public_key, "algorithm") != "sphincs+") {
+  if (!grepl("1.3.6.1.4.1.54392.5.1859.1.3.?", public_key$algorithm)) {
     pq_stop(c(x = "Wrong public key algorithm.",
               i = "Make sure you are using a 'Sphincs+' public key."))
   }
 
-  if (attr(public_key, "params")$hash == "shake") {
-    result <- cpp_verify_sphincs_shake(signature, message, public_key)
-  } else {
-    result <- cpp_verify_sphincs_sha2(signature, message, public_key)
+  last_digit <- as.integer(substring(public_key$algorithm,
+                                     regexpr("\\.[^\\.]*$", public_key$algorithm)+1))
+  if (last_digit %% 2 == 0) {
+    result <- cpp_verify_sphincs_shake(signature, message, public_key$key)
+  } else if (last_digit %% 2 == 1) {
+    result <- cpp_verify_sphincs_sha2(signature, message, public_key$key)
   }
   result <- !as.logical(result)
 
