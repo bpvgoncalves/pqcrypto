@@ -22,37 +22,26 @@ NULL
 
 #' @export
 print.pqcrypto_keypair <- function(x, ...) {
-  if (requireNamespace("cli", quietly = TRUE)) {
-    cli::cli_h3("pqcrypto - Key-Pair")
-    cli::cli_bullets(paste0(" Algorithm: ", x$algorithm))
-  } else {
-    message(paste0("-- pqcrypto - Key-Pair\n",
-                   "Algorithm: ", x$algorithm, "\n"))
-  }
+  cli::cli_h3("pqcrypto - Key-Pair")
+  cli::cli_bullets(paste0(" Private Key Algorithm: ",
+                          object_mapper(x$private$algorithm),
+                          " (", x$private$algorithm, ")"))
 }
 
 #' @export
 print.pqcrypto_private_key <- function(x, ...) {
-  if (requireNamespace("cli", quietly = TRUE)) {
-    cli::cli_h3("pqcrypto - Private Key")
-    cli::cli_bullets(paste0(" Algorithm: ", attr(x, "algorithm")))
-  } else {
-    message(paste0("-- pqcrypto - Private Key\n",
-                   "Algorithm: ", attr(x, "algorithm"), "\n"))
-  }
+  cli::cli_h3("pqcrypto - Private Key")
+  cli::cli_bullets(paste0(" Algorithm: ",
+                          object_mapper(x$algorithm),
+                          " (", x$algorithm, ")"))
 }
 
 #' @export
 print.pqcrypto_public_key <- function(x, ...) {
-  if (requireNamespace("cli", quietly = TRUE)) {
-    cli::cli_h3("pqcrypto - Public Key")
-    cli::cli_bullets(paste0("Algorithm:  ", attr(x, "algorithm")))
-    cli::cli_bullets(paste0("Key Length: ", length(x)))
-  } else {
-    message(paste0("-- pqcrypto - Public Key\n",
-                   "Algorithm: ", attr(x, "algorithm"), "\n",
-                   "Key Length: ", length(x), "\n"))
-  }
+  cli::cli_h3("pqcrypto - Public Key")
+  cli::cli_bullets(paste0(" Algorithm: ",
+                          object_mapper(x$algorithm),
+                          " (", x$algorithm, ")"))
 }
 
 #' @export

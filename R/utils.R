@@ -45,3 +45,35 @@ key_from_pass <- function(x) {
 get_timestamp <- function() {
   strftime(Sys.time(), "%Y-%m-%dT%H:%M:%OS3Z", tz="UTC")
 }
+
+object_mapper <- function(x) {
+
+  # Own OID obtained from https://freeoid.pythonanywhere.com for pqcrypto package
+  # Root OID:  1.3.6.1.4.1.54392.5.1859
+  #            1.3.6.1.4.1.54392.5.1859.0       - Reserved
+  #            1.3.6.1.4.1.54392.5.1859.1       - Algorithms
+  #            1.3.6.1.4.1.54392.5.1859.1.1     - Algorithms - Kyber Family
+  mapper <- c("1.3.6.1.4.1.54392.5.1859.1.1.1"  = c("Kyber 256"),
+              "1.3.6.1.4.1.54392.5.1859.1.1.2"  = c("Kyber 768"),
+              "1.3.6.1.4.1.54392.5.1859.1.1.3"  = c("Kyber 1024"),
+  #            1.3.6.1.4.1.54392.5.1859.1.2     - Algorithms - Dilithium Family
+              "1.3.6.1.4.1.54392.5.1859.1.2.1"  = c("Dilithium 2"),
+              "1.3.6.1.4.1.54392.5.1859.1.2.2"  = c("Dilithium 3"),
+              "1.3.6.1.4.1.54392.5.1859.1.2.3"  = c("Dilithium 5"),
+  #            1.3.6.1.4.1.54392.5.1859.1.3     - Algorithms - Sphincs+ Family
+              "1.3.6.1.4.1.54392.5.1859.1.3.1"  = c("Sphincs+ SHA2-128-S"),
+              "1.3.6.1.4.1.54392.5.1859.1.3.2"  = c("Sphincs+ SHAKE-128-S"),
+              "1.3.6.1.4.1.54392.5.1859.1.3.3"  = c("Sphincs+ SHA2-128-F"),
+              "1.3.6.1.4.1.54392.5.1859.1.3.4"  = c("Sphincs+ SHAKE-128-F"),
+              "1.3.6.1.4.1.54392.5.1859.1.3.5"  = c("Sphincs+ SHA2-192-S"),
+              "1.3.6.1.4.1.54392.5.1859.1.3.6"  = c("Sphincs+ SHAKE-192-S"),
+              "1.3.6.1.4.1.54392.5.1859.1.3.7"  = c("Sphincs+ SHA2-192-F"),
+              "1.3.6.1.4.1.54392.5.1859.1.3.8"  = c("Sphincs+ SHAKE-192-F"),
+              "1.3.6.1.4.1.54392.5.1859.1.3.9"  = c("Sphincs+ SHA2-256-S"),
+              "1.3.6.1.4.1.54392.5.1859.1.3.10" = c("Sphincs+ SHAKE-256-S"),
+              "1.3.6.1.4.1.54392.5.1859.1.3.11" = c("Sphincs+ SHA2-256-F"),
+              "1.3.6.1.4.1.54392.5.1859.1.3.12" = c("Sphincs+ SHAKE-256-F")
+  #            ....
+  )
+  mapper[x]
+}
