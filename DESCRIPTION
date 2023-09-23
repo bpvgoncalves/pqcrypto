@@ -10,11 +10,11 @@ Description: This package makes available to R users some of the latest
 License: GPL (>= 3)
 Imports: 
     cli,
+    openssl,
     PKI
 Suggests: 
     base64enc,
     knitr,
-    openssl,
     rmarkdown,
     testthat (>= 3.0.0)
 LinkingTo: 

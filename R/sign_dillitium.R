@@ -26,20 +26,28 @@ sign_dilithium <- function(private_key, message) {
               i = "'private_key' must have `pqcrypto_private_key` class."))
   }
 
-  if (!grepl("1.3.6.1.4.1.54392.5.1859.1.2.?", private_key$algorithm)) {
+  if (!grepl("1.3.6.1.4.1.54392.5.1859.1.2.?", attr(private_key, "algorithm"))) {
     pq_stop(c(x = "Wrong private key algorithm.",
               i = "Make sure you are using a 'Dilithium' private key."))
   }
 
-  if (!(length(private_key$key) %in% c(2560, 4032, 4896))) {
+  if (!(length(private_key) %in% c(2560, 4032, 4896))) {
     pq_stop(c(x = "Wrong private key size.",
               i = "Make sure you are using a 'Dilithium' private key."))
   }
 
-  message <- msg_to_raw(message)
-
-  dig_signature <- cpp_sign_dilithium(message, private_key$key)
-  attr(dig_signature, "algorithm") <- "dilithium"
+  ts <- get_timestamp()
+  raw_msg <- msg_to_raw(c(message,                         # Actual Message
+                          attr(private_key, "algorithm"),  # Signature Algorithm
+                          "2.16.840.1.101.3.4.2.10",       # Digest Algorithm
+                          ts))                             # Timestamp
+  message_digest <- openssl::sha3(raw_msg, 512)
+  dig_signature <- cpp_sign_dilithium(message_digest, private_key)
+  attr(dig_signature, "sign_algorithm") <- attr(private_key, "algorithm")
+  attr(dig_signature, "digest_algorithm") <- "2.16.840.1.101.3.4.2.10"
+  attr(dig_signature, "key_id") <- attr(private_key, "key_id")
+  attr(dig_signature, "timestamp") <- ts
   class(dig_signature) <- "pqcrypto_signature"
-  dig_signature
+
+  invisible(dig_signature)
 }

@@ -43,7 +43,13 @@ key_from_pass <- function(x) {
 }
 
 get_timestamp <- function() {
-  strftime(Sys.time(), "%Y-%m-%dT%H:%M:%OS3Z", tz="UTC")
+
+  uts <- as.numeric(Sys.time())
+  ts <- strftime(uts, "%Y-%m-%dT%H:%M:%OS3Z", tz="UTC")
+  attr(ts, "unix_ts") <- uts
+  class(ts) <- "pqcrypto_timestamp"
+
+  invisible(ts)
 }
 
 object_mapper <- function(x) {

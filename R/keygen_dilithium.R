@@ -31,14 +31,17 @@ keygen_dilithium <- function(strength = 3) {
               i = "Acceptable values are 2, 3 or 5."))
   }
 
+  id <- unclass(openssl::sha3(key[[2]], 224))
   keypair <- list(creation = get_timestamp(),
-                  private = list(version = 0L,
-                                 algorithm = algo,
-                                 key = key[[1]]),
-                  public = list(algorithm = algo,
-                                key = key[[2]]))
-  class(keypair$private) <- "pqcrypto_private_key"
-  class(keypair$public) <- "pqcrypto_public_key"
+                  private = structure(key[[1]],
+                                      version = 0L,
+                                      algorithm = algo,
+                                      key_id = id,
+                                      class = "pqcrypto_private_key"),
+                  public = structure(key[[2]],
+                                     algorithm = algo,
+                                     key_id = id,
+                                     class = "pqcrypto_public_key"))
   class(keypair) <- "pqcrypto_keypair"
 
   rm(key)
