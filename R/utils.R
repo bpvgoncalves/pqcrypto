@@ -22,9 +22,6 @@ pq_msg <- function(m) {
 }
 
 key_from_pass <- function(x) {
-  if (!requireNamespace("openssl", quietly = TRUE)) {
-    pq_stop("This function requires the openssl package.")
-  }
   s <- as.raw(c(45, 154, 142, 227, 66, 149, 110, 187, 218, 36, 193, 244, 104, 167, 226, 3,
                 163, 47, 127, 138, 220, 134, 248, 202, 192, 76, 237, 95, 79, 224, 44, 214))
   p <- charToRaw(x)

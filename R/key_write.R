@@ -26,41 +26,24 @@
 #'
 write_key <- function(key, path = tempdir(), password = NULL) {
 
-  raw_to_b64 <- function(k) {
-    if (requireNamespace("openssl", quietly = TRUE)) {
-      base64text <- openssl::base64_encode(k, TRUE)
-    } else if (requireNamespace("base64enc", quietly = TRUE)) {
-      base64text <- paste0(base64enc::base64encode(k, 64, "\n"), "\n")
-    } else {
-      pq_msg(c(x="Unable to write keys to file if openssl or base64enc packages are not present."))
-      return(NULL)
-    }
-    invisible(base64text)
-  }
-
   public <- function(k) {
     paste0("-----BEGIN PUBLIC KEY-----\n",
-           raw_to_b64(as.der(k)),
+           openssl::base64_encode(as.der(k), TRUE),
            "-----END PUBLIC KEY-----\n")
   }
 
   private <- function(k) {
     paste0("-----BEGIN PRIVATE KEY-----\n",
-           raw_to_b64(as.der(k)),
+           openssl::base64_encode(as.der(k), TRUE),
            "-----END PRIVATE KEY-----\n")
   }
 
   private_enc <- function(k, password) {
-    if (requireNamespace("openssl", quietly = TRUE)) {
-      enc <- openssl::aes_cbc_encrypt(as.der(k), key_from_pass(as.character(password)))
-      class(enc) <- "pqcrypto_encrypted_private_key"
+    enc <- openssl::aes_cbc_encrypt(as.der(k), key_from_pass(as.character(password)))
+    class(enc) <- "pqcrypto_encrypted_private_key"
 
-    } else {
-      pq_msg(c(x="Private key encryption requires openssl package."))
-      return(NULL)
-    }
     paste0("-----BEGIN ENCRYPTED PRIVATE KEY-----\n",
-           raw_to_b64(as.der(enc)),
+           openssl::base64_encode(as.der(enc), TRUE),
            "-----END ENCRYPTED PRIVATE KEY-----\n")
   }
 

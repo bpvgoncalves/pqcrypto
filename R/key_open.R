@@ -20,18 +20,6 @@
 #'
 open_key <- function(file_name, password = NULL) {
 
-  b64_to_raw <- function(txt) {
-    if (requireNamespace("openssl", quietly = TRUE)) {
-      key <- openssl::base64_decode(txt)
-    } else if (requireNamespace("base64enc", quietly = TRUE)) {
-      key <- base64enc::base64decode(txt)
-    } else {
-      pq_msg(c(x="Unable to read the keys if openssl or base64enc packages are not present."))
-      return(NULL)
-    }
-    invisible(key)
-  }
-
   if(!file.exists(file_name)) {
     pq_stop(c(x = "Invalid 'file_name'."))
   }
@@ -39,27 +27,22 @@ open_key <- function(file_name, password = NULL) {
   base64text <- paste0(keydata[2:(length(keydata)-1)], collapse = "\n")
 
   if (keydata[1] == "-----BEGIN PUBLIC KEY-----") {
-    raw_key <- b64_to_raw(base64text)
+    raw_key <- openssl::base64_decode(base64text)
     class(raw_key) <- "pqcrypto_der_public_key"
 
   } else if (keydata[1] == "-----BEGIN PRIVATE KEY-----") {
-    raw_key <- b64_to_raw(base64text)
+    raw_key <- openssl::base64_decode(base64text)
     class(raw_key) <- "pqcrypto_der_private_key"
 
   } else if (keydata[1] == "-----BEGIN ENCRYPTED PRIVATE KEY-----") {
     if (!is.null(password)) {
-      if (requireNamespace("openssl", quietly = TRUE)) {
-        enc_key <- b64_to_raw(base64text)
-        class(enc_key) <- "pqcrypto_der_encrypted_private_key"
+      enc_key <- openssl::base64_decode(base64text)
+      class(enc_key) <- "pqcrypto_der_encrypted_private_key"
 
-        enc_data <- as.key(enc_key)
-        raw_key <- openssl::aes_cbc_decrypt(enc_data, key_from_pass(as.character(password)))
-        class(raw_key) <- "pqcrypto_der_private_key"
+      enc_data <- as.key(enc_key)
+      raw_key <- openssl::aes_cbc_decrypt(enc_data, key_from_pass(as.character(password)))
+      class(raw_key) <- "pqcrypto_der_private_key"
 
-      } else {
-        pq_msg(c(x="Reading encrypted private key files requires openssl package."))
-        return(NULL)
-      }
     } else {
       pq_stop(c(x="Reading encrypted private key files requires `password` argument to be provided."))
     }
