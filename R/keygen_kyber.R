@@ -28,18 +28,18 @@ keygen_kyber <- function(param_set = 768) {
               i = "Acceptable values are 512, 768 or 1024."))
   }
 
-  public <- list(algorithm = algo,
-                 key = key[[2]])
-  class(public) <- "pqcrypto_public_key"
 
-  private <- list(version = 0L,
-                  algorithm = c(algo, NULL),
-                  key = key[[1]])
-  class(private) <- "pqcrypto_private_key"
-
+  id <- unclass(openssl::sha3(key[[2]], 224))
   keypair <- list(creation = get_timestamp(),
-                  private = private,
-                  public = public)
+                  private = structure(key[[1]],
+                                      version = 0L,
+                                      algorithm = algo,
+                                      key_id = id,
+                                      class = "pqcrypto_private_key"),
+                  public = structure(key[[2]],
+                                     algorithm = algo,
+                                     key_id = id,
+                                     class = "pqcrypto_public_key"))
   class(keypair) <- "pqcrypto_keypair"
 
   rm(key)
