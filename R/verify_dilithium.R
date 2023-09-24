@@ -38,7 +38,7 @@ verify_dilithium <- function(message, signature, public_key) {
               i = "Make sure you are using a 'Dilithium' public key."))
   }
 
-  if (!identical(attr(signature, "key_id"), attr(public_key, "key_id"))) {
+  if (!identical(attr(signature, "key_id"), unclass(openssl::sha3(public_key, 224)))) {
     expected_key <- PKI::raw2hex(attr(signature, "key_id"), ":")
     pq_stop(c(x = "Key mismatch.",
               "Are you using the public key paired with signer's private key?",

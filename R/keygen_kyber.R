@@ -38,7 +38,6 @@ keygen_kyber <- function(param_set = 768) {
                                       class = "pqcrypto_private_key"),
                   public = structure(key[[2]],
                                      algorithm = algo,
-                                     key_id = id,
                                      class = "pqcrypto_public_key"))
   class(keypair) <- "pqcrypto_keypair"
 

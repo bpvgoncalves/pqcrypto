@@ -104,7 +104,6 @@ keygen_sphincs <- function(hash_type = "shake", category = 192, type = "fast") {
                                       class = "pqcrypto_private_key"),
                   public = structure(key[[2]],
                                      algorithm = algo,
-                                     key_id = id,
                                      class = "pqcrypto_public_key"))
   class(keypair) <- "pqcrypto_keypair"
 
