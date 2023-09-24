@@ -37,7 +37,7 @@ test_that("kyber-x encapsulation fails on wrong parameter", {
   expect_error(encap_kyber(key$private))   # must be public!
 
   manipulated_key <- key
-  manipulated_key$public$algorithm <- "1.3.6.1.4.1.54392.5.1859.0"
+  attr(manipulated_key$public, "algorithm") <- "1.3.6.1.4.1.54392.5.1859.0"
   expect_error(encap_kyber(manipulated_key$public))
 
   invalid_key_algo <- keygen_dilithium()
