@@ -26,29 +26,38 @@ sign_sphincs <- function(private_key, message) {
               i = "'private_key' must have `pqcrypto_private_key` class."))
   }
 
-  if (!grepl("1.3.6.1.4.1.54392.5.1859.1.3.?", private_key$algorithm)) {
+  if (!grepl("1.3.6.1.4.1.54392.5.1859.1.3.?", attr(private_key, "algorithm"))) {
     pq_stop(c(x = "Wrong private key algorithm.",
               i = "Make sure you are using a 'Sphincs+' private key."))
   }
 
-  if (!(length(private_key$key) %in% c(64, 96, 128))) {
+  if (!(length(private_key) %in% c(64, 96, 128))) {
     pq_stop(c(x = "Wrong private key size.",
               i = "Make sure you are using a 'Sphincs+' private key."))
   }
 
-  message <- msg_to_raw(message)
+  ts <- get_timestamp()
+  raw_msg <- msg_to_raw(c(message,                         # Actual Message
+                          attr(private_key, "algorithm"),  # Signature Algorithm
+                          "2.16.840.1.101.3.4.2.10",       # Digest Algorithm
+                          ts))                             # Timestamp
+  message_digest <- openssl::sha3(raw_msg, 512)
 
-  last_digit <- as.integer(substring(private_key$algorithm,
-                                     regexpr("\\.[^\\.]*$", private_key$algorithm)+1))
+  last_digit <- as.integer(substring(attr(private_key, "algorithm"),
+                                     regexpr("\\.[^\\.]*$", attr(private_key, "algorithm"))+1))
   fast_signature <- ifelse(last_digit %in% c(3, 4, 7, 8, 11, 12), TRUE, FALSE)
 
   if (last_digit %% 2 == 0) {
-    dig_signature <- cpp_sign_sphincs_shake(message, private_key$key, fast_signature)
+    dig_signature <- cpp_sign_sphincs_shake(message_digest, private_key, fast_signature)
   } else if (last_digit %% 2 == 1) {
-    dig_signature <- cpp_sign_sphincs_sha2(message, private_key$key, fast_signature)
+    dig_signature <- cpp_sign_sphincs_sha2(message_digest, private_key, fast_signature)
   }
 
-  attr(dig_signature, "algorithm") <- "sphincs+"
+  attr(dig_signature, "sign_algorithm") <- attr(private_key, "algorithm")
+  attr(dig_signature, "digest_algorithm") <- "2.16.840.1.101.3.4.2.10"
+  attr(dig_signature, "key_id") <- attr(private_key, "key_id")
+  attr(dig_signature, "timestamp") <- ts
   class(dig_signature) <- "pqcrypto_signature"
-  dig_signature
+
+  invisible(dig_signature)
 }
