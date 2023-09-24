@@ -312,6 +312,6 @@ test_that("Sphincs+ digital signature fails on wrong parameters", {
 
   small_key <- key$private[1:25]
   class(small_key) <- "pqcrypto_private_key"
-  attr(small_key, "algorithm") <- "sphincs+"
+  attr(small_key, "algorithm") <- "1.3.6.1.4.1.54392.5.1859.1.3.11"
   expect_error(sign_sphincs(small_key, "text_message"))   # wrong key size
 })

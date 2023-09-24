@@ -72,12 +72,18 @@ test_that("kyber-x decapsulation fails on wrong parameter", {
   # Bad key
   expect_error(decap_kyber(ss$encapsulation, "not_a_key"))
 
+  # wrong family
   manipulated_key <- key
   attr(manipulated_key$private, "algorithm") <- "1.3.6.1.4.1.54392.5.1859.0"
   expect_error(decap_kyber(ss$encapsulation, manipulated_key$private))
 
   invalid_key_algo <- keygen_dilithium()
   expect_error(decap_kyber(ss$encapsulation, invalid_key_algo$private))  # invalid algorithm
+
+  # undefined algorithm, on the right 'family'
+  manipulated_key <- key
+  attr(manipulated_key$private, "algorithm") <- "1.3.6.1.4.1.54392.5.1859.1.1.99"
+  expect_error(decap_kyber(ss$encapsulation, manipulated_key$private))
 
   # Bad encapsulation
   bad_encapsulation <- as.integer(runif(768, 0, 256))   # wrong type, right size

@@ -72,4 +72,10 @@ test_that("Digital signatures verification fails with bad parameters", {
 
   key <- keygen_kyber()
   expect_error(verify_dilithium(important_message, signature, key$public)) # bad key algorithm
+
+  key <- keygen_sphincs()
+  expect_error(verify_dilithium(important_message, signature, key$public)) # bad key algorithm
+
+  key <- keygen_dilithium()
+  expect_error(verify_dilithium(important_message, signature, key$public)) # mismatching key
 })

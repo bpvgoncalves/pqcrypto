@@ -126,3 +126,15 @@ test_that("Write Sphincs+ key-pair", {
   expect_error(write_key("not_a_key", path))
   expect_error(write_key(key, "not_a_path"))
 })
+
+test_that("Display sample key", {
+
+  key <- readRDS(test_path("testdata", "key"))
+
+  expect_snapshot({
+    write_key(key, NULL)
+    write_key(key$private, NULL)
+    write_key(key$public, NULL)
+  })
+
+})
