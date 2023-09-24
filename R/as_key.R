@@ -23,11 +23,13 @@ as.key.pqcrypto_der_private_key <- function(d) {
   version <- as.integer(struct[[1]][[1]])
   key_algoritm <- as.character(PKI::as.oid(struct[[2]][[1]]))
   key <- c(struct[[3]])
+  id <- c(struct[[4]][[1]][[3]])
 
-  pk <- list(version = version,
-             algorithm = key_algoritm,
-             key = key)
-  class(pk) <- "pqcrypto_private_key"
+  pk <- structure(key,
+                  version = version,
+                  algorithm = key_algoritm,
+                  key_id = id,
+                  class = "pqcrypto_private_key")
 
   invisible(pk)
 }
@@ -39,9 +41,9 @@ as.key.pqcrypto_der_public_key <- function(d) {
   key_algoritm <- as.character(PKI::as.oid(struct[[1]][[1]]))
   key <- c(struct[[2]])
 
-  pk <- list(algorithm = key_algoritm,
-             key = key)
-  class(pk) <- "pqcrypto_public_key"
+  pk <- structure(key,
+                  algorithm = key_algoritm,
+                  class = "pqcrypto_public_key")
 
   invisible(pk)
 }
