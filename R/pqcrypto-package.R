@@ -24,42 +24,35 @@ NULL
 print.pqcrypto_keypair <- function(x, ...) {
   cli::cli_h3("pqcrypto - Key-Pair")
   cli::cli_bullets(paste0(" Private Key Algorithm: ",
-                          object_mapper(x$private$algorithm),
-                          " (", x$private$algorithm, ")"))
+                          object_mapper(attr(x$private, "algorithm")),
+                          " (", attr(x$private, "algorithm"), ")"))
 }
 
 #' @export
 print.pqcrypto_private_key <- function(x, ...) {
   cli::cli_h3("pqcrypto - Private Key")
   cli::cli_bullets(paste0(" Algorithm: ",
-                          object_mapper(x$algorithm),
-                          " (", x$algorithm, ")"))
+                          object_mapper(attr(x, "algorithm")),
+                          " (", attr(x, "algorithm"), ")"))
 }
 
 #' @export
 print.pqcrypto_public_key <- function(x, ...) {
   cli::cli_h3("pqcrypto - Public Key")
   cli::cli_bullets(paste0(" Algorithm: ",
-                          object_mapper(x$algorithm),
-                          " (", x$algorithm, ")"))
+                          object_mapper(attr(x, "algorithm")),
+                          " (", attr(x, "algorithm"), ")"))
 }
 
 #' @export
 print.pqcrypto_shared_secret <- function(x, ...) {
-  if (requireNamespace("cli", quietly = TRUE)) {
-    cli::cli_h3("pqcrypto - Shared Secret")
-  } else {
-    message(paste0("-- pqcrypto - Shared Secret\n"))
-  }
+  cli::cli_h3("pqcrypto - Shared Secret")
 }
 
 #' @export
 print.pqcrypto_signature <- function(x, ...) {
-  if (requireNamespace("cli", quietly = TRUE)) {
-    cli::cli_h3("pqcrypto - Digital Signature")
-    cli::cli_bullets(paste0("Algorithm:  ", attr(x, "algorithm")))
-  } else {
-    message(paste0("\n-- pqcrypto - Digital Signature\n",
-                   "Algorithm: ", attr(x, "algorithm")))
-  }
+  cli::cli_h3("pqcrypto - Digital Signature")
+  cli::cli_bullets(paste0("Signature Algorithm:  ",
+                          object_mapper(attr(x, "sign_algorithm")),
+                          " (", attr(x, "sign_algorithm"), ")"))
 }

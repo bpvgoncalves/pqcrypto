@@ -49,7 +49,7 @@
     Message <cliMessage>
       
       -- pqcrypto - Digital Signature 
-      Algorithm: dilithium
+      Signature Algorithm: Dilithium 3 (1.3.6.1.4.1.54392.5.1859.1.2.2)
 
 ---
 
@@ -76,5 +76,5 @@
     Message <cliMessage>
       
       -- pqcrypto - Digital Signature 
-      Algorithm: sphincs+
+      Signature Algorithm: Sphincs+ SHAKE-192-F (1.3.6.1.4.1.54392.5.1859.1.3.8)
 

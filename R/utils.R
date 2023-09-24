@@ -13,19 +13,11 @@ msg_to_raw <- function(msg) {
 #'
 #' @noRd
 pq_stop <- function(m) {
-  if (requireNamespace("cli", quietly = TRUE)) {
-    cli::cli_abort(m)
-  } else {
-    stop(paste(m, collapse = "\n"))
-  }
+  cli::cli_abort(m)
 }
 
 pq_msg <- function(m) {
-  if (requireNamespace("cli", quietly = TRUE)) {
-    cli::cli_bullets(m)
-  } else {
-    message(paste(m, collapse = "\n"))
-  }
+  cli::cli_bullets(m)
   invisible(m)
 }
 
