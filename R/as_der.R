@@ -4,15 +4,43 @@ as.der <- function(object, ...) {
 }
 
 as.der.NULL <- function(n) {
+  # The contents octets shall not contain any octets.
+  # NOTE – The length octet is zero.
+  # -- ITU-T-RECOMENDATION-X.690-202102 (8.8.2)
+
   as.raw(c(5L, 0L))
 }
 
 as.der.logical <- function(l) {
+  # If the encoding represents the boolean value TRUE, its single
+  # contents octet shall have all eight bits set to one.
+  # -- ITU-T-RECOMENDATION-X.690-202102 (11.1)
+
   if (l) {
     as.raw(c(1L, 1L, 255L))
   } else {
     as.raw(c(1L, 1L, 0L))
   }
+}
+
+as.der.pqcrypto_timestamp <- function (ts) {
+  # CAs conforming to this profile MUST always encode certificate
+  # validity dates through the year 2049 as  ; certificate validity
+  # dates in 2050 or later MUST be encoded as GeneralizedTime.
+  # -- RFC 5280
+
+  dt <- as.POSIXlt(attr(ts, "unix_ts"), tz="UTC")
+  if (dt$year <= 49 || dt$year >= 150) {
+    # GeneralizedTime
+    strdate <- strftime(dt, "%Y%m%d%H%M%SZ", tz="UTC")
+    tag <- 24L
+  } else {
+    # UTCTime
+    strdate <- strftime(dt, "%y%m%d%H%M%SZ", tz="UTC")
+    tag <- 23L
+  }
+
+  PKI::ASN1.encode(PKI::ASN1.item(charToRaw(strdate), tag))
 }
 
 as.der.pqcrypto_public_key <- function(k) {
