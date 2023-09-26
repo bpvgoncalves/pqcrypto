@@ -87,3 +87,20 @@ as.der.pqcrypto_encrypted_private_key <- function(enc_data) {
                                                                   encrypted_data),
                                                                 48L))
 }
+
+as.der.pqcrypto_cms_signed_attrs <- function(sa) {
+
+  attr1_type <- PKI::ASN1.encode(PKI::as.oid(sa[[1]][[1]]))
+  attr1_value <- PKI::ASN1.encode(PKI::as.oid(sa[[1]][[2]]))
+  attr1 <- PKI::ASN1.encode(PKI::ASN1.item(c(attr1_type, attr1_value), 48L))
+
+  attr2_type <- PKI::ASN1.encode(PKI::as.oid(sa[[2]][[1]]))
+  attr2_value <- PKI::ASN1.encode(PKI::ASN1.item(sa[[2]][[2]], 4L))
+  attr2 <- PKI::ASN1.encode(PKI::ASN1.item(c(attr2_type, attr2_value), 48L))
+
+  attr3_type <- PKI::ASN1.encode(PKI::as.oid(sa[[3]][[1]]))
+  attr3_value <- as.der(sa[[3]][[2]])
+  attr3 <- PKI::ASN1.encode(PKI::ASN1.item(c(attr3_type, attr3_value), 48L))
+
+  PKI::ASN1.encode(PKI::ASN1.item(c(attr1, attr2, attr3), 49L))
+}

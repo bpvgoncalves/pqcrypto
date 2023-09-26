@@ -36,18 +36,19 @@ sign_dilithium <- function(private_key, message) {
               i = "Make sure you are using a 'Dilithium' private key."))
   }
 
-  ts <- get_timestamp()
-  raw_msg <- msg_to_raw(c(message,                         # Actual Message
-                          attr(private_key, "algorithm"),  # Signature Algorithm
-                          "2.16.840.1.101.3.4.2.10",       # Digest Algorithm
-                          ts))                             # Timestamp
-  message_digest <- openssl::sha3(raw_msg, 512)
-  dig_signature <- cpp_sign_dilithium(message_digest, private_key)
-  attr(dig_signature, "sign_algorithm") <- attr(private_key, "algorithm")
-  attr(dig_signature, "digest_algorithm") <- "2.16.840.1.101.3.4.2.10"
-  attr(dig_signature, "key_id") <- attr(private_key, "key_id")
-  attr(dig_signature, "timestamp") <- ts
-  class(dig_signature) <- "pqcrypto_signature"
+  content <- as.cms_data(message)
+  signed_attrs <- list(list("1.2.840.113549.1.9.3", "1.2.840.113549.1.7.1"),
+                       list("1.2.840.113549.1.9.4", openssl::sha3(c(content), 512)),
+                       list("1.2.840.113549.1.9.5", get_timestamp()))
+  class(signed_attrs) <- "pqcrypto_cms_signed_attrs"
 
-  invisible(dig_signature)
+  der_attrs <- as.der(signed_attrs)
+  attrs_digest <- openssl::sha3(der_attrs, 512)
+
+  dig_signature <- cpp_sign_dilithium(attrs_digest, private_key)
+
+  s_info <- as.cms_signature_info(private_key, signed_attrs, dig_signature)
+  signed_data <- as.cms_signed_data(content, s_info)
+
+  invisible(signed_data)
 }

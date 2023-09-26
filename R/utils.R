@@ -72,3 +72,40 @@ object_mapper <- function(x) {
   )
   mapper[x]
 }
+
+as.cms_data <- function(data) {
+  if (is.character(data)) {
+    raw_data <- charToRaw(data)
+  } else {
+    raw_data <- serialize(data, NULL)
+  }
+  attr(raw_data, "content_type") <- "1.2.840.113549.1.7.1"
+  class(raw_data) <- "pqcrypto_cms_id_data"
+
+  invisible(raw_data)
+}
+
+as.cms_signature_info <- function(private_key, signed_attrs, dig_signature) {
+
+  s_info <- list(version = 3L,
+                 sid = attr(private_key, "key_id"),
+                 digest_algorithm = "2.16.840.1.101.3.4.2.10",
+                 signed_attrs = signed_attrs,
+                 signature_algorithm = attr(private_key, "algorithm"),
+                 signature = dig_signature)
+  class(s_info) <- "pqcrypto_cms_signature_info"
+
+  invisible(s_info)
+}
+
+as.cms_signed_data <- function(content, s_info) {
+
+  signed_data <- list(version = 3L,
+                      digest_algorithms = s_info$digest_algorithm,
+                      encap_content_info = content,
+                      signer_infos = s_info)
+  attr(signed_data, "content_type") <- "1.2.840.113549.1.7.2"
+  class(signed_data) <- "pqcrypto_cms_id_signed_data"
+
+  invisible(signed_data)
+}

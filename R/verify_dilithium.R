@@ -23,9 +23,9 @@
 #'
 verify_dilithium <- function(message, signature, public_key) {
 
-  if (!inherits(signature, "pqcrypto_signature")) {
+  if (!inherits(signature, "pqcrypto_cms_id_signed_data")) {
     pq_stop(c(x = "'signature' parameter does not have the expected class.",
-              i = "'signature' must have `pqcrypto_signature` class."))
+              i = "'signature' must have `pqcrypto_cms_id_signed_data` class."))
   }
 
   if (!inherits(public_key, "pqcrypto_public_key")) {
@@ -38,24 +38,24 @@ verify_dilithium <- function(message, signature, public_key) {
               i = "Make sure you are using a 'Dilithium' public key."))
   }
 
-  if (!identical(attr(signature, "key_id"), unclass(openssl::sha3(public_key, 224)))) {
+  if (!identical(signature$signer_infos$sid, unclass(openssl::sha3(public_key, 224)))) {
     expected_key <- PKI::raw2hex(attr(signature, "key_id"), ":")
     pq_stop(c(x = "Key mismatch.",
               "Are you using the public key paired with signer's private key?",
               i = "Expected key_id: {.val {expected_key}}"))
   }
 
-  raw_msg <- msg_to_raw(c(message,                             # Message
-                          attr(signature, "sign_algorithm"),   # Signature Algorithm
-                          attr(signature, "digest_algorithm"), # Digest Algorithm
-                          attr(signature, "timestamp")))       # Timestamp
-  message_digest <- openssl::sha3(raw_msg, 512)
-  result <- cpp_verify_dilithium(signature, message_digest, public_key)
+
+  attrs_digest <- openssl::sha3(as.der(signature$signer_infos$signed_attrs), 512)
+  result <- cpp_verify_dilithium(signature$signer_infos$signature,
+                                 attrs_digest,
+                                 public_key)
   result <- !as.logical(result)
 
   if (result) {
+    ts <- signature$signer_infos$signed_attrs[[3]][[2]]
     pq_msg(c(v = "The signature has been verified successfully.",
-             i = "Signature produced on: {.val {attr(signature, \"timestamp\")}}"))
+             i = "Signature produced on: {.val {ts}}"))
   } else {
     pq_msg(c(x = "The signature could not be verified successfully.",
              i = "This may indicate that the message and/or the signature were tampered with."))

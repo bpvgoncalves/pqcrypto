@@ -4,6 +4,7 @@
  - Specialized `print()` for pqcrypto_* objects
  - Add new signing algorithm: Sphincs+
  - Add `write_key()` and `open_key()` to key saving and retrieval
+ - Add signed metadata to digital signatures
 
 ##### Internals
  - Some changes to classes, new tests, lib compilation, ...
