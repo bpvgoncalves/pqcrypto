@@ -47,17 +47,23 @@ sign_sphincs <- function(private_key, message) {
                                      regexpr("\\.[^\\.]*$", attr(private_key, "algorithm"))+1))
   fast_signature <- ifelse(last_digit %in% c(3, 4, 7, 8, 11, 12), TRUE, FALSE)
 
+  content <- as.cms_data(message)
+  signed_attrs <- list(list("1.2.840.113549.1.9.3", "1.2.840.113549.1.7.1"),
+                       list("1.2.840.113549.1.9.4", openssl::sha3(c(content), 512)),
+                       list("1.2.840.113549.1.9.5", get_timestamp()))
+  class(signed_attrs) <- "pqcrypto_cms_signed_attrs"
+
+  der_attrs <- as.der(signed_attrs)
+  attrs_digest <- openssl::sha3(der_attrs, 512)
+
   if (last_digit %% 2 == 0) {
-    dig_signature <- cpp_sign_sphincs_shake(message_digest, private_key, fast_signature)
+    dig_signature <- cpp_sign_sphincs_shake(attrs_digest, private_key, fast_signature)
   } else if (last_digit %% 2 == 1) {
-    dig_signature <- cpp_sign_sphincs_sha2(message_digest, private_key, fast_signature)
+    dig_signature <- cpp_sign_sphincs_sha2(attrs_digest, private_key, fast_signature)
   }
 
-  attr(dig_signature, "sign_algorithm") <- attr(private_key, "algorithm")
-  attr(dig_signature, "digest_algorithm") <- "2.16.840.1.101.3.4.2.10"
-  attr(dig_signature, "key_id") <- attr(private_key, "key_id")
-  attr(dig_signature, "timestamp") <- ts
-  class(dig_signature) <- "pqcrypto_signature"
+  s_info <- as.cms_signature_info(private_key, signed_attrs, dig_signature)
+  signed_data <- as.cms_signed_data(content, s_info)
 
-  invisible(dig_signature)
+  invisible(signed_data)
 }

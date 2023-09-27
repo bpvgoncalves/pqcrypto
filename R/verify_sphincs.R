@@ -21,13 +21,13 @@
 #' signature <- sign_sphincs(key$private, important_message)
 #' verify_sphincs(important_message, signature, key$public)   # Should be OK
 #'
-#' # Try to verify an tampered message
+#' # Try to verify a tampered message
 #' verify_sphincs("not_the_message", signature, key$public)   # Should Fail
 verify_sphincs <- function(message, signature, public_key) {
 
-  if (!inherits(signature, "pqcrypto_signature")) {
+  if (!inherits(signature, "pqcrypto_cms_id_signed_data")) {
     pq_stop(c(x = "'signature' parameter does not have the expected class.",
-              i = "'signature' must have `pqcrypto_signature` class."))
+              i = "'signature' must have `pqcrypto_cms_id_signed_data` class."))
   }
 
   if (!inherits(public_key, "pqcrypto_public_key")) {
@@ -40,31 +40,42 @@ verify_sphincs <- function(message, signature, public_key) {
               i = "Make sure you are using a 'Sphincs+' public key."))
   }
 
-  if (!identical(attr(signature, "key_id"), unclass(openssl::sha3(public_key, 224)))) {
-    expected_key <- PKI::raw2hex(attr(signature, "key_id"), ":")
+  if (!identical(signature$signer_infos$sid, unclass(openssl::sha3(public_key, 224)))) {
+    expected_key <- PKI::raw2hex(signature$signer_infos$sid, ":")
     pq_stop(c(x = "Key mismatch.",
               "Are you using the public key paired with signer's private key?",
               i = "Expected key_id: {.val {expected_key}}"))
   }
 
-  raw_msg <- msg_to_raw(c(message,                             # Message
-                          attr(signature, "sign_algorithm"),   # Signature Algorithm
-                          attr(signature, "digest_algorithm"), # Digest Algorithm
-                          attr(signature, "timestamp")))       # Timestamp
-  message_digest <- openssl::sha3(raw_msg, 512)
+  content <- as.cms_data(message)
+  if (!identical(content, signature$encap_content_info)) {
+    pq_msg(c(x = "Signature integrity check failed.",
+             i = "Encapsulated content not matching message."))
+    return(FALSE)
+  }
 
+  content_digest <- openssl::sha3(c(signature$encap_content_info), 512)
+  signed_content_digest <- signature$signer_infos$signed_attrs[[2]][[2]]
+  if (!identical(c(content_digest), c(signed_content_digest))) {
+    pq_msg(c(x = "Signature integrity check failed.",
+             i = "Encapsulated content digest not matching signed content digest."))
+    return(FALSE)
+  }
+
+  attrs_digest <- openssl::sha3(as.der(signature$signer_infos$signed_attrs), 512)
   last_digit <- as.integer(substring(attr(public_key, "algorithm"),
                                      regexpr("\\.[^\\.]*$", attr(public_key, "algorithm"))+1))
   if (last_digit %% 2 == 0) {
-    result <- cpp_verify_sphincs_shake(signature, message_digest, public_key)
+    result <- cpp_verify_sphincs_shake(signature$signer_infos$signature, attrs_digest, public_key)
   } else if (last_digit %% 2 == 1) {
-    result <- cpp_verify_sphincs_sha2(signature, message_digest, public_key)
+    result <- cpp_verify_sphincs_sha2(signature$signer_infos$signature, attrs_digest, public_key)
   }
   result <- !as.logical(result)
 
   if (result) {
+    ts <- as.character(signature$signer_infos$signed_attrs[[3]][[2]])
     pq_msg(c(v = "The signature has been verified successfully.",
-             i = "Signature produced on: {.val {attr(signature, \"timestamp\")}}"))
+             i = paste("Signature produced on:", ts)))
   } else {
     pq_msg(c(x = "The signature could not be verified successfully.",
              i = "This may indicate that the message was tampered with."))

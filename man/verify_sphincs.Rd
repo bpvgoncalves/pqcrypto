@@ -29,6 +29,6 @@ important_message <- "Hello world!!"
 signature <- sign_sphincs(key$private, important_message)
 verify_sphincs(important_message, signature, key$public)   # Should be OK
 
-# Try to verify an tampered message
+# Try to verify a tampered message
 verify_sphincs("not_the_message", signature, key$public)   # Should Fail
 }
