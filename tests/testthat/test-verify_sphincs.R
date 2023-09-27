@@ -9,10 +9,10 @@ test_that("Sphincs+ signature validation (shake, 128, small)", {
   expect_false(verify_sphincs("tampered_message", signature, key$public))
 
   forged_signature <- signature
-  if (forged_signature[1] != as.raw(0L)) {
-    forged_signature[1] <- as.raw(0L)
+  if (forged_signature$signer_infos$signature[1] != as.raw(0L)) {
+    forged_signature$signer_infos$signature[1] <- as.raw(0L)
   } else {
-    forged_signature[1] <- as.raw(255L)
+    forged_signature$signer_infos$signature[1] <- as.raw(255L)
   }
   expect_false(verify_sphincs(important_message, forged_signature, key$public))
 })
@@ -28,10 +28,10 @@ test_that("Sphincs+ signature validation (shake, 128, fast)", {
   expect_false(verify_sphincs("tampered_message", signature, key$public))
 
   forged_signature <- signature
-  if (forged_signature[1] != as.raw(0L)) {
-    forged_signature[1] <- as.raw(0L)
+  if (forged_signature$signer_infos$signature[1] != as.raw(0L)) {
+    forged_signature$signer_infos$signature[1] <- as.raw(0L)
   } else {
-    forged_signature[1] <- as.raw(255L)
+    forged_signature$signer_infos$signature[1] <- as.raw(255L)
   }
   expect_false(verify_sphincs(important_message, forged_signature, key$public))
 })
@@ -47,10 +47,10 @@ test_that("Sphincs+ signature validation (shake, 192, small)", {
   expect_false(verify_sphincs("tampered_message", signature, key$public))
 
   forged_signature <- signature
-  if (forged_signature[1] != as.raw(0L)) {
-    forged_signature[1] <- as.raw(0L)
+  if (forged_signature$signer_infos$signature[1] != as.raw(0L)) {
+    forged_signature$signer_infos$signature[1] <- as.raw(0L)
   } else {
-    forged_signature[1] <- as.raw(255L)
+    forged_signature$signer_infos$signature[1] <- as.raw(255L)
   }
   expect_false(verify_sphincs(important_message, forged_signature, key$public))
 })
@@ -66,10 +66,10 @@ test_that("Sphincs+ signature validation (shake, 192, fast)", {
   expect_false(verify_sphincs("tampered_message", signature, key$public))
 
   forged_signature <- signature
-  if (forged_signature[1] != as.raw(0L)) {
-    forged_signature[1] <- as.raw(0L)
+  if (forged_signature$signer_infos$signature[1] != as.raw(0L)) {
+    forged_signature$signer_infos$signature[1] <- as.raw(0L)
   } else {
-    forged_signature[1] <- as.raw(255L)
+    forged_signature$signer_infos$signature[1] <- as.raw(255L)
   }
   expect_false(verify_sphincs(important_message, forged_signature, key$public))
 })
@@ -85,10 +85,10 @@ test_that("Sphincs+ signature validation (shake, 256, small)", {
   expect_false(verify_sphincs("tampered_message", signature, key$public))
 
   forged_signature <- signature
-  if (forged_signature[1] != as.raw(0L)) {
-    forged_signature[1] <- as.raw(0L)
+  if (forged_signature$signer_infos$signature[1] != as.raw(0L)) {
+    forged_signature$signer_infos$signature[1] <- as.raw(0L)
   } else {
-    forged_signature[1] <- as.raw(255L)
+    forged_signature$signer_infos$signature[1] <- as.raw(255L)
   }
   expect_false(verify_sphincs(important_message, forged_signature, key$public))
 })
@@ -104,10 +104,10 @@ test_that("Sphincs+ signature validation (shake, 256, fast)", {
   expect_false(verify_sphincs("tampered_message", signature, key$public))
 
   forged_signature <- signature
-  if (forged_signature[1] != as.raw(0L)) {
-    forged_signature[1] <- as.raw(0L)
+  if (forged_signature$signer_infos$signature[1] != as.raw(0L)) {
+    forged_signature$signer_infos$signature[1] <- as.raw(0L)
   } else {
-    forged_signature[1] <- as.raw(255L)
+    forged_signature$signer_infos$signature[1] <- as.raw(255L)
   }
   expect_false(verify_sphincs(important_message, forged_signature, key$public))
 })
@@ -123,10 +123,10 @@ test_that("Sphincs+ signature validation (sha2, 128, small)", {
   expect_false(verify_sphincs("tampered_message", signature, key$public))
 
   forged_signature <- signature
-  if (forged_signature[1] != as.raw(0L)) {
-    forged_signature[1] <- as.raw(0L)
+  if (forged_signature$signer_infos$signature[1] != as.raw(0L)) {
+    forged_signature$signer_infos$signature[1] <- as.raw(0L)
   } else {
-    forged_signature[1] <- as.raw(255L)
+    forged_signature$signer_infos$signature[1] <- as.raw(255L)
   }
   expect_false(verify_sphincs(important_message, forged_signature, key$public))
 })
@@ -142,10 +142,10 @@ test_that("Sphincs+ signature validation (sha2, 128, fast)", {
   expect_false(verify_sphincs("tampered_message", signature, key$public))
 
   forged_signature <- signature
-  if (forged_signature[1] != as.raw(0L)) {
-    forged_signature[1] <- as.raw(0L)
+  if (forged_signature$signer_infos$signature[1] != as.raw(0L)) {
+    forged_signature$signer_infos$signature[1] <- as.raw(0L)
   } else {
-    forged_signature[1] <- as.raw(255L)
+    forged_signature$signer_infos$signature[1] <- as.raw(255L)
   }
   expect_false(verify_sphincs(important_message, forged_signature, key$public))
 })
@@ -161,10 +161,10 @@ test_that("Sphincs+ signature validation (sha2, 192, small)", {
   expect_false(verify_sphincs("tampered_message", signature, key$public))
 
   forged_signature <- signature
-  if (forged_signature[1] != as.raw(0L)) {
-    forged_signature[1] <- as.raw(0L)
+  if (forged_signature$signer_infos$signature[1] != as.raw(0L)) {
+    forged_signature$signer_infos$signature[1] <- as.raw(0L)
   } else {
-    forged_signature[1] <- as.raw(255L)
+    forged_signature$signer_infos$signature[1] <- as.raw(255L)
   }
   expect_false(verify_sphincs(important_message, forged_signature, key$public))
 })
@@ -180,10 +180,10 @@ test_that("Sphincs+ signature validation (sha2, 192, fast)", {
   expect_false(verify_sphincs("tampered_message", signature, key$public))
 
   forged_signature <- signature
-  if (forged_signature[1] != as.raw(0L)) {
-    forged_signature[1] <- as.raw(0L)
+  if (forged_signature$signer_infos$signature[1] != as.raw(0L)) {
+    forged_signature$signer_infos$signature[1] <- as.raw(0L)
   } else {
-    forged_signature[1] <- as.raw(255L)
+    forged_signature$signer_infos$signature[1] <- as.raw(255L)
   }
   expect_false(verify_sphincs(important_message, forged_signature, key$public))
 })
@@ -199,10 +199,10 @@ test_that("Sphincs+ signature validation (sha2, 256, small)", {
   expect_false(verify_sphincs("tampered_message", signature, key$public))
 
   forged_signature <- signature
-  if (forged_signature[1] != as.raw(0L)) {
-    forged_signature[1] <- as.raw(0L)
+  if (forged_signature$signer_infos$signature[1] != as.raw(0L)) {
+    forged_signature$signer_infos$signature[1] <- as.raw(0L)
   } else {
-    forged_signature[1] <- as.raw(255L)
+    forged_signature$signer_infos$signature[1] <- as.raw(255L)
   }
   expect_false(verify_sphincs(important_message, forged_signature, key$public))
 })
@@ -218,10 +218,10 @@ test_that("Sphincs+ signature validation (sha2, 256, fast)", {
   expect_false(verify_sphincs("tampered_message", signature, key$public))
 
   forged_signature <- signature
-  if (forged_signature[1] != as.raw(0L)) {
-    forged_signature[1] <- as.raw(0L)
+  if (forged_signature$signer_infos$signature[1] != as.raw(0L)) {
+    forged_signature$signer_infos$signature[1] <- as.raw(0L)
   } else {
-    forged_signature[1] <- as.raw(255L)
+    forged_signature$signer_infos$signature[1] <- as.raw(255L)
   }
   expect_false(verify_sphincs(important_message, forged_signature, key$public))
 })
@@ -236,8 +236,9 @@ test_that("Sphincs+ digital signatures verification fails with bad parameters", 
   expect_error(verify_sphincs(important_message, "not_a_signature", key$public))  # bad signature
   expect_error(verify_sphincs(important_message, signature, key$private))  # bad key type
 
-  small_signature <- signature[1:100]
-  class(small_signature) <- "pqcrypto_signature"
+  small_signature <- signature
+  small_signature$signer_infos$signature <- small_signature$signer_infos$signature[1:100]
+  class(small_signature) <- "pqcrypto_cms_id_signed_data"
   expect_error(verify_sphincs(important_message, small_signature, key$public))  # c++ error
 
   key <- keygen_kyber()
