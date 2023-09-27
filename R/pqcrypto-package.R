@@ -50,9 +50,9 @@ print.pqcrypto_shared_secret <- function(x, ...) {
 }
 
 #' @export
-print.pqcrypto_signature <- function(x, ...) {
+print.pqcrypto_cms_id_signed_data <- function(x, ...) {
   cli::cli_h3("pqcrypto - Digital Signature")
   cli::cli_bullets(paste0("Signature Algorithm:  ",
-                          object_mapper(attr(x, "sign_algorithm")),
-                          " (", attr(x, "sign_algorithm"), ")"))
+                          object_mapper(x$signer_infos$signature_algorithm),
+                          " (", x$signer_infos$signature_algorithm, ")"))
 }
