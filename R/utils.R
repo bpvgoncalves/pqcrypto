@@ -109,3 +109,45 @@ as.cms_signed_data <- function(content, s_info) {
 
   invisible(signed_data)
 }
+
+as.cms_encrypted_content <- function(content, encrypt_key) {
+
+  content_enc <- openssl::aes_cbc_encrypt(content, encrypt_key)
+
+  enc_content <- list(content_type = attr(content, "content_type"),
+                      content_encryption_algorithm = list(oid = "2.16.840.1.101.3.4.1.42",
+                                                          param_iv = attr(content_enc, "iv")),
+                      encryptedContent = c(content_enc))
+  class(enc_content) <- "pqcrypto_cms_encrypted_content"
+
+  invisible(enc_content)
+}
+
+as.cms_key_transport_recipient <- function(public_key, encap_key) {
+
+  key_transport <- list(version = 2L,
+                        rid = unclass(openssl::sha3(public_key, 224)),
+                        encryption_algo = attr(public_key, "algorithm"),
+                        encrypted_key = encap_key)
+  class(key_transport) <- "pqcrypto_cms_key_transport_recipient"
+
+  invisible(key_transport)
+}
+
+as.cms_enveloped_data <- function(message, public_key) {
+
+  data <- as.cms_data(message)
+
+  encap_key <- encap_kyber(public_key)
+
+  encrypted_content <- as.cms_encrypted_content(data, encap_key$shared_secret)
+  r_info<- as.cms_key_transport_recipient(public_key, encap_key$encapsulation)
+
+  env <- list(version = 2L,
+              recipient_infos = r_info,
+              encrypted_content_info = encrypted_content)
+  attr(env, "content_type") <- "1.2.840.113549.1.7.3"
+  class(env) <- "pqcrypto_cms_id_enveloped_data"
+
+  invisible(env)
+}
