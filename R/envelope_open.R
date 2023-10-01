@@ -36,5 +36,5 @@ envelope_open <- function(envelope, private_key) {
   message <- openssl::aes_cbc_decrypt(envelope$encrypted_content_info$encryptedContent,
                                       shared_key,
                                       iv)
-  message
+  unserialize(message)
 }
