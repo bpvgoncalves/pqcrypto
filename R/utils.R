@@ -74,11 +74,8 @@ object_mapper <- function(x) {
 }
 
 as.cms_data <- function(data) {
-  if (is.character(data)) {
-    raw_data <- charToRaw(data)
-  } else {
-    raw_data <- serialize(data, NULL)
-  }
+
+  raw_data <- serialize(data, NULL)
   attr(raw_data, "content_type") <- "1.2.840.113549.1.7.1"
   class(raw_data) <- "pqcrypto_cms_id_data"
 
