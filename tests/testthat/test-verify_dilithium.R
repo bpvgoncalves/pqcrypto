@@ -15,6 +15,11 @@ test_that("Digital signatures verification - Dilithium2", {
     forged_signature$signer_infos$signature[1] <- as.raw(255L)
   }
   expect_false(verify_dilithium(important_message, forged_signature, key$public))
+
+  forged_signature <- signature
+  forged_signature$encap_content_info <- as.cms_data("Forged Message")
+  expect_false(verify_dilithium("Forged Message", forged_signature, key$public))
+
 })
 
 test_that("Digital signatures verification - Dilithium3", {
@@ -34,6 +39,10 @@ test_that("Digital signatures verification - Dilithium3", {
     forged_signature$signer_infos$signature[1] <- as.raw(255L)
   }
   expect_false(verify_dilithium(important_message, forged_signature, key$public))
+
+  forged_signature <- signature
+  forged_signature$encap_content_info <- as.cms_data("Forged Message")
+  expect_false(verify_dilithium("Forged Message", forged_signature, key$public))
 })
 
 test_that("Digital signatures verification - Dilithium5", {
@@ -53,6 +62,10 @@ test_that("Digital signatures verification - Dilithium5", {
     forged_signature$signer_infos$signature[1] <- as.raw(255L)
   }
   expect_false(verify_dilithium(important_message, forged_signature, key$public))
+
+  forged_signature <- signature
+  forged_signature$encap_content_info <- as.cms_data("Forged Message")
+  expect_false(verify_dilithium("Forged Message", forged_signature, key$public))
 })
 
 test_that("Digital signatures verification fails with bad parameters", {

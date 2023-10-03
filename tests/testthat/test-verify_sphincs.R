@@ -15,6 +15,10 @@ test_that("Sphincs+ signature validation (shake, 128, small)", {
     forged_signature$signer_infos$signature[1] <- as.raw(255L)
   }
   expect_false(verify_sphincs(important_message, forged_signature, key$public))
+
+  forged_signature <- signature
+  forged_signature$encap_content_info <- as.cms_data("Forged Message")
+  expect_false(verify_sphincs("Forged Message", forged_signature, key$public))
 })
 
 test_that("Sphincs+ signature validation (shake, 128, fast)", {
@@ -34,6 +38,10 @@ test_that("Sphincs+ signature validation (shake, 128, fast)", {
     forged_signature$signer_infos$signature[1] <- as.raw(255L)
   }
   expect_false(verify_sphincs(important_message, forged_signature, key$public))
+
+  forged_signature <- signature
+  forged_signature$encap_content_info <- as.cms_data("Forged Message")
+  expect_false(verify_sphincs("Forged Message", forged_signature, key$public))
 })
 
 test_that("Sphincs+ signature validation (shake, 192, small)", {
@@ -53,6 +61,10 @@ test_that("Sphincs+ signature validation (shake, 192, small)", {
     forged_signature$signer_infos$signature[1] <- as.raw(255L)
   }
   expect_false(verify_sphincs(important_message, forged_signature, key$public))
+
+  forged_signature <- signature
+  forged_signature$encap_content_info <- as.cms_data("Forged Message")
+  expect_false(verify_sphincs("Forged Message", forged_signature, key$public))
 })
 
 test_that("Sphincs+ signature validation (shake, 192, fast)", {
@@ -72,6 +84,10 @@ test_that("Sphincs+ signature validation (shake, 192, fast)", {
     forged_signature$signer_infos$signature[1] <- as.raw(255L)
   }
   expect_false(verify_sphincs(important_message, forged_signature, key$public))
+
+  forged_signature <- signature
+  forged_signature$encap_content_info <- as.cms_data("Forged Message")
+  expect_false(verify_sphincs("Forged Message", forged_signature, key$public))
 })
 
 test_that("Sphincs+ signature validation (shake, 256, small)", {
@@ -91,6 +107,10 @@ test_that("Sphincs+ signature validation (shake, 256, small)", {
     forged_signature$signer_infos$signature[1] <- as.raw(255L)
   }
   expect_false(verify_sphincs(important_message, forged_signature, key$public))
+
+  forged_signature <- signature
+  forged_signature$encap_content_info <- as.cms_data("Forged Message")
+  expect_false(verify_sphincs("Forged Message", forged_signature, key$public))
 })
 
 test_that("Sphincs+ signature validation (shake, 256, fast)", {
@@ -110,6 +130,10 @@ test_that("Sphincs+ signature validation (shake, 256, fast)", {
     forged_signature$signer_infos$signature[1] <- as.raw(255L)
   }
   expect_false(verify_sphincs(important_message, forged_signature, key$public))
+
+  forged_signature <- signature
+  forged_signature$encap_content_info <- as.cms_data("Forged Message")
+  expect_false(verify_sphincs("Forged Message", forged_signature, key$public))
 })
 
 test_that("Sphincs+ signature validation (sha2, 128, small)", {
@@ -129,6 +153,10 @@ test_that("Sphincs+ signature validation (sha2, 128, small)", {
     forged_signature$signer_infos$signature[1] <- as.raw(255L)
   }
   expect_false(verify_sphincs(important_message, forged_signature, key$public))
+
+  forged_signature <- signature
+  forged_signature$encap_content_info <- as.cms_data("Forged Message")
+  expect_false(verify_sphincs("Forged Message", forged_signature, key$public))
 })
 
 test_that("Sphincs+ signature validation (sha2, 128, fast)", {
@@ -148,6 +176,10 @@ test_that("Sphincs+ signature validation (sha2, 128, fast)", {
     forged_signature$signer_infos$signature[1] <- as.raw(255L)
   }
   expect_false(verify_sphincs(important_message, forged_signature, key$public))
+
+  forged_signature <- signature
+  forged_signature$encap_content_info <- as.cms_data("Forged Message")
+  expect_false(verify_sphincs("Forged Message", forged_signature, key$public))
 })
 
 test_that("Sphincs+ signature validation (sha2, 192, small)", {
@@ -167,6 +199,10 @@ test_that("Sphincs+ signature validation (sha2, 192, small)", {
     forged_signature$signer_infos$signature[1] <- as.raw(255L)
   }
   expect_false(verify_sphincs(important_message, forged_signature, key$public))
+
+  forged_signature <- signature
+  forged_signature$encap_content_info <- as.cms_data("Forged Message")
+  expect_false(verify_sphincs("Forged Message", forged_signature, key$public))
 })
 
 test_that("Sphincs+ signature validation (sha2, 192, fast)", {
@@ -186,6 +222,10 @@ test_that("Sphincs+ signature validation (sha2, 192, fast)", {
     forged_signature$signer_infos$signature[1] <- as.raw(255L)
   }
   expect_false(verify_sphincs(important_message, forged_signature, key$public))
+
+  forged_signature <- signature
+  forged_signature$encap_content_info <- as.cms_data("Forged Message")
+  expect_false(verify_sphincs("Forged Message", forged_signature, key$public))
 })
 
 test_that("Sphincs+ signature validation (sha2, 256, small)", {
@@ -205,6 +245,10 @@ test_that("Sphincs+ signature validation (sha2, 256, small)", {
     forged_signature$signer_infos$signature[1] <- as.raw(255L)
   }
   expect_false(verify_sphincs(important_message, forged_signature, key$public))
+
+  forged_signature <- signature
+  forged_signature$encap_content_info <- as.cms_data("Forged Message")
+  expect_false(verify_sphincs("Forged Message", forged_signature, key$public))
 })
 
 test_that("Sphincs+ signature validation (sha2, 256, fast)", {
@@ -224,6 +268,10 @@ test_that("Sphincs+ signature validation (sha2, 256, fast)", {
     forged_signature$signer_infos$signature[1] <- as.raw(255L)
   }
   expect_false(verify_sphincs(important_message, forged_signature, key$public))
+
+  forged_signature <- signature
+  forged_signature$encap_content_info <- as.cms_data("Forged Message")
+  expect_false(verify_sphincs("Forged Message", forged_signature, key$public))
 })
 
 
