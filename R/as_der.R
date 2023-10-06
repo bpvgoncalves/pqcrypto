@@ -104,3 +104,15 @@ as.der.pqcrypto_cms_signed_attrs <- function(sa) {
 
   PKI::ASN1.encode(PKI::ASN1.item(c(attr1, attr2, attr3), 49L))
 }
+
+as.der.pqcrypto_tsp_tsq <- function(t) {
+
+  ver <- PKI::ASN1.encode(PKI::ASN1.item(t$version, 2L))
+
+  algo <- PKI::ASN1.encode(PKI::as.oid(t$message_imprint$algo))
+  algo <- PKI::ASN1.encode(PKI::ASN1.item(c(algo, as.der(NULL)), 48L))
+  hash <- PKI::ASN1.encode(PKI::ASN1.item(t$message_imprint$hash, 4L))
+  mi <- PKI::ASN1.encode(PKI::ASN1.item(c(algo, hash), 48L))
+
+  PKI::ASN1.encode(PKI::ASN1.item(c(ver, mi), 48L))
+}

@@ -148,3 +148,13 @@ as.cms_enveloped_data <- function(message, public_key) {
 
   invisible(env)
 }
+
+as.tsp_tsq <- function(data) {
+
+  tsr <- list(version = 1L,
+              message_imprint = list(algo = "2.16.840.1.101.3.4.2.3",
+                                     hash = openssl::sha2(data, 512)))
+  class(tsr) <- "pqcrypto_tsp_tsq"
+
+  invisible(tsr)
+}
