@@ -33,8 +33,8 @@ key_from_pass <- function(x) {
 
 get_timestamp <- function() {
 
-  uts <- as.numeric(Sys.time())
-  ts <- strftime(uts, "%Y-%m-%dT%H:%M:%OS3Z", tz="UTC")
+  uts <- as.integer(Sys.time())
+  ts <- strftime(uts, "%Y-%m-%dT%H:%M:%SZ", tz="UTC")
   attr(ts, "unix_ts") <- uts
   class(ts) <- "pqcrypto_timestamp"
 
