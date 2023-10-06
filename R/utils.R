@@ -82,7 +82,7 @@ as.cms_data <- function(data) {
   invisible(raw_data)
 }
 
-as.cms_signature_info <- function(private_key, signed_attrs, dig_signature) {
+as.cms_signature_info <- function(private_key, signed_attrs, dig_signature, unsigned_attrs = NULL) {
 
   s_info <- list(version = 3L,
                  sid = attr(private_key, "key_id"),
@@ -90,6 +90,9 @@ as.cms_signature_info <- function(private_key, signed_attrs, dig_signature) {
                  signed_attrs = signed_attrs,
                  signature_algorithm = attr(private_key, "algorithm"),
                  signature = dig_signature)
+  if (!is.null(unsigned_attrs)) {
+    s_info$unsigned_attrs <- unsigned_attrs
+  }
   class(s_info) <- "pqcrypto_cms_signature_info"
 
   invisible(s_info)

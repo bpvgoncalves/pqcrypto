@@ -6,6 +6,7 @@
  - Add `write_key()` and `open_key()` to key saving and retrieval
  - Add signed metadata to digital signatures
  - Add envelope to send encrypted data and key
+ - Add secure time stamp from https://freetsa.org to digital signatures
 
 ##### Internals
  - Some changes to classes, new tests, lib compilation, ...

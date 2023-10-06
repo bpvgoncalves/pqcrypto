@@ -48,10 +48,20 @@ sign_sphincs <- function(private_key, message) {
   fast_signature <- ifelse(last_digit %in% c(3, 4, 7, 8, 11, 12), TRUE, FALSE)
 
   content <- as.cms_data(message)
+
+  tsq <- as.tsp_tsq(c(content))
+  ts <- get_timestamp_secure(tsq)
+
   signed_attrs <- list(list("1.2.840.113549.1.9.3", "1.2.840.113549.1.7.1"),
                        list("1.2.840.113549.1.9.4", openssl::sha3(c(content), 512)),
-                       list("1.2.840.113549.1.9.5", get_timestamp()))
+                       list("1.2.840.113549.1.9.5", ts$ts))
   class(signed_attrs) <- "pqcrypto_cms_signed_attrs"
+
+  if (is.null(ts$tsr)) {
+    unsigned_attrs <- NULL
+  } else {
+    unsigned_attrs <- list(list("1.2.840.113549.1.9.16.1.4", ts$tsr))
+  }
 
   der_attrs <- as.der(signed_attrs)
   attrs_digest <- openssl::sha3(der_attrs, 512)
@@ -62,7 +72,7 @@ sign_sphincs <- function(private_key, message) {
     dig_signature <- cpp_sign_sphincs_sha2(attrs_digest, private_key, fast_signature)
   }
 
-  s_info <- as.cms_signature_info(private_key, signed_attrs, dig_signature)
+  s_info <- as.cms_signature_info(private_key, signed_attrs, dig_signature, unsigned_attrs)
   signed_data <- as.cms_signed_data(content, s_info)
 
   invisible(signed_data)
