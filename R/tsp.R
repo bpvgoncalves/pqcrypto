@@ -7,17 +7,23 @@ get_timestamp_secure <- function(tsq) {
     req <- httr2::req_method(req, "POST")
     req <- httr2::req_body_raw(req, dertsq, "application/timestamp-query")
 
-    resp <- httr2::req_perform(req)
+    try(httr2::req_perform(req), silent = TRUE)
+    resp <- httr2::last_response()
 
-    tsr <- PKI::ASN1.decode(resp$body)
-    ts <- PKI::ASN1.decode(PKI::ASN1.decode(PKI::ASN1.decode(tsr[[2]][[2]])[[3]][[2]]))[[5]]
-    ts <- as.POSIXct(rawToChar(ts), format = "%Y%m%d%H%M%SZ", tz="UTC")
+    if(resp$status_code == 200L) {
+      tsr <- PKI::ASN1.decode(resp$body)
+      ts <- PKI::ASN1.decode(PKI::ASN1.decode(PKI::ASN1.decode(tsr[[2]][[2]])[[3]][[2]]))[[5]]
+      ts <- as.POSIXct(rawToChar(ts), format = "%Y%m%d%H%M%SZ", tz="UTC")
 
-    out <- list(ts = structure(strftime(ts, "%Y-%m-%dT%H:%M:%SZ", tz="UTC"),
-                               unix_ts = as.integer(ts),
-                               class = "pqcrypto_timestamp"),
-                tsr = structure(resp$body,
-                                class = "pqcrypto_tsp_tsr"))
+      out <- list(ts = structure(strftime(ts, "%Y-%m-%dT%H:%M:%SZ", tz="UTC"),
+                                 unix_ts = as.integer(ts),
+                                 class = "pqcrypto_timestamp"),
+                  tsr = structure(resp$body,
+                                  class = "pqcrypto_tsp_tsr"))
+    } else {
+      out <- list(ts = get_timestamp(),
+                  tsr = NULL)
+    }
   } else {
     out <- list(ts = get_timestamp(),
                 tsr = NULL)
