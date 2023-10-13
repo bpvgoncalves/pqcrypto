@@ -20,10 +20,10 @@ as.key.pqcrypto_der_private_key <- function(d) {
 
   struct <- PKI::ASN1.decode(d)
 
-  version <- as.integer(struct[[1]][[1]])
+  version <- as.integer(PKI::ASN1.decode(struct[[1]])[[1]])
   key_algoritm <- as.character(PKI::as.oid(struct[[2]][[1]]))
   key <- c(struct[[3]])
-  id <- c(struct[[4]][[1]][[3]])
+  id <- c(PKI::ASN1.decode(struct[[4]])[[1]][[3]])
 
   pk <- structure(key,
                   version = version,

@@ -58,6 +58,7 @@ as.der.pqcrypto_public_key <- function(k) {
 as.der.pqcrypto_private_key <- function(k) {
 
   version <- PKI::ASN1.encode(PKI::ASN1.item(attr(k, "version"), 2L))
+  version <- PKI::ASN1.encode(PKI::ASN1.item(version, 160L))
 
   algorithm <- PKI::ASN1.encode(PKI::as.oid(attr(k, "algorithm")))
   parameters <- as.der(NULL)
@@ -70,6 +71,7 @@ as.der.pqcrypto_private_key <- function(k) {
   ext_value <- PKI::ASN1.encode(PKI::ASN1.item(attr(k, "key_id"), 4L))
   extension <- PKI::ASN1.encode(PKI::ASN1.item(c(ext_id, ext_crit, ext_value), 48L))
   extensions <- PKI::ASN1.encode(PKI::ASN1.item(extension, 48L))
+  extensions <- PKI::ASN1.encode(PKI::ASN1.item(extensions, 163L))
 
   PKI::ASN1.encode(PKI::ASN1.item(c(version, algorithm_identifier, private_key, extensions), 48L))
 }
@@ -102,7 +104,8 @@ as.der.pqcrypto_cms_signed_attrs <- function(sa) {
   attr3_value <- as.der(sa[[3]][[2]])
   attr3 <- PKI::ASN1.encode(PKI::ASN1.item(c(attr3_type, attr3_value), 48L))
 
-  PKI::ASN1.encode(PKI::ASN1.item(c(attr1, attr2, attr3), 49L))
+  sa <- PKI::ASN1.encode(PKI::ASN1.item(c(attr1, attr2, attr3), 49L))
+  PKI::ASN1.encode(PKI::ASN1.item(sa, 160L))
 }
 
 as.der.pqcrypto_tsp_tsq <- function(t) {
