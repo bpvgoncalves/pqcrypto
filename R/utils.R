@@ -92,6 +92,7 @@ as.cms_signature_info <- function(private_key, signed_attrs, dig_signature, unsi
                  signature = dig_signature)
   if (!is.null(unsigned_attrs)) {
     s_info$unsigned_attrs <- unsigned_attrs
+    class(s_info$unsigned_attrs) <- "pqcrypto_cms_unsigned_attrs"
   }
   class(s_info) <- "pqcrypto_cms_signature_info"
 

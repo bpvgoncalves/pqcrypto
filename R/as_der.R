@@ -54,7 +54,6 @@ as.der.pqcrypto_public_key <- function(k) {
   PKI::ASN1.encode(PKI::ASN1.item(c(algorithm_identifier, subject_public_key), 48L))
 }
 
-
 as.der.pqcrypto_private_key <- function(k) {
 
   version <- PKI::ASN1.encode(PKI::ASN1.item(attr(k, "version"), 2L))
@@ -75,7 +74,6 @@ as.der.pqcrypto_private_key <- function(k) {
 
   PKI::ASN1.encode(PKI::ASN1.item(c(version, algorithm_identifier, private_key, extensions), 48L))
 }
-
 
 as.der.pqcrypto_encrypted_private_key <- function(enc_data) {
 
@@ -106,6 +104,47 @@ as.der.pqcrypto_cms_signed_attrs <- function(sa) {
 
   sa <- PKI::ASN1.encode(PKI::ASN1.item(c(attr1, attr2, attr3), 49L))
   PKI::ASN1.encode(PKI::ASN1.item(sa, 160L))
+}
+
+as.der.pqcrypto_cms_unsigned_attrs <- function(ua) {
+
+  attr1_type <- PKI::ASN1.encode(PKI::as.oid(ua[[1]][[1]]))
+  attr1_value <- PKI::ASN1.encode(PKI::ASN1.item(ua[[1]][[2]], 4L))
+  attr1 <- PKI::ASN1.encode(PKI::ASN1.item(c(attr1_type, attr1_value), 48L))
+
+  ua <- PKI::ASN1.encode(PKI::ASN1.item(attr1, 49L))
+  PKI::ASN1.encode(PKI::ASN1.item(ua, 161L))
+}
+
+as.der.pqcrypto_cms_signature_info <- function(si) {
+
+  ver <- PKI::ASN1.encode(PKI::ASN1.item(si$version, 2L))
+  sid <- PKI::ASN1.encode(PKI::ASN1.item(si$sid, 4L))
+  sid <- PKI::ASN1.encode(PKI::ASN1.item(sid, 160L))
+  d_algo <- PKI::ASN1.encode(PKI::as.oid(si$digest_algorithm))
+  sa <- as.der(si$signed_attrs)
+  s_algo <- PKI::ASN1.encode(PKI::as.oid(si$signature_algorithm))
+  s <- PKI::ASN1.encode(PKI::ASN1.item(si$signature, 4L))
+  ua <- as.der(si$unsigned_attrs)
+
+  PKI::ASN1.encode(PKI::ASN1.item(c(ver, sid, d_algo, sa, s_algo, s, ua), 48L))
+}
+
+as.der.pqcrypto_cms_id_signed_data <- function(sd) {
+
+  ver <- PKI::ASN1.encode(PKI::ASN1.item(sd$version, 2L))
+  d_algo <- PKI::ASN1.encode(PKI::as.oid(sd$digest_algorithm))
+  d_algo <- PKI::ASN1.encode(PKI::ASN1.item(d_algo, 49L))
+
+  eci_type <- PKI::ASN1.encode(PKI::as.oid(attr(sd$encap_content_info, "content_type")))
+  eci_value <- PKI::ASN1.encode(PKI::ASN1.item(sd$encap_content_info, 4L))
+  eci_value <- PKI::ASN1.encode(PKI::ASN1.item(eci_value, 160L))
+  eci <- PKI::ASN1.encode(PKI::ASN1.item(c(eci_type, eci_value), 48L))
+
+  si <- as.der(sd$signer_infos)
+  si <- PKI::ASN1.encode(PKI::ASN1.item(si, 49L))
+
+  PKI::ASN1.encode(PKI::ASN1.item(c(ver, d_algo, eci, si), 48L))
 }
 
 as.der.pqcrypto_tsp_tsq <- function(t) {
