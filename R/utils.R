@@ -12,8 +12,8 @@ msg_to_raw <- function(msg) {
 #' @param m    message to be printed
 #'
 #' @noRd
-pq_stop <- function(m) {
-  cli::cli_abort(m)
+pq_stop <- function(m, call = parent.frame()) {
+  cli::cli_abort(m, call = call)
 }
 
 pq_msg <- function(m) {
