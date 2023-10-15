@@ -147,6 +147,32 @@ as.der.pqcrypto_cms_id_signed_data <- function(sd) {
   PKI::ASN1.encode(PKI::ASN1.item(c(ver, d_algo, eci, si), 48L))
 }
 
+as.der.pqcrypto_cms_id_enveloped_data <- function(e) {
+
+  ver <- PKI::ASN1.encode(PKI::ASN1.item(e$version, 2L))
+
+  ri_ver <- PKI::ASN1.encode(PKI::ASN1.item(e$recipient_infos$version, 2L))
+  ri_rid <- PKI::ASN1.encode(PKI::ASN1.item(e$recipient_infos$rid, 4L))
+  ri_rid <- PKI::ASN1.encode(PKI::ASN1.item(ri_rid, 160L))
+  ri_kea <- PKI::ASN1.encode(PKI::as.oid(e$recipient_infos$encryption_algo))
+  ri_ek <- PKI::ASN1.encode(PKI::ASN1.item(e$recipient_infos$encrypted_key, 4L))
+  ri <- PKI::ASN1.encode(PKI::ASN1.item(c(ri_ver, ri_rid, ri_kea, ri_ek), 48L))
+  ri <- PKI::ASN1.encode(PKI::ASN1.item(ri, 49L))
+
+  eci_l <- e$encrypted_content_info
+  eci_ct <-  PKI::ASN1.encode(PKI::as.oid(eci_l$content_type))
+  eci_cea_algo <- PKI::ASN1.encode(PKI::as.oid(eci_l$content_encryption_algorithm$oid))
+  eci_cea_param <- PKI::ASN1.encode(PKI::ASN1.item(eci_l$content_encryption_algorithm$param_iv,
+                                                   4L))
+  eci_cea <- PKI::ASN1.encode(PKI::ASN1.item(c(eci_cea_algo, eci_cea_param), 48L))
+  eci_ec <- PKI::ASN1.encode(PKI::ASN1.item(eci_l$encrypted_content, 128L))
+  # eci_ec <- PKI::ASN1.encode(PKI::ASN1.item(eci_ec, 160L))
+  eci <- PKI::ASN1.encode(PKI::ASN1.item(c(eci_ct, eci_cea, eci_ec), 48L))
+
+  PKI::ASN1.encode(PKI::ASN1.item(c(ver, ri, eci), 48L))
+
+}
+
 as.der.pqcrypto_tsp_tsq <- function(t) {
 
   ver <- PKI::ASN1.encode(PKI::ASN1.item(t$version, 2L))
