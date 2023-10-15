@@ -33,7 +33,7 @@ envelope_open <- function(envelope, private_key) {
 
   shared_key <- decap_kyber(envelope$recipient_infos$encrypted_key, private_key)
   iv <- envelope$encrypted_content_info$content_encryption_algorithm$param_iv
-  message <- openssl::aes_cbc_decrypt(envelope$encrypted_content_info$encryptedContent,
+  message <- openssl::aes_cbc_decrypt(envelope$encrypted_content_info$encrypted_content,
                                       shared_key,
                                       iv)
   unserialize(message)

@@ -118,7 +118,7 @@ as.cms_encrypted_content <- function(content, encrypt_key) {
   enc_content <- list(content_type = attr(content, "content_type"),
                       content_encryption_algorithm = list(oid = "2.16.840.1.101.3.4.1.42",
                                                           param_iv = attr(content_enc, "iv")),
-                      encryptedContent = c(content_enc))
+                      encrypted_content = c(content_enc))
   class(enc_content) <- "pqcrypto_cms_encrypted_content"
 
   invisible(enc_content)
