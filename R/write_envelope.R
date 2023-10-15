@@ -1,3 +1,16 @@
+#' Envelope - Write
+#'
+#' @param envelope An envelope produced by `envelope_create()`.
+#' @param path     The file path. If not provided a file with a random name will
+#'    be saved in the temporary folder.
+#'
+#' @return Invisibly, the file path.
+#' @export
+#'
+#' @examples
+#' key <- keygen_kyber(512)
+#' env <- envelope_create("Very important message.", key$public)
+#' write_envelope(env)
 
 write_envelope <- function(envelope, path = tempfile()) {
 
