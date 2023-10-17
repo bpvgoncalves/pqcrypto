@@ -25,7 +25,21 @@ Cryptography is the study and practice of techniques to secure communications, t
 The rise of quantum computing brings challenges to the security provided by existing asymmetric key algorithms because such computers have the potential to use different algorithms to solve some mathematical problems much faster than classical computers.\
 This includes the ability to factor large numbers (e.g. Shor's Algorithm^[ See https://en.wikipedia.org/wiki/Shor%27s_algorithm]) and compute discrete logarithms, which are fundamental operations in many asymmetric encryption schemes like RSA^[See https://en.wikipedia.org/wiki/RSA_(cryptosystem)] or Diffie-Hellman^[See https://en.wikipedia.org/wiki/Diffie%E2%80%93Hellman_key_exchange].
 
-The National Institute of Standards and Technology (NIST) has been actively involved in the research and standardization of post-quantum cryptography (PQC) algorithms to address these threats. NIST initiated a public competition known as the "NIST Post-Quantum Cryptography Standardization" to identify and evaluate new cryptographic algorithms that can resist attacks from both classical and quantum computers. This competition is still ongoing and as of the time of this writing (01/Sep/2023), NIST is requesting comments^[See https://csrc.nist.gov/news/2023/three-draft-fips-for-post-quantum-cryptography] on 3 drafts for proposed "Federal Information Processing Standards" (FIPS) covering key encapsulation (FIPS-203) and digital signatures (FIPS-204 and FIPS-205).
+The National Institute of Standards and Technology (NIST) has been actively involved in the research and standardization of post-quantum cryptography (PQC) algorithms to address these threats. NIST initiated a public competition known as the "NIST Post-Quantum Cryptography Standardization" to identify and evaluate new cryptographic algorithms that can resist attacks from both classical and quantum computers. This competition is still ongoing and as of the time of this writing (01/Sep/2023), NIST is requesting comments^[See https://csrc.nist.gov/news/2023/three-draft-fips-for-post-quantum-cryptography] on 3 drafts for proposed "Federal Information Processing Standards" (FIPS) covering key encapsulation (FIPS-203) and digital signatures (FIPS-204 and FIPS-205), each covering parameters with different security strenght categories.
+
+
+### NIST's Strength Categories
+
+NIST defines 5 different broad security strength categories as per the table bellow. For an Algorithm to comply with one of them it must be expected that at least the same resources are required to break it as those to preform the corresponding attack type.
+
+| Security Category | Corresponding Attack Type                   | Example  |
+|:-----------------:|:--------------------------------------------|:--------:|
+|         1         | Key search on block cipher with 128-bit key | AES-128  |
+|         2         | Collision search on 256-bit hash function   | SHA3-256 |
+|         3         | Key search on block cipher with 192-bit key | AES-192  |
+|         4         | Collision search on 384-bit hash function   | SHA3-384 |
+|         5         | Key search on block cipher with 256-bit key | AES-256  |
+: Table 1 - NIST Security Categories  --  Source: NIST^[National Institute of Standards and Technology (2023) Module-Lattice-Based Digital Signature Standard. (Department of Commerce, Washington, D.C.), Federal Information Processing Standards Publication (FIPS) NIST FIPS 204 ipd. https://doi.org/10.6028/NIST.FIPS.204.ipd]
 
 
 ## The pqcrypto package
@@ -107,16 +121,3 @@ verify_dilithium(message_to_bob, message_signature, alice_public_key)
 
 ```
 
-
-### NIST's Strength Categories
-
-NIST defines 5 different broad security strength categories as per the table bellow. For an Algorithm to comply with one of them it must be expected that at least the same resources are required to break it as those to preform the corresponding attack type.
-
-| Security Category | Corresponding Attack Type                   | Example  |
-|:-----------------:|:--------------------------------------------|:--------:|
-|         1         | Key search on block cipher with 128-bit key | AES-128  |
-|         2         | Collision search on 256-bit hash function   | SHA3-256 |
-|         3         | Key search on block cipher with 192-bit key | AES-192  |
-|         4         | Collision search on 384-bit hash function   | SHA3-384 |
-|         5         | Key search on block cipher with 256-bit key | AES-256  |
-: Table 1 - NIST Security Categories  --  Source: NIST^[National Institute of Standards and Technology (2023) Module-Lattice-Based Digital Signature Standard. (Department of Commerce, Washington, D.C.), Federal Information Processing Standards Publication (FIPS) NIST FIPS 204 ipd. https://doi.org/10.6028/NIST.FIPS.204.ipd]
