@@ -48,10 +48,74 @@ cpp_keygen_kyber1024 <- function() {
   .Call(`_pqcrypto_cpp_keygen_kyber1024`)
 }
 
+cpp_keygen_sphincsshake128s <- function() {
+  .Call(`_pqcrypto_cpp_keygen_sphincsshake128s`)
+}
+
+cpp_keygen_sphincsshake128f <- function() {
+  .Call(`_pqcrypto_cpp_keygen_sphincsshake128f`)
+}
+
+cpp_keygen_sphincsshake192s <- function() {
+  .Call(`_pqcrypto_cpp_keygen_sphincsshake192s`)
+}
+
+cpp_keygen_sphincsshake192f <- function() {
+  .Call(`_pqcrypto_cpp_keygen_sphincsshake192f`)
+}
+
+cpp_keygen_sphincsshake256s <- function() {
+  .Call(`_pqcrypto_cpp_keygen_sphincsshake256s`)
+}
+
+cpp_keygen_sphincsshake256f <- function() {
+  .Call(`_pqcrypto_cpp_keygen_sphincsshake256f`)
+}
+
+cpp_keygen_sphincssha128s <- function() {
+  .Call(`_pqcrypto_cpp_keygen_sphincssha128s`)
+}
+
+cpp_keygen_sphincssha128f <- function() {
+  .Call(`_pqcrypto_cpp_keygen_sphincssha128f`)
+}
+
+cpp_keygen_sphincssha192s <- function() {
+  .Call(`_pqcrypto_cpp_keygen_sphincssha192s`)
+}
+
+cpp_keygen_sphincssha192f <- function() {
+  .Call(`_pqcrypto_cpp_keygen_sphincssha192f`)
+}
+
+cpp_keygen_sphincssha256s <- function() {
+  .Call(`_pqcrypto_cpp_keygen_sphincssha256s`)
+}
+
+cpp_keygen_sphincssha256f <- function() {
+  .Call(`_pqcrypto_cpp_keygen_sphincssha256f`)
+}
+
 cpp_sign_dilithium <- function(message, private_key) {
   .Call(`_pqcrypto_cpp_sign_dilithium`, message, private_key)
 }
 
+cpp_sign_sphincs_shake <- function(message, private_key, is_fast) {
+  .Call(`_pqcrypto_cpp_sign_sphincs_shake`, message, private_key, is_fast)
+}
+
+cpp_sign_sphincs_sha2 <- function(message, private_key, is_fast) {
+  .Call(`_pqcrypto_cpp_sign_sphincs_sha2`, message, private_key, is_fast)
+}
+
 cpp_verify_dilithium <- function(signature, message, public_key) {
   .Call(`_pqcrypto_cpp_verify_dilithium`, signature, message, public_key)
+}
+
+cpp_verify_sphincs_shake <- function(signature, message, public_key) {
+  .Call(`_pqcrypto_cpp_verify_sphincs_shake`, signature, message, public_key)
+}
+
+cpp_verify_sphincs_sha2 <- function(signature, message, public_key) {
+  .Call(`_pqcrypto_cpp_verify_sphincs_sha2`, signature, message, public_key)
 }

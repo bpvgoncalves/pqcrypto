@@ -18,3 +18,41 @@
 #' @useDynLib pqcrypto, .registration = TRUE
 ## usethis namespace: end
 NULL
+
+
+#' @export
+print.pqcrypto_keypair <- function(x, ...) {
+  cli::cli_h3("pqcrypto - Key-Pair")
+  cli::cli_bullets(paste0(" Private Key Algorithm: ",
+                          object_mapper(attr(x$private, "algorithm")),
+                          " (", attr(x$private, "algorithm"), ")"))
+}
+
+#' @export
+print.pqcrypto_private_key <- function(x, ...) {
+  cli::cli_h3("pqcrypto - Private Key")
+  cli::cli_bullets(paste0(" Algorithm: ",
+                          object_mapper(attr(x, "algorithm")),
+                          " (", attr(x, "algorithm"), ")"))
+}
+
+#' @export
+print.pqcrypto_public_key <- function(x, ...) {
+  cli::cli_h3("pqcrypto - Public Key")
+  cli::cli_bullets(paste0(" Algorithm: ",
+                          object_mapper(attr(x, "algorithm")),
+                          " (", attr(x, "algorithm"), ")"))
+}
+
+#' @export
+print.pqcrypto_shared_secret <- function(x, ...) {
+  cli::cli_h3("pqcrypto - Shared Secret")
+}
+
+#' @export
+print.pqcrypto_cms_id_signed_data <- function(x, ...) {
+  cli::cli_h3("pqcrypto - Digital Signature")
+  cli::cli_bullets(paste0("Signature Algorithm:  ",
+                          object_mapper(x$signer_infos$signature_algorithm),
+                          " (", x$signer_infos$signature_algorithm, ")"))
+}

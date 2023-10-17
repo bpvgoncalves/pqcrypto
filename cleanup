@@ -1,2 +1,3 @@
+#!/bin/sh
 rm -r ./build
 rm -r ./src/*.o ./src/*.a ./src/*.so ./src/*.lib ./src/*.dll

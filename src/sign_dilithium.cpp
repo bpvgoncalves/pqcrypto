@@ -4,7 +4,7 @@ extern "C" {
 }
 
 [[cpp11::register]]
-cpp11::integers cpp_sign_dilithium(cpp11::integers message, cpp11::integers private_key) {
+cpp11::raws cpp_sign_dilithium(cpp11::raws message, cpp11::raws private_key) {
 
   size_t msg_len = message.size();
   int pk_len = private_key.size();
@@ -25,10 +25,6 @@ cpp11::integers cpp_sign_dilithium(cpp11::integers message, cpp11::integers priv
     case pqcrystals_dilithium5_SECRETKEYBYTES:
       cr_bytes = pqcrystals_dilithium5_BYTES;
       algo = 5;
-      break;
-
-    default:
-      cpp11::stop("Wrong 'private key' lenght.");
       break;
   }
 
@@ -61,7 +57,7 @@ cpp11::integers cpp_sign_dilithium(cpp11::integers message, cpp11::integers priv
     cpp11::stop("Something went wrong with the signature generation.");
   }
 
-  cpp11::writable::integers signature(sign_len);
+  cpp11::writable::raws signature(sign_len);
   for(size_t i = 0; i < sign_len; ++i) {
     signature[i] = sign[i];
   }

@@ -6,45 +6,45 @@
 #include <R_ext/Visibility.h>
 
 // decap_kyber.cpp
-cpp11::integers cpp_decap_kyber512(cpp11::integers secret_key, cpp11::integers cipher_text);
+cpp11::raws cpp_decap_kyber512(cpp11::raws secret_key, cpp11::raws cipher_text);
 extern "C" SEXP _pqcrypto_cpp_decap_kyber512(SEXP secret_key, SEXP cipher_text) {
   BEGIN_CPP11
-    return cpp11::as_sexp(cpp_decap_kyber512(cpp11::as_cpp<cpp11::decay_t<cpp11::integers>>(secret_key), cpp11::as_cpp<cpp11::decay_t<cpp11::integers>>(cipher_text)));
+    return cpp11::as_sexp(cpp_decap_kyber512(cpp11::as_cpp<cpp11::decay_t<cpp11::raws>>(secret_key), cpp11::as_cpp<cpp11::decay_t<cpp11::raws>>(cipher_text)));
   END_CPP11
 }
 // decap_kyber.cpp
-cpp11::integers cpp_decap_kyber768(cpp11::integers secret_key, cpp11::integers cipher_text);
+cpp11::raws cpp_decap_kyber768(cpp11::raws secret_key, cpp11::raws cipher_text);
 extern "C" SEXP _pqcrypto_cpp_decap_kyber768(SEXP secret_key, SEXP cipher_text) {
   BEGIN_CPP11
-    return cpp11::as_sexp(cpp_decap_kyber768(cpp11::as_cpp<cpp11::decay_t<cpp11::integers>>(secret_key), cpp11::as_cpp<cpp11::decay_t<cpp11::integers>>(cipher_text)));
+    return cpp11::as_sexp(cpp_decap_kyber768(cpp11::as_cpp<cpp11::decay_t<cpp11::raws>>(secret_key), cpp11::as_cpp<cpp11::decay_t<cpp11::raws>>(cipher_text)));
   END_CPP11
 }
 // decap_kyber.cpp
-cpp11::integers cpp_decap_kyber1024(cpp11::integers secret_key, cpp11::integers cipher_text);
+cpp11::raws cpp_decap_kyber1024(cpp11::raws secret_key, cpp11::raws cipher_text);
 extern "C" SEXP _pqcrypto_cpp_decap_kyber1024(SEXP secret_key, SEXP cipher_text) {
   BEGIN_CPP11
-    return cpp11::as_sexp(cpp_decap_kyber1024(cpp11::as_cpp<cpp11::decay_t<cpp11::integers>>(secret_key), cpp11::as_cpp<cpp11::decay_t<cpp11::integers>>(cipher_text)));
+    return cpp11::as_sexp(cpp_decap_kyber1024(cpp11::as_cpp<cpp11::decay_t<cpp11::raws>>(secret_key), cpp11::as_cpp<cpp11::decay_t<cpp11::raws>>(cipher_text)));
   END_CPP11
 }
 // encap_kyber.cpp
-cpp11::list cpp_encap_kyber512(cpp11::integers pub_key);
+cpp11::list cpp_encap_kyber512(cpp11::raws pub_key);
 extern "C" SEXP _pqcrypto_cpp_encap_kyber512(SEXP pub_key) {
   BEGIN_CPP11
-    return cpp11::as_sexp(cpp_encap_kyber512(cpp11::as_cpp<cpp11::decay_t<cpp11::integers>>(pub_key)));
+    return cpp11::as_sexp(cpp_encap_kyber512(cpp11::as_cpp<cpp11::decay_t<cpp11::raws>>(pub_key)));
   END_CPP11
 }
 // encap_kyber.cpp
-cpp11::list cpp_encap_kyber768(cpp11::integers pub_key);
+cpp11::list cpp_encap_kyber768(cpp11::raws pub_key);
 extern "C" SEXP _pqcrypto_cpp_encap_kyber768(SEXP pub_key) {
   BEGIN_CPP11
-    return cpp11::as_sexp(cpp_encap_kyber768(cpp11::as_cpp<cpp11::decay_t<cpp11::integers>>(pub_key)));
+    return cpp11::as_sexp(cpp_encap_kyber768(cpp11::as_cpp<cpp11::decay_t<cpp11::raws>>(pub_key)));
   END_CPP11
 }
 // encap_kyber.cpp
-cpp11::list cpp_encap_kyber1024(cpp11::integers pub_key);
+cpp11::list cpp_encap_kyber1024(cpp11::raws pub_key);
 extern "C" SEXP _pqcrypto_cpp_encap_kyber1024(SEXP pub_key) {
   BEGIN_CPP11
-    return cpp11::as_sexp(cpp_encap_kyber1024(cpp11::as_cpp<cpp11::decay_t<cpp11::integers>>(pub_key)));
+    return cpp11::as_sexp(cpp_encap_kyber1024(cpp11::as_cpp<cpp11::decay_t<cpp11::raws>>(pub_key)));
   END_CPP11
 }
 // keygen_dilithium.cpp
@@ -89,37 +89,165 @@ extern "C" SEXP _pqcrypto_cpp_keygen_kyber1024() {
     return cpp11::as_sexp(cpp_keygen_kyber1024());
   END_CPP11
 }
+// keygen_sphincs.cpp
+cpp11::list cpp_keygen_sphincsshake128s();
+extern "C" SEXP _pqcrypto_cpp_keygen_sphincsshake128s() {
+  BEGIN_CPP11
+    return cpp11::as_sexp(cpp_keygen_sphincsshake128s());
+  END_CPP11
+}
+// keygen_sphincs.cpp
+cpp11::list cpp_keygen_sphincsshake128f();
+extern "C" SEXP _pqcrypto_cpp_keygen_sphincsshake128f() {
+  BEGIN_CPP11
+    return cpp11::as_sexp(cpp_keygen_sphincsshake128f());
+  END_CPP11
+}
+// keygen_sphincs.cpp
+cpp11::list cpp_keygen_sphincsshake192s();
+extern "C" SEXP _pqcrypto_cpp_keygen_sphincsshake192s() {
+  BEGIN_CPP11
+    return cpp11::as_sexp(cpp_keygen_sphincsshake192s());
+  END_CPP11
+}
+// keygen_sphincs.cpp
+cpp11::list cpp_keygen_sphincsshake192f();
+extern "C" SEXP _pqcrypto_cpp_keygen_sphincsshake192f() {
+  BEGIN_CPP11
+    return cpp11::as_sexp(cpp_keygen_sphincsshake192f());
+  END_CPP11
+}
+// keygen_sphincs.cpp
+cpp11::list cpp_keygen_sphincsshake256s();
+extern "C" SEXP _pqcrypto_cpp_keygen_sphincsshake256s() {
+  BEGIN_CPP11
+    return cpp11::as_sexp(cpp_keygen_sphincsshake256s());
+  END_CPP11
+}
+// keygen_sphincs.cpp
+cpp11::list cpp_keygen_sphincsshake256f();
+extern "C" SEXP _pqcrypto_cpp_keygen_sphincsshake256f() {
+  BEGIN_CPP11
+    return cpp11::as_sexp(cpp_keygen_sphincsshake256f());
+  END_CPP11
+}
+// keygen_sphincs.cpp
+cpp11::list cpp_keygen_sphincssha128s();
+extern "C" SEXP _pqcrypto_cpp_keygen_sphincssha128s() {
+  BEGIN_CPP11
+    return cpp11::as_sexp(cpp_keygen_sphincssha128s());
+  END_CPP11
+}
+// keygen_sphincs.cpp
+cpp11::list cpp_keygen_sphincssha128f();
+extern "C" SEXP _pqcrypto_cpp_keygen_sphincssha128f() {
+  BEGIN_CPP11
+    return cpp11::as_sexp(cpp_keygen_sphincssha128f());
+  END_CPP11
+}
+// keygen_sphincs.cpp
+cpp11::list cpp_keygen_sphincssha192s();
+extern "C" SEXP _pqcrypto_cpp_keygen_sphincssha192s() {
+  BEGIN_CPP11
+    return cpp11::as_sexp(cpp_keygen_sphincssha192s());
+  END_CPP11
+}
+// keygen_sphincs.cpp
+cpp11::list cpp_keygen_sphincssha192f();
+extern "C" SEXP _pqcrypto_cpp_keygen_sphincssha192f() {
+  BEGIN_CPP11
+    return cpp11::as_sexp(cpp_keygen_sphincssha192f());
+  END_CPP11
+}
+// keygen_sphincs.cpp
+cpp11::list cpp_keygen_sphincssha256s();
+extern "C" SEXP _pqcrypto_cpp_keygen_sphincssha256s() {
+  BEGIN_CPP11
+    return cpp11::as_sexp(cpp_keygen_sphincssha256s());
+  END_CPP11
+}
+// keygen_sphincs.cpp
+cpp11::list cpp_keygen_sphincssha256f();
+extern "C" SEXP _pqcrypto_cpp_keygen_sphincssha256f() {
+  BEGIN_CPP11
+    return cpp11::as_sexp(cpp_keygen_sphincssha256f());
+  END_CPP11
+}
 // sign_dilithium.cpp
-cpp11::integers cpp_sign_dilithium(cpp11::integers message, cpp11::integers private_key);
+cpp11::raws cpp_sign_dilithium(cpp11::raws message, cpp11::raws private_key);
 extern "C" SEXP _pqcrypto_cpp_sign_dilithium(SEXP message, SEXP private_key) {
   BEGIN_CPP11
-    return cpp11::as_sexp(cpp_sign_dilithium(cpp11::as_cpp<cpp11::decay_t<cpp11::integers>>(message), cpp11::as_cpp<cpp11::decay_t<cpp11::integers>>(private_key)));
+    return cpp11::as_sexp(cpp_sign_dilithium(cpp11::as_cpp<cpp11::decay_t<cpp11::raws>>(message), cpp11::as_cpp<cpp11::decay_t<cpp11::raws>>(private_key)));
+  END_CPP11
+}
+// sign_sphincs.cpp
+cpp11::raws cpp_sign_sphincs_shake(cpp11::raws message, cpp11::raws private_key, bool is_fast);
+extern "C" SEXP _pqcrypto_cpp_sign_sphincs_shake(SEXP message, SEXP private_key, SEXP is_fast) {
+  BEGIN_CPP11
+    return cpp11::as_sexp(cpp_sign_sphincs_shake(cpp11::as_cpp<cpp11::decay_t<cpp11::raws>>(message), cpp11::as_cpp<cpp11::decay_t<cpp11::raws>>(private_key), cpp11::as_cpp<cpp11::decay_t<bool>>(is_fast)));
+  END_CPP11
+}
+// sign_sphincs.cpp
+cpp11::raws cpp_sign_sphincs_sha2(cpp11::raws message, cpp11::raws private_key, bool is_fast);
+extern "C" SEXP _pqcrypto_cpp_sign_sphincs_sha2(SEXP message, SEXP private_key, SEXP is_fast) {
+  BEGIN_CPP11
+    return cpp11::as_sexp(cpp_sign_sphincs_sha2(cpp11::as_cpp<cpp11::decay_t<cpp11::raws>>(message), cpp11::as_cpp<cpp11::decay_t<cpp11::raws>>(private_key), cpp11::as_cpp<cpp11::decay_t<bool>>(is_fast)));
   END_CPP11
 }
 // verify_dilithium.cpp
-int cpp_verify_dilithium(cpp11::integers signature, cpp11::integers message, cpp11::integers public_key);
+int cpp_verify_dilithium(cpp11::raws signature, cpp11::raws message, cpp11::raws public_key);
 extern "C" SEXP _pqcrypto_cpp_verify_dilithium(SEXP signature, SEXP message, SEXP public_key) {
   BEGIN_CPP11
-    return cpp11::as_sexp(cpp_verify_dilithium(cpp11::as_cpp<cpp11::decay_t<cpp11::integers>>(signature), cpp11::as_cpp<cpp11::decay_t<cpp11::integers>>(message), cpp11::as_cpp<cpp11::decay_t<cpp11::integers>>(public_key)));
+    return cpp11::as_sexp(cpp_verify_dilithium(cpp11::as_cpp<cpp11::decay_t<cpp11::raws>>(signature), cpp11::as_cpp<cpp11::decay_t<cpp11::raws>>(message), cpp11::as_cpp<cpp11::decay_t<cpp11::raws>>(public_key)));
+  END_CPP11
+}
+// verify_sphincs.cpp
+int cpp_verify_sphincs_shake(cpp11::raws signature, cpp11::raws message, cpp11::raws public_key);
+extern "C" SEXP _pqcrypto_cpp_verify_sphincs_shake(SEXP signature, SEXP message, SEXP public_key) {
+  BEGIN_CPP11
+    return cpp11::as_sexp(cpp_verify_sphincs_shake(cpp11::as_cpp<cpp11::decay_t<cpp11::raws>>(signature), cpp11::as_cpp<cpp11::decay_t<cpp11::raws>>(message), cpp11::as_cpp<cpp11::decay_t<cpp11::raws>>(public_key)));
+  END_CPP11
+}
+// verify_sphincs.cpp
+int cpp_verify_sphincs_sha2(cpp11::raws signature, cpp11::raws message, cpp11::raws public_key);
+extern "C" SEXP _pqcrypto_cpp_verify_sphincs_sha2(SEXP signature, SEXP message, SEXP public_key) {
+  BEGIN_CPP11
+    return cpp11::as_sexp(cpp_verify_sphincs_sha2(cpp11::as_cpp<cpp11::decay_t<cpp11::raws>>(signature), cpp11::as_cpp<cpp11::decay_t<cpp11::raws>>(message), cpp11::as_cpp<cpp11::decay_t<cpp11::raws>>(public_key)));
   END_CPP11
 }
 
 extern "C" {
 static const R_CallMethodDef CallEntries[] = {
-    {"_pqcrypto_cpp_decap_kyber1024",   (DL_FUNC) &_pqcrypto_cpp_decap_kyber1024,   2},
-    {"_pqcrypto_cpp_decap_kyber512",    (DL_FUNC) &_pqcrypto_cpp_decap_kyber512,    2},
-    {"_pqcrypto_cpp_decap_kyber768",    (DL_FUNC) &_pqcrypto_cpp_decap_kyber768,    2},
-    {"_pqcrypto_cpp_encap_kyber1024",   (DL_FUNC) &_pqcrypto_cpp_encap_kyber1024,   1},
-    {"_pqcrypto_cpp_encap_kyber512",    (DL_FUNC) &_pqcrypto_cpp_encap_kyber512,    1},
-    {"_pqcrypto_cpp_encap_kyber768",    (DL_FUNC) &_pqcrypto_cpp_encap_kyber768,    1},
-    {"_pqcrypto_cpp_keygen_dilithium2", (DL_FUNC) &_pqcrypto_cpp_keygen_dilithium2, 0},
-    {"_pqcrypto_cpp_keygen_dilithium3", (DL_FUNC) &_pqcrypto_cpp_keygen_dilithium3, 0},
-    {"_pqcrypto_cpp_keygen_dilithium5", (DL_FUNC) &_pqcrypto_cpp_keygen_dilithium5, 0},
-    {"_pqcrypto_cpp_keygen_kyber1024",  (DL_FUNC) &_pqcrypto_cpp_keygen_kyber1024,  0},
-    {"_pqcrypto_cpp_keygen_kyber512",   (DL_FUNC) &_pqcrypto_cpp_keygen_kyber512,   0},
-    {"_pqcrypto_cpp_keygen_kyber768",   (DL_FUNC) &_pqcrypto_cpp_keygen_kyber768,   0},
-    {"_pqcrypto_cpp_sign_dilithium",    (DL_FUNC) &_pqcrypto_cpp_sign_dilithium,    2},
-    {"_pqcrypto_cpp_verify_dilithium",  (DL_FUNC) &_pqcrypto_cpp_verify_dilithium,  3},
+    {"_pqcrypto_cpp_decap_kyber1024",         (DL_FUNC) &_pqcrypto_cpp_decap_kyber1024,         2},
+    {"_pqcrypto_cpp_decap_kyber512",          (DL_FUNC) &_pqcrypto_cpp_decap_kyber512,          2},
+    {"_pqcrypto_cpp_decap_kyber768",          (DL_FUNC) &_pqcrypto_cpp_decap_kyber768,          2},
+    {"_pqcrypto_cpp_encap_kyber1024",         (DL_FUNC) &_pqcrypto_cpp_encap_kyber1024,         1},
+    {"_pqcrypto_cpp_encap_kyber512",          (DL_FUNC) &_pqcrypto_cpp_encap_kyber512,          1},
+    {"_pqcrypto_cpp_encap_kyber768",          (DL_FUNC) &_pqcrypto_cpp_encap_kyber768,          1},
+    {"_pqcrypto_cpp_keygen_dilithium2",       (DL_FUNC) &_pqcrypto_cpp_keygen_dilithium2,       0},
+    {"_pqcrypto_cpp_keygen_dilithium3",       (DL_FUNC) &_pqcrypto_cpp_keygen_dilithium3,       0},
+    {"_pqcrypto_cpp_keygen_dilithium5",       (DL_FUNC) &_pqcrypto_cpp_keygen_dilithium5,       0},
+    {"_pqcrypto_cpp_keygen_kyber1024",        (DL_FUNC) &_pqcrypto_cpp_keygen_kyber1024,        0},
+    {"_pqcrypto_cpp_keygen_kyber512",         (DL_FUNC) &_pqcrypto_cpp_keygen_kyber512,         0},
+    {"_pqcrypto_cpp_keygen_kyber768",         (DL_FUNC) &_pqcrypto_cpp_keygen_kyber768,         0},
+    {"_pqcrypto_cpp_keygen_sphincssha128f",   (DL_FUNC) &_pqcrypto_cpp_keygen_sphincssha128f,   0},
+    {"_pqcrypto_cpp_keygen_sphincssha128s",   (DL_FUNC) &_pqcrypto_cpp_keygen_sphincssha128s,   0},
+    {"_pqcrypto_cpp_keygen_sphincssha192f",   (DL_FUNC) &_pqcrypto_cpp_keygen_sphincssha192f,   0},
+    {"_pqcrypto_cpp_keygen_sphincssha192s",   (DL_FUNC) &_pqcrypto_cpp_keygen_sphincssha192s,   0},
+    {"_pqcrypto_cpp_keygen_sphincssha256f",   (DL_FUNC) &_pqcrypto_cpp_keygen_sphincssha256f,   0},
+    {"_pqcrypto_cpp_keygen_sphincssha256s",   (DL_FUNC) &_pqcrypto_cpp_keygen_sphincssha256s,   0},
+    {"_pqcrypto_cpp_keygen_sphincsshake128f", (DL_FUNC) &_pqcrypto_cpp_keygen_sphincsshake128f, 0},
+    {"_pqcrypto_cpp_keygen_sphincsshake128s", (DL_FUNC) &_pqcrypto_cpp_keygen_sphincsshake128s, 0},
+    {"_pqcrypto_cpp_keygen_sphincsshake192f", (DL_FUNC) &_pqcrypto_cpp_keygen_sphincsshake192f, 0},
+    {"_pqcrypto_cpp_keygen_sphincsshake192s", (DL_FUNC) &_pqcrypto_cpp_keygen_sphincsshake192s, 0},
+    {"_pqcrypto_cpp_keygen_sphincsshake256f", (DL_FUNC) &_pqcrypto_cpp_keygen_sphincsshake256f, 0},
+    {"_pqcrypto_cpp_keygen_sphincsshake256s", (DL_FUNC) &_pqcrypto_cpp_keygen_sphincsshake256s, 0},
+    {"_pqcrypto_cpp_sign_dilithium",          (DL_FUNC) &_pqcrypto_cpp_sign_dilithium,          2},
+    {"_pqcrypto_cpp_sign_sphincs_sha2",       (DL_FUNC) &_pqcrypto_cpp_sign_sphincs_sha2,       3},
+    {"_pqcrypto_cpp_sign_sphincs_shake",      (DL_FUNC) &_pqcrypto_cpp_sign_sphincs_shake,      3},
+    {"_pqcrypto_cpp_verify_dilithium",        (DL_FUNC) &_pqcrypto_cpp_verify_dilithium,        3},
+    {"_pqcrypto_cpp_verify_sphincs_sha2",     (DL_FUNC) &_pqcrypto_cpp_verify_sphincs_sha2,     3},
+    {"_pqcrypto_cpp_verify_sphincs_shake",    (DL_FUNC) &_pqcrypto_cpp_verify_sphincs_shake,    3},
     {NULL, NULL, 0}
 };
 }
