@@ -1,4 +1,4 @@
-# pqcrypto (development version)
+# pqcrypto 0.2.0
 
 #### New Features
  - Specialized `print()` for some pqcrypto_* objects

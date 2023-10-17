@@ -1,6 +1,6 @@
 Package: pqcrypto
 Title: Post-Quantum Cryptography
-Version: 0.1.0.9011
+Version: 0.2.0
 Authors@R: 
     person("Bruno", "Gonçalves", , "bpvgoncalves@users.noreply.github.com", role = c("aut", "cre"),
            comment = c(ORCID = "0000-0002-0797-7717"))
