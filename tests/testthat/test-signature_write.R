@@ -18,13 +18,13 @@ test_that("Signature Writing works: Dilithium", {
                "'signature' parameter does not have the expected class")
 
   if (Sys.info()[1] == "Linux") {
-    dest <- "/home/file.sig"    # Shouldn't be able to write into root's home dir
+    dest <- "/fake_path/file.env"
   } else if ((Sys.info()[1] == "Windows")) {
-    dest <- "c:/Windows/system32/file.sig"    # Shouldn't be able to write into system dir
+    dest <- "z:/fake_path/file.env"
   } else {
     skip("Unknown OS")
   }
-  expect_error(write_signature(signature, dest), "Permission denied")
+  expect_error(write_signature(signature, dest), "cannot open file")
 })
 
 
@@ -48,11 +48,11 @@ test_that("Signature Writing works: Sphincs+", {
                "'signature' parameter does not have the expected class")
 
   if (Sys.info()[1] == "Linux") {
-    dest <- "/home/file.sig"    # Shouldn't be able to write into root's home dir
+    dest <- "/fake_path/file.env"
   } else if ((Sys.info()[1] == "Windows")) {
-    dest <- "c:/Windows/system32/file.sig"    # Shouldn't be able to write into system dir
+    dest <- "z:/fake_path/file.env"
   } else {
     skip("Unknown OS")
   }
-  expect_error(write_signature(signature, dest), "Permission denied")
+  expect_error(write_signature(signature, dest), "cannot open file")
 })
