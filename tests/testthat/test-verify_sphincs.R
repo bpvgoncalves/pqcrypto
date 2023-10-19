@@ -302,3 +302,31 @@ test_that("Sphincs+ digital signatures verification fails with bad parameters", 
   expect_error(verify_sphincs(important_message, signature, key$public)) # mismatching key
 
 })
+
+test_that("Sphincs+ digital signatures verification fails with bad parameters", {
+
+  key <- keygen_sphincs("sha2")
+  important_message <- "Hello world!!"
+  signature <- sign_sphincs(key$private, important_message)
+
+  expect_error(verify_sphincs(important_message, "not_a_signature", key$public))  # bad signature
+  expect_error(verify_sphincs(important_message, signature, key$private))  # bad key type
+
+  small_signature <- signature
+  small_signature$signer_infos$signature <- small_signature$signer_infos$signature[1:100]
+  class(small_signature) <- "pqcrypto_cms_id_signed_data"
+  expect_error(verify_sphincs(important_message, small_signature, key$public))  # c++ error
+
+  key <- keygen_kyber()
+  expect_error(verify_sphincs(important_message, signature, key$public)) # bad key algorithm
+
+  key <- keygen_dilithium()
+  expect_error(verify_sphincs(important_message, signature, key$public)) # bad key algorithm
+
+  key <- keygen_kyber()
+  expect_error(verify_sphincs(important_message, signature, key$public)) # bad key algorithm
+
+  key <- keygen_sphincs()
+  expect_error(verify_sphincs(important_message, signature, key$public)) # mismatching key
+
+})

@@ -16,6 +16,20 @@ test_that("secure time stamp testing", {
     expect_null(ts[[2]])
   })
 
+  # Test output when httr2 package is not available.
+  rN <- function(...) FALSE
+  with_mocked_bindings({
+    expect_message({ts = get_timestamp_secure(tsq)},
+                   "Package 'httr2' is not available")
+
+    expect_true(inherits(ts, "list"))
+    expect_length(ts, 2)
+    expect_true(inherits(ts[[1]], "pqcrypto_timestamp"))
+    expect_null(ts[[2]])
+    },
+    requireNamespace = rN
+  )
+
   # Force unsupported algo (http 200, PKIStatus != 0)
   tsq$message_imprint$algo <- "1.2.840.113549.1.9.4"
 

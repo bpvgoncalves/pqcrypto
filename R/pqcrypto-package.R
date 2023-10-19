@@ -19,6 +19,8 @@
 ## usethis namespace: end
 NULL
 
+# Required for testthat mocking to work
+requireNamespace <- NULL
 
 #' @export
 print.pqcrypto_keypair <- function(x, ...) {

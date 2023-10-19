@@ -22,6 +22,13 @@ test_that("Dilithium2 digital signature", {
   expect_true(inherits(sig, "pqcrypto_cms_id_signed_data"))
   expect_equal(sig$signer_infos$signature_algorithm, "1.3.6.1.4.1.54392.5.1859.1.2.1")
   expect_equal(length(sig$signer_infos$signature), 2420)
+
+  httptest2::without_internet({
+    sig <- sign_dilithium(key$private, "Hello world!!")
+    expect_true(inherits(sig, "pqcrypto_cms_id_signed_data"))
+    expect_equal(sig$signer_infos$signature_algorithm, "1.3.6.1.4.1.54392.5.1859.1.2.1")
+    expect_equal(length(sig$signer_infos$signature), 2420)
+  })
 })
 
 test_that("Dilithium3 digital signature", {
@@ -48,6 +55,13 @@ test_that("Dilithium3 digital signature", {
   expect_true(inherits(sig, "pqcrypto_cms_id_signed_data"))
   expect_equal(sig$signer_infos$signature_algorithm, "1.3.6.1.4.1.54392.5.1859.1.2.2")
   expect_equal(length(sig$signer_infos$signature), 3309)
+
+  httptest2::without_internet({
+    sig <- sign_dilithium(key$private, "Hello world!!")
+    expect_true(inherits(sig, "pqcrypto_cms_id_signed_data"))
+    expect_equal(sig$signer_infos$signature_algorithm, "1.3.6.1.4.1.54392.5.1859.1.2.2")
+    expect_equal(length(sig$signer_infos$signature), 3309)
+  })
 })
 
 test_that("Dilithium5 digital signature", {
@@ -74,6 +88,13 @@ test_that("Dilithium5 digital signature", {
   expect_true(inherits(sig, "pqcrypto_cms_id_signed_data"))
   expect_equal(sig$signer_infos$signature_algorithm, "1.3.6.1.4.1.54392.5.1859.1.2.3")
   expect_equal(length(sig$signer_infos$signature), 4627)
+
+  httptest2::without_internet({
+    sig <- sign_dilithium(key$private, "Hello world!!")
+    expect_true(inherits(sig, "pqcrypto_cms_id_signed_data"))
+    expect_equal(sig$signer_infos$signature_algorithm, "1.3.6.1.4.1.54392.5.1859.1.2.3")
+    expect_equal(length(sig$signer_infos$signature), 4627)
+  })
 })
 
 
