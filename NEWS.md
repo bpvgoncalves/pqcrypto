@@ -1,4 +1,4 @@
-# pqcrypto (development version)
+# pqcrypto 0.2.1
 
 #### Fix
  - TSA secure time stamp defaults to use system time on http error or disconnection
