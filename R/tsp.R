@@ -38,7 +38,7 @@ get_timestamp_secure <- function(tsq) {
                   tsr = NULL)
     }
   } else {
-    pq_msg(c(i="Pacakge 'httr2' not available. Using system time."))
+    pq_msg(c(i="Package 'httr2' is not available. Using system time."))
     out <- list(ts = get_timestamp(),
                 tsr = NULL)
   }
