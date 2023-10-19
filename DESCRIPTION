@@ -13,6 +13,7 @@ Imports:
     openssl,
     PKI
 Suggests: 
+    httptest2,
     httr2,
     knitr,
     rmarkdown,
