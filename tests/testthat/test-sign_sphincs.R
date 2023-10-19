@@ -21,6 +21,13 @@ test_that("Sphincs+ signature (shake, 128, small)", {
   expect_true(inherits(sig, "pqcrypto_cms_id_signed_data"))
   expect_equal(sig$signer_infos$signature_algorithm, "1.3.6.1.4.1.54392.5.1859.1.3.2")
   expect_equal(length(sig$signer_infos$signature), 7856)
+
+  httptest2::without_internet({
+    sig <- sign_sphincs(key$private, "Hello world!!")
+    expect_true(inherits(sig, "pqcrypto_cms_id_signed_data"))
+    expect_equal(sig$signer_infos$signature_algorithm, "1.3.6.1.4.1.54392.5.1859.1.3.2")
+    expect_equal(length(sig$signer_infos$signature), 7856)
+  })
 })
 
 test_that("Sphincs+ signature (shake, 128, fast)", {
@@ -46,6 +53,13 @@ test_that("Sphincs+ signature (shake, 128, fast)", {
   expect_true(inherits(sig, "pqcrypto_cms_id_signed_data"))
   expect_equal(sig$signer_infos$signature_algorithm, "1.3.6.1.4.1.54392.5.1859.1.3.4")
   expect_equal(length(sig$signer_infos$signature), 17088)
+
+  httptest2::without_internet({
+    sig <- sign_sphincs(key$private, "Hello world!!")
+    expect_true(inherits(sig, "pqcrypto_cms_id_signed_data"))
+    expect_equal(sig$signer_infos$signature_algorithm, "1.3.6.1.4.1.54392.5.1859.1.3.4")
+    expect_equal(length(sig$signer_infos$signature), 17088)
+  })
 })
 
 test_that("Sphincs+ signature (shake, 192, small)", {
@@ -71,6 +85,13 @@ test_that("Sphincs+ signature (shake, 192, small)", {
   expect_true(inherits(sig, "pqcrypto_cms_id_signed_data"))
   expect_equal(sig$signer_infos$signature_algorithm, "1.3.6.1.4.1.54392.5.1859.1.3.6")
   expect_equal(length(sig$signer_infos$signature), 16224)
+
+  httptest2::without_internet({
+    sig <- sign_sphincs(key$private, "Hello world!!")
+    expect_true(inherits(sig, "pqcrypto_cms_id_signed_data"))
+    expect_equal(sig$signer_infos$signature_algorithm, "1.3.6.1.4.1.54392.5.1859.1.3.6")
+    expect_equal(length(sig$signer_infos$signature), 16224)
+  })
 })
 
 test_that("Sphincs+ signature (shake, 192, fast)", {
@@ -96,6 +117,13 @@ test_that("Sphincs+ signature (shake, 192, fast)", {
   expect_true(inherits(sig, "pqcrypto_cms_id_signed_data"))
   expect_equal(sig$signer_infos$signature_algorithm, "1.3.6.1.4.1.54392.5.1859.1.3.8")
   expect_equal(length(sig$signer_infos$signature), 35664)
+
+  httptest2::without_internet({
+    sig <- sign_sphincs(key$private, "Hello world!!")
+    expect_true(inherits(sig, "pqcrypto_cms_id_signed_data"))
+    expect_equal(sig$signer_infos$signature_algorithm, "1.3.6.1.4.1.54392.5.1859.1.3.8")
+    expect_equal(length(sig$signer_infos$signature), 35664)
+  })
 })
 
 test_that("Sphincs+ signature (shake, 256, small)", {
@@ -121,6 +149,13 @@ test_that("Sphincs+ signature (shake, 256, small)", {
   expect_true(inherits(sig, "pqcrypto_cms_id_signed_data"))
   expect_equal(sig$signer_infos$signature_algorithm, "1.3.6.1.4.1.54392.5.1859.1.3.10")
   expect_equal(length(sig$signer_infos$signature), 29792)
+
+  httptest2::without_internet({
+    sig <- sign_sphincs(key$private, "Hello world!!")
+    expect_true(inherits(sig, "pqcrypto_cms_id_signed_data"))
+    expect_equal(sig$signer_infos$signature_algorithm, "1.3.6.1.4.1.54392.5.1859.1.3.10")
+    expect_equal(length(sig$signer_infos$signature), 29792)
+  })
 })
 
 test_that("Sphincs+ signature (shake, 256, fast)", {
@@ -146,6 +181,13 @@ test_that("Sphincs+ signature (shake, 256, fast)", {
   expect_true(inherits(sig, "pqcrypto_cms_id_signed_data"))
   expect_equal(sig$signer_infos$signature_algorithm, "1.3.6.1.4.1.54392.5.1859.1.3.12")
   expect_equal(length(sig$signer_infos$signature), 49856)
+
+  httptest2::without_internet({
+    sig <- sign_sphincs(key$private, "Hello world!!")
+    expect_true(inherits(sig, "pqcrypto_cms_id_signed_data"))
+    expect_equal(sig$signer_infos$signature_algorithm, "1.3.6.1.4.1.54392.5.1859.1.3.12")
+    expect_equal(length(sig$signer_infos$signature), 49856)
+  })
 })
 
 test_that("Sphincs+ signature (sha2, 128, small)", {
@@ -171,6 +213,13 @@ test_that("Sphincs+ signature (sha2, 128, small)", {
   expect_true(inherits(sig, "pqcrypto_cms_id_signed_data"))
   expect_equal(sig$signer_infos$signature_algorithm, "1.3.6.1.4.1.54392.5.1859.1.3.1")
   expect_equal(length(sig$signer_infos$signature), 7856)
+
+  httptest2::without_internet({
+    sig <- sign_sphincs(key$private, "Hello world!!")
+    expect_true(inherits(sig, "pqcrypto_cms_id_signed_data"))
+    expect_equal(sig$signer_infos$signature_algorithm, "1.3.6.1.4.1.54392.5.1859.1.3.1")
+    expect_equal(length(sig$signer_infos$signature), 7856)
+  })
 })
 
 test_that("Sphincs+ signature (sha2, 128, fast)", {
@@ -196,6 +245,13 @@ test_that("Sphincs+ signature (sha2, 128, fast)", {
   expect_true(inherits(sig, "pqcrypto_cms_id_signed_data"))
   expect_equal(sig$signer_infos$signature_algorithm, "1.3.6.1.4.1.54392.5.1859.1.3.3")
   expect_equal(length(sig$signer_infos$signature), 17088)
+
+  httptest2::without_internet({
+    sig <- sign_sphincs(key$private, "Hello world!!")
+    expect_true(inherits(sig, "pqcrypto_cms_id_signed_data"))
+    expect_equal(sig$signer_infos$signature_algorithm, "1.3.6.1.4.1.54392.5.1859.1.3.3")
+    expect_equal(length(sig$signer_infos$signature), 17088)
+  })
 })
 
 test_that("Sphincs+ signature (sha2, 192, small)", {
@@ -221,6 +277,13 @@ test_that("Sphincs+ signature (sha2, 192, small)", {
   expect_true(inherits(sig, "pqcrypto_cms_id_signed_data"))
   expect_equal(sig$signer_infos$signature_algorithm, "1.3.6.1.4.1.54392.5.1859.1.3.5")
   expect_equal(length(sig$signer_infos$signature), 16224)
+
+  httptest2::without_internet({
+    sig <- sign_sphincs(key$private, "Hello world!!")
+    expect_true(inherits(sig, "pqcrypto_cms_id_signed_data"))
+    expect_equal(sig$signer_infos$signature_algorithm, "1.3.6.1.4.1.54392.5.1859.1.3.5")
+    expect_equal(length(sig$signer_infos$signature), 16224)
+  })
 })
 
 test_that("Sphincs+ signature (sha2, 192, fast)", {
@@ -246,6 +309,13 @@ test_that("Sphincs+ signature (sha2, 192, fast)", {
   expect_true(inherits(sig, "pqcrypto_cms_id_signed_data"))
   expect_equal(sig$signer_infos$signature_algorithm, "1.3.6.1.4.1.54392.5.1859.1.3.7")
   expect_equal(length(sig$signer_infos$signature), 35664)
+
+  httptest2::without_internet({
+    sig <- sign_sphincs(key$private, "Hello world!!")
+    expect_true(inherits(sig, "pqcrypto_cms_id_signed_data"))
+    expect_equal(sig$signer_infos$signature_algorithm, "1.3.6.1.4.1.54392.5.1859.1.3.7")
+    expect_equal(length(sig$signer_infos$signature), 35664)
+  })
 })
 
 test_that("Sphincs+ signature (sha2, 256, small)", {
@@ -271,6 +341,13 @@ test_that("Sphincs+ signature (sha2, 256, small)", {
   expect_true(inherits(sig, "pqcrypto_cms_id_signed_data"))
   expect_equal(sig$signer_infos$signature_algorithm, "1.3.6.1.4.1.54392.5.1859.1.3.9")
   expect_equal(length(sig$signer_infos$signature), 29792)
+
+  httptest2::without_internet({
+    sig <- sign_sphincs(key$private, "Hello world!!")
+    expect_true(inherits(sig, "pqcrypto_cms_id_signed_data"))
+    expect_equal(sig$signer_infos$signature_algorithm, "1.3.6.1.4.1.54392.5.1859.1.3.9")
+    expect_equal(length(sig$signer_infos$signature), 29792)
+  })
 })
 
 test_that("Sphincs+ signature (sha2, 256, fast)", {
@@ -296,6 +373,13 @@ test_that("Sphincs+ signature (sha2, 256, fast)", {
   expect_true(inherits(sig, "pqcrypto_cms_id_signed_data"))
   expect_equal(sig$signer_infos$signature_algorithm, "1.3.6.1.4.1.54392.5.1859.1.3.11")
   expect_equal(length(sig$signer_infos$signature), 49856)
+
+  httptest2::without_internet({
+    sig <- sign_sphincs(key$private, "Hello world!!")
+    expect_true(inherits(sig, "pqcrypto_cms_id_signed_data"))
+    expect_equal(sig$signer_infos$signature_algorithm, "1.3.6.1.4.1.54392.5.1859.1.3.11")
+    expect_equal(length(sig$signer_infos$signature), 49856)
+  })
 })
 
 test_that("Sphincs+ digital signature fails on wrong parameters", {

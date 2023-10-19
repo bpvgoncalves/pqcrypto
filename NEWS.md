@@ -1,3 +1,12 @@
+# pqcrypto 0.2.1
+
+#### Fix
+ - TSA secure time stamp defaults to use system time on http error or disconnection
+
+#### Internals
+ - Fix some problems preventing R CMD Check to work in some R/OS versions
+ - Add additional tests to the suite
+
 # pqcrypto 0.2.0
 
 #### New Features

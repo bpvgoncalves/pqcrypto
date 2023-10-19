@@ -18,11 +18,11 @@ test_that("Envelope writing works", {
                "'envelope' parameter does not have the expected class")
 
   if (Sys.info()[1] == "Linux") {
-    dest <- "/home/file.env"    # Shouldn't be able to write into root's home dir
+    dest <- "/fake_path/file.env"
   } else if ((Sys.info()[1] == "Windows")) {
-    dest <- "c:/Windows/system32/file.env"    # Shouldn't be able to write into system dir
+    dest <- "z:/fake_path/file.env"
   } else {
     skip("Unknown OS")
   }
-  expect_error(write_envelope(env, dest), "Permission denied")
+  expect_error(write_envelope(env, dest), "cannot open file")
 })

@@ -29,7 +29,7 @@ as.der.pqcrypto_timestamp <- function (ts) {
   # dates in 2050 or later MUST be encoded as GeneralizedTime.
   # -- RFC 5280
 
-  dt <- as.POSIXlt(attr(ts, "unix_ts"), tz="UTC")
+  dt <- as.POSIXlt(attr(ts, "unix_ts"), tz="UTC", origin = "1970-01-01")
   if (dt$year <= 49 || dt$year >= 150) {
     # GeneralizedTime
     strdate <- strftime(dt, "%Y%m%d%H%M%SZ", tz="UTC")
