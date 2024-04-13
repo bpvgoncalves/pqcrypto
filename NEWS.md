@@ -1,3 +1,8 @@
+# pqcrypto (development version)
+
+#### Internals
+ - Synchronize kib code with pq-crystals repo.
+
 # pqcrypto 0.2.1
 
 #### Fix
