@@ -9,7 +9,7 @@ envelope_create(message, public_key)
 \arguments{
 \item{message}{Message to be encrypted and sent.}
 
-\item{public_key}{The public key produced by \code{keygen_kyber()} used to encapsulate the encryption
+\item{public_key}{The public key produced by \code{keygen_ml_kem()} used to encapsulate the encryption
 key used to encrypt the message.}
 }
 \value{
@@ -19,6 +19,6 @@ Invisibly, an envelope with encrypted message and encapsulated key.
 Envelope - Create
 }
 \examples{
-key <- keygen_kyber(512)
+key <- keygen_ml_kem(512)
 env <- envelope_create("Very important message.", key$public)
 }

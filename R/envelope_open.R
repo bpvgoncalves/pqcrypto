@@ -9,7 +9,7 @@
 #' @export
 #'
 #' @examples
-#' key <- keygen_kyber(512)
+#' key <- keygen_ml_kem(512)
 #' env <- envelope_create("Very important message.", key$public)
 #'
 #' msg <- envelope_open(env, key$private)
@@ -28,10 +28,11 @@ envelope_open <- function(envelope, private_key) {
 
   if (!grepl("1.3.6.1.4.1.54392.5.1859.1.1.?", attr(private_key, "algorithm"))) {
     pq_stop(c(x = "Wrong private key algorithm.",
-              i = "Make sure you are using a 'Kyber' private key."))
+              i = "Make sure you are using a 'ML-KEM' private key."))
   }
 
-  shared_key <- decap_kyber(envelope$recipient_infos$encrypted_key, private_key)
+  shared_key <- decapsulate_ml_kem(envelope$recipient_infos$encrypted_key,
+                                   private_key)
   iv <- envelope$encrypted_content_info$content_encryption_algorithm$param_iv
   message <- openssl::aes_cbc_decrypt(envelope$encrypted_content_info$encrypted_content,
                                       shared_key,
