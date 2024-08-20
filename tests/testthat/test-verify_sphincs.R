@@ -289,13 +289,13 @@ test_that("Sphincs+ digital signatures verification fails with bad parameters", 
   class(small_signature) <- "pqcrypto_cms_id_signed_data"
   expect_error(verify_sphincs(important_message, small_signature, key$public))  # c++ error
 
-  key <- keygen_kyber()
+  key <- keygen_ml_kem()
   expect_error(verify_sphincs(important_message, signature, key$public)) # bad key algorithm
 
   key <- keygen_dilithium()
   expect_error(verify_sphincs(important_message, signature, key$public)) # bad key algorithm
 
-  key <- keygen_kyber()
+  key <- keygen_ml_kem()
   expect_error(verify_sphincs(important_message, signature, key$public)) # bad key algorithm
 
   key <- keygen_sphincs()
@@ -317,13 +317,13 @@ test_that("Sphincs+ digital signatures verification fails with bad parameters", 
   class(small_signature) <- "pqcrypto_cms_id_signed_data"
   expect_error(verify_sphincs(important_message, small_signature, key$public))  # c++ error
 
-  key <- keygen_kyber()
+  key <- keygen_ml_kem()
   expect_error(verify_sphincs(important_message, signature, key$public)) # bad key algorithm
 
   key <- keygen_dilithium()
   expect_error(verify_sphincs(important_message, signature, key$public)) # bad key algorithm
 
-  key <- keygen_kyber()
+  key <- keygen_ml_kem()
   expect_error(verify_sphincs(important_message, signature, key$public)) # bad key algorithm
 
   key <- keygen_sphincs()

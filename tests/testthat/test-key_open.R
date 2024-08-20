@@ -1,6 +1,6 @@
 test_that("Read Kyber key-pair", {
 
-  key <- keygen_kyber()
+  key <- keygen_ml_kem()
   path <- tempdir()
 
   write_key(key, path)

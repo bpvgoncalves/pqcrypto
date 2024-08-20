@@ -81,7 +81,7 @@ test_that("Digital signatures verification fails with bad parameters", {
   small_signature$signer_infos$signature <- small_signature$signer_infos$signature[1:100]
   expect_error(verify_dilithium(important_message, small_signature, key$public))  # c++ error
 
-  key <- keygen_kyber()
+  key <- keygen_ml_kem()
   expect_error(verify_dilithium(important_message, signature, key$public)) # bad key algorithm
 
   key <- keygen_sphincs()

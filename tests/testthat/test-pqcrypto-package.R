@@ -2,8 +2,8 @@ test_that("cli", {
 
   if (requireNamespace("cli", quietly = TRUE)) {
 
-      key <- keygen_kyber()
-      enc <- encap_kyber(key$public)
+      key <- keygen_ml_kem()
+      enc <- encapsulate_ml_kem(key$public)
       expect_snapshot({
         print(key)
         print(key$private)

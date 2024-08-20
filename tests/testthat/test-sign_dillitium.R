@@ -104,7 +104,7 @@ test_that("Dilithium digital signature fails on wrong parameters", {
   expect_error(sign_dilithium("not_a_key", "text_message")) # wrong key object
   expect_error(sign_dilithium(key$public, "text_message"))  # wrong key
 
-  key <- keygen_kyber()
+  key <- keygen_ml_kem()
   expect_error(sign_dilithium(key$private, "text_message")) # wrong key algorithm
 
   small_key <- key$private[1:25]
