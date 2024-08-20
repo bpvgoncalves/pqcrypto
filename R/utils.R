@@ -139,7 +139,7 @@ as.cms_enveloped_data <- function(message, public_key) {
 
   data <- as.cms_data(message)
 
-  encap_key <- encap_kyber(public_key)
+  encap_key <- encapsulate_ml_kem(public_key)
 
   encrypted_content <- as.cms_encrypted_content(data, encap_key$shared_secret)
   r_info<- as.cms_key_transport_recipient(public_key, encap_key$encapsulation)
