@@ -1,13 +1,15 @@
-
+# Deprecated functions. To be removed in the future.
 
 test_that("kyber-512 decapsulation works", {
-  key <- keygen_kyber(512)
-  ss1 <- encap_kyber(key$public)
-  ss2 <- decap_kyber(ss1$encapsulation, key$private)
+
+  expect_snapshot(key <- keygen_kyber(512))
+  expect_snapshot(ss1 <- encap_kyber(key$public))
+  expect_snapshot(ss2 <- decap_kyber(ss1$encapsulation, key$private))
   expect_equal(length(ss2), 32)
   expect_identical(ss1$shared_secret, ss2)
 
   # bad key
+  withr::local_options(lifecycle_verbosity = "quiet")
   expect_error(decap_kyber(ss$encapsulation, key$public))
 
   # encapsulation gets changed
@@ -24,13 +26,14 @@ test_that("kyber-512 decapsulation works", {
 
 
 test_that("kyber-768 decapsulation works", {
-  key <- keygen_kyber(768)
-  ss1 <- encap_kyber(key$public)
-  ss2 <- decap_kyber(ss1$encapsulation, key$private)
+  expect_snapshot(key <- keygen_kyber(768))
+  expect_snapshot(ss1 <- encap_kyber(key$public))
+  expect_snapshot(ss2 <- decap_kyber(ss1$encapsulation, key$private))
   expect_equal(length(ss2), 32)
   expect_identical(ss1$shared_secret, ss2)
 
   # bad key
+  withr::local_options(lifecycle_verbosity = "quiet")
   expect_error(decap_kyber(ss$encapsulation, key$public))
 
   transmission_error <- as.raw(runif(1088, 0, 256))
@@ -45,13 +48,14 @@ test_that("kyber-768 decapsulation works", {
 })
 
 test_that("kyber-1024 decapsulation works", {
-  key <- keygen_kyber(1024)
-  ss1 <- encap_kyber(key$public)
-  ss2 <- decap_kyber(ss1$encapsulation, key$private)
+  expect_snapshot(key <- keygen_kyber(1024))
+  expect_snapshot(ss1 <- encap_kyber(key$public))
+  expect_snapshot(ss2 <- decap_kyber(ss1$encapsulation, key$private))
   expect_equal(length(ss2), 32)
   expect_identical(ss1$shared_secret, ss2)
 
   # bad key
+  withr::local_options(lifecycle_verbosity = "quiet")
   expect_error(decap_kyber(ss$encapsulation, key$public))
 
   transmission_error <- as.raw(runif(1568, 0, 256))
@@ -66,6 +70,7 @@ test_that("kyber-1024 decapsulation works", {
 })
 
 test_that("kyber-x decapsulation fails on wrong parameter", {
+  withr::local_options(lifecycle_verbosity = "quiet")
   key <- keygen_kyber(512)
   ss <- encap_kyber(key$public)
 
