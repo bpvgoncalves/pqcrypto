@@ -30,7 +30,7 @@ test_that("fails on bad parameters", {
   key <- keygen_ml_kem()
   expect_error(envelope_create("My Message.", key$private))
 
-  key <- keygen_dilithium()
+  key <- keygen_ml_dsa()
   expect_error(envelope_create("My Message.", key$public))
 
 })

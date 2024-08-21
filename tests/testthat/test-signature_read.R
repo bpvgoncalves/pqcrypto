@@ -1,8 +1,8 @@
-test_that("Signature Writing works: Dilithium", {
+test_that("Signature Writing works: ML-DSA", {
 
-  key <- keygen_dilithium(2)
+  key <- keygen_ml_dsa(2)
   important_message <- "Hello world!!"
-  signature <- sign_dilithium(key$private, important_message)
+  signature <- sign_ml_dsa(key$private, important_message)
   fn <- write_signature(signature)
 
   retrieved_signature <- read_signature(fn)

@@ -45,6 +45,6 @@ test_that("kyber-x encapsulation fails on wrong parameter", {
   attr(manipulated_key$public, "algorithm") <- "1.3.6.1.4.1.54392.5.1859.1.1.99"
   expect_error(encapsulate_ml_kem(manipulated_key$public))
 
-  invalid_key_algo <- keygen_dilithium()
+  invalid_key_algo <- keygen_ml_dsa()
   expect_error(encapsulate_ml_kem(invalid_key_algo$public))  # invalid algorithm
 })

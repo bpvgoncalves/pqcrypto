@@ -11,8 +11,8 @@ test_that("cli", {
         print(enc$shared_secret)
       })
 
-      key <- keygen_dilithium()
-      sig <- sign_dilithium(key$private, "My message")
+      key <- keygen_ml_dsa()
+      sig <- sign_ml_dsa(key$private, "My message")
       expect_snapshot({
         print(key)
         print(key$private)

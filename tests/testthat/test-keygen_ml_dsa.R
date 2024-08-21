@@ -1,6 +1,6 @@
-test_that("Dilithium2 keys generation", {
-  withr::local_options(lifecycle_verbosity = "quiet")
-  k <- keygen_dilithium(2)
+test_that("ML-DSA-44 keys generation", {
+
+  k <- keygen_ml_dsa(2)
   expect_s3_class(k, "pqcrypto_keypair")
   expect_s3_class(k$private, "pqcrypto_private_key")
   expect_equal(length(k$private), 2560)
@@ -8,9 +8,9 @@ test_that("Dilithium2 keys generation", {
   expect_equal(length(k$public), 1312)
 })
 
-test_that("Dilithium3 keys generation", {
-  withr::local_options(lifecycle_verbosity = "quiet")
-  k <- keygen_dilithium(3)
+test_that("ML-DSA-65 keys generation", {
+
+  k <- keygen_ml_dsa(3)
   expect_s3_class(k, "pqcrypto_keypair")
   expect_s3_class(k$private, "pqcrypto_private_key")
   expect_equal(length(k$private), 4032)
@@ -18,9 +18,9 @@ test_that("Dilithium3 keys generation", {
   expect_equal(length(k$public), 1952)
 })
 
-test_that("Dilithium5 keys generation", {
-  withr::local_options(lifecycle_verbosity = "quiet")
-  k <- keygen_dilithium(5)
+test_that("ML-DSA-87 keys generation", {
+
+  k <- keygen_ml_dsa(5)
   expect_s3_class(k, "pqcrypto_keypair")
   expect_s3_class(k$private, "pqcrypto_private_key")
   expect_equal(length(k$private), 4896)
@@ -29,9 +29,9 @@ test_that("Dilithium5 keys generation", {
 })
 
 test_that("Keys generation fails on wrong parameters", {
-  withr::local_options(lifecycle_verbosity = "quiet")
-  expect_error(keygen_dilithium(7))
-  expect_error(keygen_dilithium(NULL))
-  expect_error(keygen_dilithium(NA))
-  expect_error(keygen_dilithium("invalid_param"))
+
+  expect_error(keygen_ml_dsa(7))
+  expect_error(keygen_ml_dsa(NULL))
+  expect_error(keygen_ml_dsa(NA))
+  expect_error(keygen_ml_dsa("invalid_param"))
 })

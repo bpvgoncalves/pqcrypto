@@ -77,7 +77,7 @@ test_that("ML-KEM-x decapsulation fails on wrong parameter", {
   attr(manipulated_key$private, "algorithm") <- "1.3.6.1.4.1.54392.5.1859.0"
   expect_error(decapsulate_ml_kem(ss$encapsulation, manipulated_key$private))
 
-  invalid_key_algo <- keygen_dilithium()
+  invalid_key_algo <- keygen_ml_dsa()
   expect_error(decapsulate_ml_kem(ss$encapsulation, invalid_key_algo$private))  # invalid algorithm
 
   # undefined algorithm, on the right 'family'

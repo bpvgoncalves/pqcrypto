@@ -391,7 +391,7 @@ test_that("Sphincs+ digital signature fails on wrong parameters", {
   key <- keygen_ml_kem()
   expect_error(sign_sphincs(key$private, "text_message")) # wrong key algorithm
 
-  key <- keygen_dilithium()
+  key <- keygen_ml_dsa()
   expect_error(sign_sphincs(key$private, "text_message")) # wrong key algorithm
 
   small_key <- key$private[1:25]

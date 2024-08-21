@@ -292,7 +292,7 @@ test_that("Sphincs+ digital signatures verification fails with bad parameters", 
   key <- keygen_ml_kem()
   expect_error(verify_sphincs(important_message, signature, key$public)) # bad key algorithm
 
-  key <- keygen_dilithium()
+  key <- keygen_ml_dsa()
   expect_error(verify_sphincs(important_message, signature, key$public)) # bad key algorithm
 
   key <- keygen_ml_kem()
@@ -320,7 +320,7 @@ test_that("Sphincs+ digital signatures verification fails with bad parameters", 
   key <- keygen_ml_kem()
   expect_error(verify_sphincs(important_message, signature, key$public)) # bad key algorithm
 
-  key <- keygen_dilithium()
+  key <- keygen_ml_dsa()
   expect_error(verify_sphincs(important_message, signature, key$public)) # bad key algorithm
 
   key <- keygen_ml_kem()

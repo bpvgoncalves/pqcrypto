@@ -72,7 +72,7 @@ test_that("Failure on wrong data", {
   expect_error(envelope_open(env, key$public))
   expect_error(envelope_open("not_an_envelope", key$public))
 
-  key <- keygen_dilithium()
+  key <- keygen_ml_dsa()
   expect_error(envelope_open(env, key$private))
 
 })

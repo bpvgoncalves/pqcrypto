@@ -1,5 +1,5 @@
 test_that("Digital signatures verification - Dilithium2", {
-
+  withr::local_options(lifecycle_verbosity = "quiet")
   key <- keygen_dilithium(2)
   important_message <- "Hello world!!"
   signature <- sign_dilithium(key$private, important_message)
@@ -23,7 +23,7 @@ test_that("Digital signatures verification - Dilithium2", {
 })
 
 test_that("Digital signatures verification - Dilithium3", {
-
+  withr::local_options(lifecycle_verbosity = "quiet")
   key <- keygen_dilithium(3)
   important_message <- "Hello world!!"
   signature <- sign_dilithium(key$private, important_message)
@@ -46,7 +46,7 @@ test_that("Digital signatures verification - Dilithium3", {
 })
 
 test_that("Digital signatures verification - Dilithium5", {
-
+  withr::local_options(lifecycle_verbosity = "quiet")
   key <- keygen_dilithium(5)
   important_message <- "Hello world!!"
   signature <- sign_dilithium(key$private, important_message)
@@ -69,7 +69,7 @@ test_that("Digital signatures verification - Dilithium5", {
 })
 
 test_that("Digital signatures verification fails with bad parameters", {
-
+  withr::local_options(lifecycle_verbosity = "quiet")
   key <- keygen_dilithium(2)
   important_message <- "Hello world!!"
   signature <- sign_dilithium(key$private, important_message)
