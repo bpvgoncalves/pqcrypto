@@ -18,7 +18,8 @@ Suggests:
     httr2,
     knitr,
     rmarkdown,
-    testthat (>= 3.2.0)
+    testthat (>= 3.2.0),
+    withr
 LinkingTo: 
     cpp11
 VignetteBuilder: 
