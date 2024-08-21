@@ -58,6 +58,8 @@ keygen_ml_dsa <- function(strength = 3) {
 
 #' Key-Pair Generation - Dilithium
 #'
+#' `r lifecycle::badge("deprecated")`
+#'
 #' @param strength  Type of key strength to be generated.
 #'    Different strengths are available. Use 2 for Dilithium2 (claimed strength
 #'    category 2), 3 for Dilithium3 (default, claimed strength category 3) or 5

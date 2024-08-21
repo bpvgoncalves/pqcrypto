@@ -22,3 +22,4 @@ key <- keygen_kyber()
 key <- keygen_ml_kem()
 
 }
+\keyword{internal}

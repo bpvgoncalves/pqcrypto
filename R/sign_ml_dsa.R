@@ -68,6 +68,9 @@ sign_ml_dsa <- function(private_key, message) {
 
 #' Dilithium Digital Signature - Sign
 #'
+#' @description
+#' `r lifecycle::badge("deprecated")`
+#'
 #' Produces a digital signature of a given message using a ML-DSA algorithm.
 #'
 #' @param private_key A private key produced by `keygen_ml_dsa()` to be used

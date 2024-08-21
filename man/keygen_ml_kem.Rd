@@ -14,7 +14,7 @@ keygen_ml_kem(param_set = 768)
 A \code{keypair} object.
 }
 \description{
-#' On 13/Aug/2024 NIST published the final version of the Module-Latice-Based
+On 13/Aug/2024 NIST published the final version of the Module-Latice-Based
 Key-Encapsulation Mechanism (ML-KEM), based on Crystals-Kyber submission.
 This function generates a keypair to be used by the proposed KEM.
 }

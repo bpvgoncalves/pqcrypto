@@ -2,7 +2,7 @@
 #' Key-Pair Generation - ML-KEM (FIPS 203)
 #'
 #' @description
-#' #' On 13/Aug/2024 NIST published the final version of the Module-Latice-Based
+#' On 13/Aug/2024 NIST published the final version of the Module-Latice-Based
 #' Key-Encapsulation Mechanism (ML-KEM), based on Crystals-Kyber submission.
 #' This function generates a keypair to be used by the proposed KEM.
 #'
@@ -63,6 +63,8 @@ keygen_ml_kem <- function(param_set = 768) {
 #'    Use 512 for Kyber 512, 768 (default) for Kyber 768 or 1024 for Kyber 1024.
 #'
 #' @return A `keypair` object.
+#'
+#' @keywords internal
 #' @export
 #'
 #' @examples

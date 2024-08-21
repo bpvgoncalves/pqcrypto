@@ -82,6 +82,9 @@ verify_ml_dsa <- function(message, signature, public_key) {
 
 #' Dilithium Digital Signature - Verify
 #'
+#' @description
+#' `r lifecycle::badge("deprecated")`
+#'
 #' Verifies that the signature of a given message is valid.
 #'
 #' @param message     The message that has been signed.
@@ -102,6 +105,8 @@ verify_ml_dsa <- function(message, signature, public_key) {
 #' important_message <- "Hello world!!"
 #' signature <- sign_dilithium(key$private, important_message)
 #' verify_dilithium(important_message, signature, key$public)
+#' # ->
+#' verify_ml_dsa(important_message, signature, key$public)
 #'
 verify_dilithium <- function(message, signature, public_key) {
   lifecycle::deprecate_soft("0.3.0", "verify_dilithium()", "verify_ml_dsa()")
