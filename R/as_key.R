@@ -3,7 +3,7 @@ as.key <- function(object, ...) {
   UseMethod("as.key")
 }
 
-
+#' @keywords internal
 as.key.pqcrypto_der_encrypted_private_key <- function(d) {
 
   struct <- PKI::ASN1.decode(d)
@@ -16,6 +16,7 @@ as.key.pqcrypto_der_encrypted_private_key <- function(d) {
   invisible(ciphertext)
 }
 
+#' @keywords internal
 as.key.pqcrypto_der_private_key <- function(d) {
 
   struct <- PKI::ASN1.decode(d)
@@ -34,6 +35,7 @@ as.key.pqcrypto_der_private_key <- function(d) {
   invisible(pk)
 }
 
+#' @keywords internal
 as.key.pqcrypto_der_public_key <- function(d) {
 
   struct <- PKI::ASN1.decode(d)
