@@ -1,9 +1,10 @@
 
-#' Dilithium Digital Signature - Sign
+#' Digital Signature - Sign ML-DSA (FIPS 204)
 #'
-#' Produces a digital signature of a given message.
+#' @description
+#' Produces a digital signature of a given message using a ML-DSA algorithm.
 #'
-#' @param private_key A private key produced by `keygen_dilithium()` to be used
+#' @param private_key A private key produced by `keygen_ml_dsa()` to be used
 #'    for message signing.
 #' @param message     The message to be signed. Message may be interpreted in
 #'    very lax terms. Pretty much any R object can be signed, not only
@@ -14,12 +15,12 @@
 #' @export
 #'
 #' @examples
-#' key <- keygen_dilithium(2)
+#' key <- keygen_ml_dsa(2)
 #' important_message <- "Hello world!!"
-#' sig <- sign_dilithium(key$private, important_message)
+#' sig <- sign_ml_dsa(key$private, important_message)
 #' sig[1:10]
 #'
-sign_dilithium <- function(private_key, message) {
+sign_ml_dsa <- function(private_key, message) {
 
   if (!inherits(private_key, "pqcrypto_private_key")) {
     pq_stop(c(x = "'private_key' parameter does not have the expected class.",
@@ -28,12 +29,12 @@ sign_dilithium <- function(private_key, message) {
 
   if (!grepl("1.3.6.1.4.1.54392.5.1859.1.2.?", attr(private_key, "algorithm"))) {
     pq_stop(c(x = "Wrong private key algorithm.",
-              i = "Make sure you are using a 'Dilithium' private key."))
+              i = "Make sure you are using a 'ML-DSA' private key."))
   }
 
   if (!(length(private_key) %in% c(2560, 4032, 4896))) {
     pq_stop(c(x = "Wrong private key size.",
-              i = "Make sure you are using a 'Dilithium' private key."))
+              i = "Make sure you are using a 'ML-DSA' private key."))
   }
 
   content <- as.cms_data(message)
@@ -61,4 +62,35 @@ sign_dilithium <- function(private_key, message) {
   signed_data <- as.cms_signed_data(content, s_info)
 
   invisible(signed_data)
+}
+
+
+
+#' Dilithium Digital Signature - Sign
+#'
+#' Produces a digital signature of a given message using a ML-DSA algorithm.
+#'
+#' @param private_key A private key produced by `keygen_ml_dsa()` to be used
+#'    for message signing.
+#' @param message     The message to be signed. Message may be interpreted in
+#'    very lax terms. Pretty much any R object can be signed, not only
+#'    character strings.
+#'
+#' @return A `pqcrypto_signature`' object.
+#'
+#' @keywords internal
+#' @export
+#'
+#' @examples
+#' key <- keygen_ml_dsa(2)
+#' important_message <- "Hello world!!"
+#' sig <- sign_dilithium(key$private, important_message)
+#' # ->
+#' sig <- sign_ml_dsa(key$private, important_message)
+#' sig[1:10]
+#'
+sign_dilithium <- function(private_key, message) {
+  lifecycle::deprecate_soft("0.3.0", "sign_dilithium()", "sign_ml_dsa()")
+
+  sign_ml_dsa(private_key, message)
 }
