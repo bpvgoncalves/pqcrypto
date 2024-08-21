@@ -13,7 +13,7 @@
 #'
 #' @examples
 #' key <- keygen_ml_kem(512)
-#' ss1 <- encapsulate_ml_kem(key$public)  # This generates an encapsulation readable only by key$private
+#' ss1 <- encapsulate_ml_kem(key$public)
 #' ss2 <- decapsulate_ml_kem(ss1$encapsulation, key$private)
 #' identical(ss1$shared_secret, ss2)
 #'
@@ -77,7 +77,7 @@ decapsulate_ml_kem <- function(encapsulation, private_key) {
 #'
 #' @examples
 #' key <- keygen_ml_kem(512)
-#' ss1 <- encapsulate_ml_kem(key$public)  # This generates an encapsulation readable only by key$private
+#' ss1 <- encapsulate_ml_kem(key$public)
 #'
 #' ss2 <- decap_kyber(ss1$encapsulation, key$private)
 #' # ->

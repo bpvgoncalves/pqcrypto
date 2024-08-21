@@ -20,7 +20,7 @@ Uses own private key to retrieve the shared secret key created by \code{encapsul
 }
 \examples{
 key <- keygen_ml_kem(512)
-ss1 <- encapsulate_ml_kem(key$public)  # This generates an encapsulation readable only by key$private
+ss1 <- encapsulate_ml_kem(key$public)
 
 ss2 <- decap_kyber(ss1$encapsulation, key$private)
 # ->

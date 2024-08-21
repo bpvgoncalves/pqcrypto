@@ -6,7 +6,7 @@
 #' Key-Encapsulation Mechanism (ML-KEM), based on Crystals-Kyber submission.
 #' This function generates a keypair to be used by the proposed KEM.
 #'
-#' @references FIPS 203 [https://csrc.nist.gov/pubs/fips/203/final]
+#' @seealso https://csrc.nist.gov/pubs/fips/203/final
 #'
 #' @param param_set  Type of key to be generated.  Use '512' for ML-KEM-512,
 #' '768' for ML-KEM-768 (default), or '1024' for ML-KEM-1024.

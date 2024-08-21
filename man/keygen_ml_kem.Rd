@@ -23,6 +23,6 @@ key <- keygen_ml_kem()
 print(key)
 
 }
-\references{
-FIPS 203 \link{https://csrc.nist.gov/pubs/fips/203/final}
+\seealso{
+https://csrc.nist.gov/pubs/fips/203/final
 }
