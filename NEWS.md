@@ -1,20 +1,25 @@
-# pqcrypto (development version)
+# pqcrypto 0.3.0
 
-#### Internals
- - Synchronize kib code with pq-crystals repo.
+##### New Features
+ - Rename Kyber and Dilithium functions to match their FIPS' algorithm family names.  
+ Old functions softly deprecated.
+
+##### Internals
+ - Synchronize code with pq-crystals repos.
+ - Synchronize code with sphincs+ repos.
 
 # pqcrypto 0.2.1
 
-#### Fix
+##### Fix
  - TSA secure time stamp defaults to use system time on http error or disconnection
 
-#### Internals
+##### Internals
  - Fix some problems preventing R CMD Check to work in some R/OS versions
  - Add additional tests to the suite
 
 # pqcrypto 0.2.0
 
-#### New Features
+##### New Features
  - Specialized `print()` for some pqcrypto_* objects
  - Add `write_key()` and `open_key()` for key saving and retrieval
  - Digital Signatures:
@@ -26,7 +31,7 @@
  - Add `write_envelope()`and `read_envelope()`for envelope saving and retrieval
 
 
-#### Internals
+##### Internals
  - Some changes to classes, new tests, lib compilation, ...
  - Change data types from integer to raw
 
