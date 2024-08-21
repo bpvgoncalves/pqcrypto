@@ -16,7 +16,7 @@ An envelope read from the file
 Reads an envelope from a binary file created by \code{write_envelope()}.
 }
 \examples{
-key <- keygen_kyber(512)
+key <- keygen_ml_kem(512)
 env <- envelope_create("Very important message.", key$public)
 fn <- write_envelope(env)
 

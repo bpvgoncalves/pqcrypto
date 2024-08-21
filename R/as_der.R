@@ -3,6 +3,7 @@ as.der <- function(object, ...) {
   UseMethod("as.der")
 }
 
+#' @keywords internal
 as.der.NULL <- function(n) {
   # The contents octets shall not contain any octets.
   # NOTE – The length octet is zero.
@@ -11,6 +12,7 @@ as.der.NULL <- function(n) {
   as.raw(c(5L, 0L))
 }
 
+#' @keywords internal
 as.der.logical <- function(l) {
   # If the encoding represents the boolean value TRUE, its single
   # contents octet shall have all eight bits set to one.
@@ -23,6 +25,7 @@ as.der.logical <- function(l) {
   }
 }
 
+#' @keywords internal
 as.der.pqcrypto_timestamp <- function (ts) {
   # CAs conforming to this profile MUST always encode certificate
   # validity dates through the year 2049 as  ; certificate validity
@@ -43,6 +46,7 @@ as.der.pqcrypto_timestamp <- function (ts) {
   PKI::ASN1.encode(PKI::ASN1.item(charToRaw(strdate), tag))
 }
 
+#' @keywords internal
 as.der.pqcrypto_public_key <- function(k) {
 
   algorithm <- PKI::ASN1.encode(PKI::as.oid(attr(k, "algorithm")))
@@ -54,6 +58,7 @@ as.der.pqcrypto_public_key <- function(k) {
   PKI::ASN1.encode(PKI::ASN1.item(c(algorithm_identifier, subject_public_key), 48L))
 }
 
+#' @keywords internal
 as.der.pqcrypto_private_key <- function(k) {
 
   version <- PKI::ASN1.encode(PKI::ASN1.item(attr(k, "version"), 2L))
@@ -75,6 +80,7 @@ as.der.pqcrypto_private_key <- function(k) {
   PKI::ASN1.encode(PKI::ASN1.item(c(version, algorithm_identifier, private_key, extensions), 48L))
 }
 
+#' @keywords internal
 as.der.pqcrypto_encrypted_private_key <- function(enc_data) {
 
   algorithm <- PKI::ASN1.encode(PKI::as.oid("2.16.840.1.101.3.4.1.42"))
@@ -88,6 +94,7 @@ as.der.pqcrypto_encrypted_private_key <- function(enc_data) {
                                                                 48L))
 }
 
+#' @keywords internal
 as.der.pqcrypto_cms_signed_attrs <- function(sa) {
 
   attr1_type <- PKI::ASN1.encode(PKI::as.oid(sa[[1]][[1]]))
@@ -106,6 +113,7 @@ as.der.pqcrypto_cms_signed_attrs <- function(sa) {
   PKI::ASN1.encode(PKI::ASN1.item(sa, 160L))
 }
 
+#' @keywords internal
 as.der.pqcrypto_cms_unsigned_attrs <- function(ua) {
 
   attr1_type <- PKI::ASN1.encode(PKI::as.oid(ua[[1]][[1]]))
@@ -116,6 +124,7 @@ as.der.pqcrypto_cms_unsigned_attrs <- function(ua) {
   PKI::ASN1.encode(PKI::ASN1.item(ua, 161L))
 }
 
+#' @keywords internal
 as.der.pqcrypto_cms_signature_info <- function(si) {
 
   ver <- PKI::ASN1.encode(PKI::ASN1.item(si$version, 2L))
@@ -130,6 +139,7 @@ as.der.pqcrypto_cms_signature_info <- function(si) {
   PKI::ASN1.encode(PKI::ASN1.item(c(ver, sid, d_algo, sa, s_algo, s, ua), 48L))
 }
 
+#' @keywords internal
 as.der.pqcrypto_cms_id_signed_data <- function(sd) {
 
   ver <- PKI::ASN1.encode(PKI::ASN1.item(sd$version, 2L))
@@ -147,6 +157,7 @@ as.der.pqcrypto_cms_id_signed_data <- function(sd) {
   PKI::ASN1.encode(PKI::ASN1.item(c(ver, d_algo, eci, si), 48L))
 }
 
+#' @keywords internal
 as.der.pqcrypto_cms_id_enveloped_data <- function(e) {
 
   ver <- PKI::ASN1.encode(PKI::ASN1.item(e$version, 2L))
@@ -173,6 +184,7 @@ as.der.pqcrypto_cms_id_enveloped_data <- function(e) {
 
 }
 
+#' @keywords internal
 as.der.pqcrypto_tsp_tsq <- function(t) {
 
   ver <- PKI::ASN1.encode(PKI::ASN1.item(t$version, 2L))

@@ -1,17 +1,25 @@
 
-#' Key-Pair Generation - Kyber
+#' Key-Pair Generation - ML-KEM (FIPS 203)
 #'
-#' @param param_set  Type of key to be generated.
-#'    Use 512 for Kyber-512, 768 (default) for Kyber-768 or 1024 for Kyber-1024.
+#' @description
+#' On 13/Aug/2024 NIST published the final version of the Module-Latice-Based
+#' Key-Encapsulation Mechanism (ML-KEM), based on Crystals-Kyber submission.
+#' This function generates a keypair to be used by the proposed KEM.
+#'
+#' @seealso https://csrc.nist.gov/pubs/fips/203/final
+#'
+#' @param param_set  Type of key to be generated.  Use '512' for ML-KEM-512,
+#' '768' for ML-KEM-768 (default), or '1024' for ML-KEM-1024.
 #'
 #' @return A `keypair` object.
+#'
 #' @export
 #'
 #' @examples
-#' key <- keygen_kyber()
-#' key$algorithm
+#' key <- keygen_ml_kem()
+#' print(key)
 #'
-keygen_kyber <- function(param_set = 768) {
+keygen_ml_kem <- function(param_set = 768) {
 
   param_set <- as.integer(param_set)
   if (param_set == 512L) {
@@ -43,4 +51,30 @@ keygen_kyber <- function(param_set = 768) {
 
   rm(key)
   return(keypair)
+}
+
+
+#' Key-Pair Generation - Kyber
+#'
+#' @description
+#' `r lifecycle::badge("deprecated")`
+#'
+#' @param param_set  Type of key to be generated.
+#'    Use 512 for Kyber 512, 768 (default) for Kyber 768 or 1024 for Kyber 1024.
+#'
+#' @return A `keypair` object.
+#'
+#' @keywords internal
+#' @export
+#'
+#' @examples
+#' key <- keygen_kyber()
+#' # ->
+#' key <- keygen_ml_kem()
+#'
+keygen_kyber <- function(param_set = 768) {
+  lifecycle::deprecate_soft("0.3.0", "keygen_kyber()", "keygen_ml_kem()")
+
+  keygen_ml_kem(param_set)
+
 }

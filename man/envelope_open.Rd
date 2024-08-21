@@ -19,7 +19,7 @@ The message.
 Envelope - Open
 }
 \examples{
-key <- keygen_kyber(512)
+key <- keygen_ml_kem(512)
 env <- envelope_create("Very important message.", key$public)
 
 msg <- envelope_open(env, key$private)

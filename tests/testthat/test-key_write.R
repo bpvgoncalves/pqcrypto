@@ -1,6 +1,6 @@
-test_that("Write Kyber key-pair", {
+test_that("Write ML-KEM key-pair", {
 
-  key <- keygen_kyber()
+  key <- keygen_ml_kem()
   path <- tempdir()
 
   write_key(key, path)
@@ -41,9 +41,9 @@ test_that("Write Kyber key-pair", {
   expect_error(write_key(key, "not_a_path"))
 })
 
-test_that("Write Dilithium key-pair", {
+test_that("Write ML-DSA key-pair", {
 
-  key <- keygen_dilithium()
+  key <- keygen_ml_dsa()
   path <- tempdir()
 
   write_key(key, path)
@@ -86,7 +86,7 @@ test_that("Write Dilithium key-pair", {
 
 test_that("Write Sphincs+ key-pair", {
 
-  key <- keygen_kyber()
+  key <- keygen_sphincs()
   path <- tempdir()
 
   write_key(key, path)

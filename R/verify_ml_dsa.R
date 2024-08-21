@@ -1,13 +1,14 @@
 
-#' Dilithium Digital Signature - Verify
+#' Digital Signature - Verify ML-DSA (FIPS 204)
 #'
+#' @description
 #' Verifies that the signature of a given message is valid.
 #'
 #' @param message     The message that has been signed.
-#'    As in `sign_dilithium()`, message may be interpreted in lax terms. It is
+#'    As in `sign_ml_dsa()`, message may be interpreted in lax terms. It is
 #'    possible to sign any type of R objects, not only text strings.
-#' @param signature   The signature produced by `sign_dilithium()`.
-#' @param public_key  The public key created by `keygen_dilithium()` that is
+#' @param signature   The signature produced by `sign_ml_dsa()`.
+#' @param public_key  The public key created by `keygen_ml_dsa()` that is
 #'    paired with the private key used for signing.
 #'
 #' @return  Prints the signature validation outcome and silently returns TRUE
@@ -16,12 +17,12 @@
 #' @export
 #'
 #' @examples
-#' key <- keygen_dilithium(2)
+#' key <- keygen_ml_dsa(2)
 #' important_message <- "Hello world!!"
-#' signature <- sign_dilithium(key$private, important_message)
-#' verify_dilithium(important_message, signature, key$public)
+#' signature <- sign_ml_dsa(key$private, important_message)
+#' verify_ml_dsa(important_message, signature, key$public)
 #'
-verify_dilithium <- function(message, signature, public_key) {
+verify_ml_dsa <- function(message, signature, public_key) {
 
   if (!inherits(signature, "pqcrypto_cms_id_signed_data")) {
     pq_stop(c(x = "'signature' parameter does not have the expected class.",
@@ -35,7 +36,7 @@ verify_dilithium <- function(message, signature, public_key) {
 
   if (!grepl("1.3.6.1.4.1.54392.5.1859.1.2.?", attr(public_key, "algorithm"))) {
     pq_stop(c(x = "Wrong public key algorithm.",
-              i = "Make sure you are using a 'Dilithium' public key."))
+              i = "Make sure you are using a 'ML-DSA' public key."))
   }
 
   if (!identical(signature$signer_infos$sid, unclass(openssl::sha3(public_key, 224)))) {
@@ -76,4 +77,39 @@ verify_dilithium <- function(message, signature, public_key) {
   }
 
   invisible(result)
+}
+
+
+#' Dilithium Digital Signature - Verify
+#'
+#' @description
+#' `r lifecycle::badge("deprecated")`
+#'
+#' Verifies that the signature of a given message is valid.
+#'
+#' @param message     The message that has been signed.
+#'    As in `sign_dilithium()`, message may be interpreted in lax terms. It is
+#'    possible to sign any type of R objects, not only text strings.
+#' @param signature   The signature produced by `sign_dilithium()`.
+#' @param public_key  The public key created by `keygen_dilithium()` that is
+#'    paired with the private key used for signing.
+#'
+#' @return  Prints the signature validation outcome and silently returns TRUE
+#'    if the signature verifies successfully or FALSE otherwise.
+#'
+#' @keywords internal
+#' @export
+#'
+#' @examples
+#' key <- keygen_dilithium(2)
+#' important_message <- "Hello world!!"
+#' signature <- sign_dilithium(key$private, important_message)
+#' verify_dilithium(important_message, signature, key$public)
+#' # ->
+#' verify_ml_dsa(important_message, signature, key$public)
+#'
+verify_dilithium <- function(message, signature, public_key) {
+  lifecycle::deprecate_soft("0.3.0", "verify_dilithium()", "verify_ml_dsa()")
+
+  verify_ml_dsa(message, signature, public_key)
 }

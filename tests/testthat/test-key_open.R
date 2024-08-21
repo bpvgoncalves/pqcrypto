@@ -1,6 +1,6 @@
-test_that("Read Kyber key-pair", {
+test_that("Read ML-KEM key-pair", {
 
-  key <- keygen_kyber()
+  key <- keygen_ml_kem()
   path <- tempdir()
 
   write_key(key, path)
@@ -27,9 +27,9 @@ test_that("Read Kyber key-pair", {
 
 })
 
-test_that("Read Dilithium key-pair", {
+test_that("Read ML-DSA key-pair", {
 
-  key <- keygen_dilithium()
+  key <- keygen_ml_dsa()
   path <- tempdir()
 
   write_key(key, path)

@@ -15,6 +15,7 @@
 # along with this program.  If not, see <http://www.gnu.org/licenses/>
 
 ## usethis namespace: start
+#' @importFrom lifecycle deprecated
 #' @useDynLib pqcrypto, .registration = TRUE
 ## usethis namespace: end
 NULL

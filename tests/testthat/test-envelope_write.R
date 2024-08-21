@@ -1,6 +1,6 @@
 test_that("Envelope writing works", {
 
-  key <- keygen_kyber()
+  key <- keygen_ml_kem()
   secret_message <- "Hello world!!"
   env <- envelope_create(secret_message, key$public)
   dest <- tempfile()
