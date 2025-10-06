@@ -4,7 +4,7 @@
 \alias{verify_ml_dsa}
 \title{Digital Signature - Verify ML-DSA (FIPS 204)}
 \usage{
-verify_ml_dsa(message, signature, public_key)
+verify_ml_dsa(message, signature, public_key, context = "")
 }
 \arguments{
 \item{message}{The message that has been signed.
@@ -15,6 +15,10 @@ possible to sign any type of R objects, not only text strings.}
 
 \item{public_key}{The public key created by \code{keygen_ml_dsa()} that is
 paired with the private key used for signing.}
+
+\item{context}{Optional. Defaults to the empty string, As per FIPS 204
+applications may specify the use of a non-empty context string up to 255
+characters.}
 }
 \value{
 Prints the signature validation outcome and silently returns TRUE

@@ -9,6 +9,9 @@
 #' @param message     The message to be signed. Message may be interpreted in
 #'    very lax terms. Pretty much any R object can be signed, not only
 #'    character strings.
+#' @param context     Optional. Defaults to the empty string, As per FIPS 204
+#'    applications may specify the use of a non-empty context string up to 255
+#'    characters.
 #'
 #' @return A `pqcrypto_signature`' object.
 #'
@@ -20,7 +23,7 @@
 #' sig <- sign_ml_dsa(key$private, important_message)
 #' sig[1:10]
 #'
-sign_ml_dsa <- function(private_key, message) {
+sign_ml_dsa <- function(private_key, message, context = "") {
 
   if (!inherits(private_key, "pqcrypto_private_key")) {
     pq_stop(c(x = "'private_key' parameter does not have the expected class.",
@@ -38,6 +41,7 @@ sign_ml_dsa <- function(private_key, message) {
   }
 
   content <- as.cms_data(message)
+  context <- charToRaw(context)
 
   tsq <- as.tsp_tsq(c(content))
   ts <- get_timestamp_secure(tsq)
@@ -56,7 +60,7 @@ sign_ml_dsa <- function(private_key, message) {
   der_attrs <- as.der(signed_attrs)
   attrs_digest <- openssl::sha3(der_attrs, 512)
 
-  dig_signature <- cpp_sign_dilithium(attrs_digest, private_key)
+  dig_signature <- cpp_sign_dilithium(attrs_digest, context, private_key)
 
   s_info <- as.cms_signature_info(private_key, signed_attrs, dig_signature, unsigned_attrs)
   signed_data <- as.cms_signed_data(content, s_info)

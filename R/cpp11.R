@@ -96,8 +96,8 @@ cpp_keygen_sphincssha256f <- function() {
   .Call(`_pqcrypto_cpp_keygen_sphincssha256f`)
 }
 
-cpp_sign_dilithium <- function(message, private_key) {
-  .Call(`_pqcrypto_cpp_sign_dilithium`, message, private_key)
+cpp_sign_dilithium <- function(message, context, private_key) {
+  .Call(`_pqcrypto_cpp_sign_dilithium`, message, context, private_key)
 }
 
 cpp_sign_sphincs_shake <- function(message, private_key, is_fast) {
@@ -108,8 +108,8 @@ cpp_sign_sphincs_sha2 <- function(message, private_key, is_fast) {
   .Call(`_pqcrypto_cpp_sign_sphincs_sha2`, message, private_key, is_fast)
 }
 
-cpp_verify_dilithium <- function(signature, message, public_key) {
-  .Call(`_pqcrypto_cpp_verify_dilithium`, signature, message, public_key)
+cpp_verify_dilithium <- function(signature, message, context, public_key) {
+  .Call(`_pqcrypto_cpp_verify_dilithium`, signature, message, context, public_key)
 }
 
 cpp_verify_sphincs_shake <- function(signature, message, public_key) {

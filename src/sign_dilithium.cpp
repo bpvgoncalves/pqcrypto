@@ -4,10 +4,11 @@ extern "C" {
 }
 
 [[cpp11::register]]
-cpp11::raws cpp_sign_dilithium(cpp11::raws message, cpp11::raws private_key) {
+cpp11::raws cpp_sign_dilithium(cpp11::raws message, cpp11::raws context, cpp11::raws private_key) {
 
   size_t msg_len = message.size();
   int pk_len = private_key.size();
+  size_t ctx_len = context.size();
   size_t cr_bytes = 0;
   size_t algo = 0;
 
@@ -36,6 +37,11 @@ cpp11::raws cpp_sign_dilithium(cpp11::raws message, cpp11::raws private_key) {
     msg[i] = message[i];
   }
 
+  uint8_t* ctx = new uint8_t[ctx_len];
+  for(size_t i = 0; i < ctx_len; ++i) {
+    ctx[i] = context[i];
+  }
+
   uint8_t* prvt_k = new uint8_t[pk_len];
   for(int i = 0; i < pk_len; ++i) {
     prvt_k[i] = private_key[i];
@@ -44,13 +50,13 @@ cpp11::raws cpp_sign_dilithium(cpp11::raws message, cpp11::raws private_key) {
   int result;
   switch (algo) {
     case 2:
-      result = pqcrystals_dilithium2_ref_signature(sign, &sign_len, msg, msg_len, prvt_k);
+      result = pqcrystals_dilithium2_ref_signature(sign, &sign_len, msg, msg_len, ctx, ctx_len, prvt_k);
       break;
     case 3:
-      result = pqcrystals_dilithium3_ref_signature(sign, &sign_len, msg, msg_len, prvt_k);
+      result = pqcrystals_dilithium3_ref_signature(sign, &sign_len, msg, msg_len, ctx, ctx_len, prvt_k);
       break;
     case 5:
-      result = pqcrystals_dilithium5_ref_signature(sign, &sign_len, msg, msg_len, prvt_k);
+      result = pqcrystals_dilithium5_ref_signature(sign, &sign_len, msg, msg_len, ctx, ctx_len, prvt_k);
       break;
   }
   if (result != 0) {
@@ -64,6 +70,7 @@ cpp11::raws cpp_sign_dilithium(cpp11::raws message, cpp11::raws private_key) {
 
   delete[] sign;
   delete[] msg;
+  delete[] ctx;
   delete[] prvt_k;
   return signature;
 }

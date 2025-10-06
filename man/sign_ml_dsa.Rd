@@ -4,7 +4,7 @@
 \alias{sign_ml_dsa}
 \title{Digital Signature - Sign ML-DSA (FIPS 204)}
 \usage{
-sign_ml_dsa(private_key, message)
+sign_ml_dsa(private_key, message, context = "")
 }
 \arguments{
 \item{private_key}{A private key produced by \code{keygen_ml_dsa()} to be used
@@ -13,6 +13,10 @@ for message signing.}
 \item{message}{The message to be signed. Message may be interpreted in
 very lax terms. Pretty much any R object can be signed, not only
 character strings.}
+
+\item{context}{Optional. Defaults to the empty string, As per FIPS 204
+applications may specify the use of a non-empty context string up to 255
+characters.}
 }
 \value{
 A \code{pqcrypto_signature}' object.

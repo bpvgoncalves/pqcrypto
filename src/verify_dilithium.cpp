@@ -6,6 +6,7 @@ extern "C" {
 [[cpp11::register]]
 int cpp_verify_dilithium(cpp11::raws signature,
                          cpp11::raws message,
+                         cpp11::raws context,
                          cpp11::raws public_key) {
 
   size_t sign_len = signature.size();
@@ -20,6 +21,12 @@ int cpp_verify_dilithium(cpp11::raws signature,
     msg[i] = message[i];
   }
 
+  size_t ctx_len = context.size();
+  uint8_t* ctx = new uint8_t[ctx_len];
+  for(size_t i = 0; i < ctx_len; ++i) {
+    ctx[i] = context[i];
+  }
+
   int pk_len = public_key.size();
   uint8_t* pub_k = new uint8_t[pk_len];
   for(int i = 0; i < pk_len; ++i) {
@@ -29,15 +36,15 @@ int cpp_verify_dilithium(cpp11::raws signature,
   int result;
   switch (sign_len) {
   case pqcrystals_dilithium2_BYTES:
-    result = pqcrystals_dilithium2_ref_verify(sign, sign_len, msg, msg_len, pub_k);
+    result = pqcrystals_dilithium2_ref_verify(sign, sign_len, msg, msg_len, ctx, ctx_len, pub_k);
     break;
 
   case pqcrystals_dilithium3_BYTES:
-    result = pqcrystals_dilithium3_ref_verify(sign, sign_len, msg, msg_len, pub_k);
+    result = pqcrystals_dilithium3_ref_verify(sign, sign_len, msg, msg_len, ctx, ctx_len, pub_k);
     break;
 
   case pqcrystals_dilithium5_BYTES:
-    result = pqcrystals_dilithium5_ref_verify(sign, sign_len, msg, msg_len, pub_k);
+    result = pqcrystals_dilithium5_ref_verify(sign, sign_len, msg, msg_len, ctx, ctx_len, pub_k);
     break;
 
   default:
@@ -47,6 +54,7 @@ int cpp_verify_dilithium(cpp11::raws signature,
 
   delete[] sign;
   delete[] msg;
+  delete[] ctx;
   delete[] pub_k;
   return result;
 }

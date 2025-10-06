@@ -10,6 +10,9 @@
 #' @param signature   The signature produced by `sign_ml_dsa()`.
 #' @param public_key  The public key created by `keygen_ml_dsa()` that is
 #'    paired with the private key used for signing.
+#' @param context     Optional. Defaults to the empty string, As per FIPS 204
+#'    applications may specify the use of a non-empty context string up to 255
+#'    characters.
 #'
 #' @return  Prints the signature validation outcome and silently returns TRUE
 #'    if the signature verifies successfully or FALSE otherwise.
@@ -22,7 +25,7 @@
 #' signature <- sign_ml_dsa(key$private, important_message)
 #' verify_ml_dsa(important_message, signature, key$public)
 #'
-verify_ml_dsa <- function(message, signature, public_key) {
+verify_ml_dsa <- function(message, signature, public_key, context = "") {
 
   if (!inherits(signature, "pqcrypto_cms_id_signed_data")) {
     pq_stop(c(x = "'signature' parameter does not have the expected class.",
@@ -64,6 +67,7 @@ verify_ml_dsa <- function(message, signature, public_key) {
   attrs_digest <- openssl::sha3(as.der(signature$signer_infos$signed_attrs), 512)
   result <- cpp_verify_dilithium(signature$signer_infos$signature,
                                  attrs_digest,
+                                 charToRaw(context),
                                  public_key)
   result <- !as.logical(result)
 
