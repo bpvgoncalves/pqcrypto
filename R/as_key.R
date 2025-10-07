@@ -1,12 +1,13 @@
 
-as.key <- function(object, ...) {
-  UseMethod("as.key")
+#' @keywords internal
+as_key <- function(object, ...) {
+  UseMethod("as_key")
 }
 
 #' @keywords internal
-as.key.pqcrypto_der_encrypted_private_key <- function(d) {
+as_key.pqcrypto_der_encrypted_private_key <- function(object, ...) {
 
-  struct <- PKI::ASN1.decode(d)
+  struct <- PKI::ASN1.decode(object)
 
   encryption_algoritm <- as.character(PKI::as.oid(struct[[1]][[1]]))
   aes_iv <- struct[[1]][[2]]
@@ -17,9 +18,9 @@ as.key.pqcrypto_der_encrypted_private_key <- function(d) {
 }
 
 #' @keywords internal
-as.key.pqcrypto_der_private_key <- function(d) {
+as_key.pqcrypto_der_private_key <- function(object, ...) {
 
-  struct <- PKI::ASN1.decode(d)
+  struct <- PKI::ASN1.decode(object)
 
   version <- as.integer(PKI::ASN1.decode(struct[[1]])[[1]])
   key_algoritm <- as.character(PKI::as.oid(struct[[2]][[1]]))
@@ -36,9 +37,9 @@ as.key.pqcrypto_der_private_key <- function(d) {
 }
 
 #' @keywords internal
-as.key.pqcrypto_der_public_key <- function(d) {
+as_key.pqcrypto_der_public_key <- function(object, ...) {
 
-  struct <- PKI::ASN1.decode(d)
+  struct <- PKI::ASN1.decode(object)
 
   key_algoritm <- as.character(PKI::as.oid(struct[[1]][[1]]))
   key <- c(struct[[2]])

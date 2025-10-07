@@ -39,7 +39,7 @@ open_key <- function(file_name, password = NULL) {
       enc_key <- openssl::base64_decode(base64text)
       class(enc_key) <- "pqcrypto_der_encrypted_private_key"
 
-      enc_data <- as.key(enc_key)
+      enc_data <- as_key(enc_key)
       raw_key <- openssl::aes_cbc_decrypt(enc_data, key_from_pass(as.character(password)))
       class(raw_key) <- "pqcrypto_der_private_key"
 
@@ -51,5 +51,5 @@ open_key <- function(file_name, password = NULL) {
               i="Make sure the `file_name` argument points to a file created by `write_key()`."))
   }
 
-  as.key(raw_key)
+  as_key(raw_key)
 }
