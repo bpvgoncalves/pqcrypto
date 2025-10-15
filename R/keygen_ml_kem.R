@@ -24,13 +24,13 @@ keygen_ml_kem <- function(param_set = 768) {
   param_set <- as.integer(param_set)
   if (param_set == 512L) {
     key <- cpp_keygen_kyber512()
-    algo <- "1.3.6.1.4.1.54392.5.1859.1.1.1"
+    algo <- "2.16.840.1.101.3.4.4.1"
   } else if (param_set == 768L) {
     key <- cpp_keygen_kyber768()
-    algo <- "1.3.6.1.4.1.54392.5.1859.1.1.2"
+    algo <- "2.16.840.1.101.3.4.4.2"
   } else if (param_set == 1024L) {
     key <- cpp_keygen_kyber1024()
-    algo <- "1.3.6.1.4.1.54392.5.1859.1.1.3"
+    algo <- "2.16.840.1.101.3.4.4.3"
   } else {
     pq_stop(c(x = "Unknown 'param_set' value: {.val {param_set}}.",
               i = "Acceptable values are 512, 768 or 1024."))

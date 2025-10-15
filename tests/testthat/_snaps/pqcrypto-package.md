@@ -5,19 +5,19 @@
     Message
       
       -- pqcrypto - Key-Pair 
-      Private Key Algorithm: ML-KEM-768 (1.3.6.1.4.1.54392.5.1859.1.1.2)
+      Private Key Algorithm: ML-KEM-768 (2.16.840.1.101.3.4.4.2)
     Code
       print(key$private)
     Message
       
       -- pqcrypto - Private Key 
-      Algorithm: ML-KEM-768 (1.3.6.1.4.1.54392.5.1859.1.1.2)
+      Algorithm: ML-KEM-768 (2.16.840.1.101.3.4.4.2)
     Code
       print(key$public)
     Message
       
       -- pqcrypto - Public Key 
-      Algorithm: ML-KEM-768 (1.3.6.1.4.1.54392.5.1859.1.1.2)
+      Algorithm: ML-KEM-768 (2.16.840.1.101.3.4.4.2)
     Code
       print(enc$shared_secret)
     Message

@@ -22,16 +22,16 @@ encapsulate_ml_kem <- function(pub_key) {
               i = "'pub_key' must have `pqcrypto_public_key` class."))
   }
 
-  if (!grepl("1.3.6.1.4.1.54392.5.1859.1.1.?", attr(pub_key, "algorithm"))) {
+  if (!grepl("2.16.840.1.101.3.4.4.(1|2|3)", attr(pub_key, "algorithm"))) {
     pq_stop(c(x = "Wrong public key algorithm.",
               i = "Make sure you are using a 'ML-KEM' public key."))
   }
 
-  if (attr(pub_key, "algorithm") == "1.3.6.1.4.1.54392.5.1859.1.1.1") {
+  if (attr(pub_key, "algorithm") == "2.16.840.1.101.3.4.4.1") {
     out <- cpp_encap_kyber512(pub_key)
-  } else if (attr(pub_key, "algorithm") == "1.3.6.1.4.1.54392.5.1859.1.1.2") {
+  } else if (attr(pub_key, "algorithm") == "2.16.840.1.101.3.4.4.2") {
     out <- cpp_encap_kyber768(pub_key)
-  } else if (attr(pub_key, "algorithm") == "1.3.6.1.4.1.54392.5.1859.1.1.3")  {
+  } else if (attr(pub_key, "algorithm") == "2.16.840.1.101.3.4.4.3")  {
     out <- cpp_encap_kyber1024(pub_key)
   } else {
     pq_stop(c(x = "The suplied public key has invalid parameters."))

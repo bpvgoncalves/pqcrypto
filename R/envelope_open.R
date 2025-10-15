@@ -26,7 +26,7 @@ envelope_open <- function(envelope, private_key) {
               i = "'private_key' must have `pqcrypto_private_key` class."))
   }
 
-  if (!grepl("1.3.6.1.4.1.54392.5.1859.1.1.?", attr(private_key, "algorithm"))) {
+  if (!grepl("2.16.840.1.101.3.4.4.(1|2|3)", attr(private_key, "algorithm"))) {
     pq_stop(c(x = "Wrong private key algorithm.",
               i = "Make sure you are using a 'ML-KEM' private key."))
   }

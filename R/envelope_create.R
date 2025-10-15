@@ -18,7 +18,7 @@ envelope_create <- function(message, public_key) {
               i = "'public_key' must have `pqcrypto_public_key` class."))
   }
 
-  if (!grepl("1.3.6.1.4.1.54392.5.1859.1.1.?", attr(public_key, "algorithm"))) {
+  if (!grepl("2.16.840.1.101.3.4.4.(1|2|3)", attr(public_key, "algorithm"))) {
     pq_stop(c(x = "Wrong public key algorithm.",
               i = "Make sure you are using a 'ML-KEM' public key."))
   }
