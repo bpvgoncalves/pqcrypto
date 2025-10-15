@@ -27,13 +27,13 @@ keygen_ml_dsa <- function(strength = 3) {
 
   if (strength == 2) {
     key <- cpp_keygen_dilithium2()
-    algo <- "1.3.6.1.4.1.54392.5.1859.1.2.1"
+    algo <- "2.16.840.1.101.3.4.3.17"
   } else if (strength == 3) {
     key <- cpp_keygen_dilithium3()
-    algo <- "1.3.6.1.4.1.54392.5.1859.1.2.2"
+    algo <- "2.16.840.1.101.3.4.3.18"
   } else if (strength == 5) {
     key <- cpp_keygen_dilithium5()
-    algo <- "1.3.6.1.4.1.54392.5.1859.1.2.3"
+    algo <- "2.16.840.1.101.3.4.3.19"
   } else {
     pq_stop(c(x = "Unknown 'strength' value: {.val {strength}}.",
               i = "Acceptable values are 2, 3 or 5."))

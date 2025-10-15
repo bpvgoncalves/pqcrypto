@@ -37,7 +37,7 @@ verify_ml_dsa <- function(message, signature, public_key, context = "") {
               i = "'public_key' must have `public_key` class."))
   }
 
-  if (!grepl("1.3.6.1.4.1.54392.5.1859.1.2.?", attr(public_key, "algorithm"))) {
+  if (!grepl("2.16.840.1.101.3.4.3.1(7|8|9)", attr(public_key, "algorithm"))) {
     pq_stop(c(x = "Wrong public key algorithm.",
               i = "Make sure you are using a 'ML-DSA' public key."))
   }

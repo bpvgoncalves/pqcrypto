@@ -31,25 +31,25 @@
     Message
       
       -- pqcrypto - Key-Pair 
-      Private Key Algorithm: ML-DSA-65 (1.3.6.1.4.1.54392.5.1859.1.2.2)
+      Private Key Algorithm: ML-DSA-65 (2.16.840.1.101.3.4.3.18)
     Code
       print(key$private)
     Message
       
       -- pqcrypto - Private Key 
-      Algorithm: ML-DSA-65 (1.3.6.1.4.1.54392.5.1859.1.2.2)
+      Algorithm: ML-DSA-65 (2.16.840.1.101.3.4.3.18)
     Code
       print(key$public)
     Message
       
       -- pqcrypto - Public Key 
-      Algorithm: ML-DSA-65 (1.3.6.1.4.1.54392.5.1859.1.2.2)
+      Algorithm: ML-DSA-65 (2.16.840.1.101.3.4.3.18)
     Code
       print(sig)
     Message
       
       -- pqcrypto - Digital Signature 
-      Signature Algorithm: ML-DSA-65 (1.3.6.1.4.1.54392.5.1859.1.2.2)
+      Signature Algorithm: ML-DSA-65 (2.16.840.1.101.3.4.3.18)
 
 ---
 

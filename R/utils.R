@@ -44,18 +44,39 @@ get_timestamp <- function() {
 object_mapper <- function(x) {
 
   # Own OID obtained from https://freeoid.pythonanywhere.com for pqcrypto package
-  # OIDs to be replaced by official ones once available.
   # Root OID:  1.3.6.1.4.1.54392.5.1859
   #            1.3.6.1.4.1.54392.5.1859.0       - Reserved
   #            1.3.6.1.4.1.54392.5.1859.1       - Algorithms
   #            1.3.6.1.4.1.54392.5.1859.1.1     - Algorithms - ML-KEM Family
+  #            1.3.6.1.4.1.54392.5.1859.1.1.x   - Algorithms - ML-KEM Family - Algorithm X
   #            1.3.6.1.4.1.54392.5.1859.1.2     - Algorithms - ML-DSA Family
-              "1.3.6.1.4.1.54392.5.1859.1.2.1"  = c("ML-DSA-44"),
-              "1.3.6.1.4.1.54392.5.1859.1.2.2"  = c("ML-DSA-65"),
-              "1.3.6.1.4.1.54392.5.1859.1.2.3"  = c("ML-DSA-87"),
+  #            1.3.6.1.4.1.54392.5.1859.1.2.x   - Algorithms - ML-DSA Family - Algorithm X
+  #            1.3.6.1.4.1.54392.5.1859.1.3     - Algorithms - SLH-DSA/Sphincs+ Family
+  #            1.3.6.1.4.1.54392.5.1859.1.3.x   - Algorithms - SLH-DSA/Sphincs+ Family - Algorithm X
+  # The above OIDs MUST be replaced by official ones once available.
+
+  #           nistAlgorithms OBJECT IDENTIFIER ::= { joint-iso-ccitt(2) country(16) us(840)
+  #                                                 organization(1) gov(101) csor(3)
+  #                                                 nistAlgorithm(4) }
+  #
+  #           kems OBJECT IDENTIFIER ::= { nistAlgorithms 4 }
+  #
+  #           id-alg-ml-kem-512 OBJECT IDENTIFIER ::= { kems 1 }
+  #           id-alg-ml-kem-768 OBJECT IDENTIFIER ::= { kems 2 }
+  #           id-alg-ml-kem-1024 OBJECT IDENTIFIER ::= { kems 3 }
   mapper <- c("2.16.840.1.101.3.4.4.1"     = c("ML-KEM-512"),
               "2.16.840.1.101.3.4.4.2"     = c("ML-KEM-768"),
               "2.16.840.1.101.3.4.4.3"     = c("ML-KEM-1024"),
+
+  #           sigAlgs OBJECT IDENTIFIER ::= { nistAlgorithms 3 }
+  #
+  #           id-ml-dsa-44 OBJECT IDENTIFIER ::= { sigAlgs 17 }
+  #           id-ml-dsa-65 OBJECT IDENTIFIER ::= { sigAlgs 18 }
+  #           id-ml-dsa-87 OBJECT IDENTIFIER ::= { sigAlgs 19 }
+              "2.16.840.1.101.3.4.3.17"    = c("ML-DSA-44"),
+              "2.16.840.1.101.3.4.3.18"    = c("ML-DSA-65"),
+              "2.16.840.1.101.3.4.3.19"    = c("ML-DSA-87"),
+
   #            1.3.6.1.4.1.54392.5.1859.1.3     - Algorithms - SLH-DSA/Sphincs+ Family
               "1.3.6.1.4.1.54392.5.1859.1.3.1"  = c("Sphincs+ SHA2-128-S"),
               "1.3.6.1.4.1.54392.5.1859.1.3.2"  = c("Sphincs+ SHAKE-128-S"),
