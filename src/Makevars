@@ -1,4 +1,5 @@
-PKG_CPPFLAGS      = -I.                     \
+PKG_CPPFLAGS      = -I"$(R_HOME)/include"   \
+                    -I.                     \
                     -Ishared                \
                     -Ikyber                 \
                     -Idilithium             \

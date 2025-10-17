@@ -2,6 +2,7 @@
 #include <stdint.h>
 #include <stdlib.h>
 #include "randombytes.h"
+#include <R.h>
 
 #ifdef _WIN32
 #include <windows.h>
@@ -27,19 +28,19 @@ void randombytes(uint8_t *out, size_t outlen) {
   size_t len;
 
   if(!CryptAcquireContext(&ctx, NULL, NULL, PROV_RSA_FULL, CRYPT_VERIFYCONTEXT))
-    abort();
+    error("pqcrypto: system RNG failure (aborted)");
 
   while(outlen > 0) {
     len = (outlen > 1048576) ? 1048576 : outlen;
     if(!CryptGenRandom(ctx, len, (BYTE *)out))
-      abort();
+      error("pqcrypto: system RNG failure (aborted)");
 
     out += len;
     outlen -= len;
   }
 
   if(!CryptReleaseContext(ctx, 0))
-    abort();
+    error("pqcrypto: system RNG failure (aborted)");
 }
 #elif defined(__linux__) && defined(SYS_getrandom)
 void randombytes(uint8_t *out, size_t outlen) {
@@ -50,7 +51,7 @@ void randombytes(uint8_t *out, size_t outlen) {
     if(ret == -1 && errno == EINTR)
       continue;
     else if(ret == -1)
-      abort();
+      error("pqcrypto: system RNG failure (aborted)");
 
     out += ret;
     outlen -= ret;
@@ -65,7 +66,7 @@ void randombytes(uint8_t *out, size_t outlen) {
     if(ret == -1 && errno == EINTR)
       continue;
     else if(ret == -1)
-      abort();
+      error("pqcrypto: system RNG failure (aborted)");
 
     out += ret;
     outlen -= ret;
@@ -81,7 +82,7 @@ void randombytes(uint8_t *out, size_t outlen) {
     if(fd == -1 && errno == EINTR)
       continue;
     else if(fd == -1)
-      abort();
+      error("pqcrypto: system RNG failure (aborted)");
   }
 
   while(outlen > 0) {
@@ -89,7 +90,7 @@ void randombytes(uint8_t *out, size_t outlen) {
     if(ret == -1 && errno == EINTR)
       continue;
     else if(ret == -1)
-      abort();
+      error("pqcrypto: system RNG failure (aborted)");
 
     out += ret;
     outlen -= ret;
