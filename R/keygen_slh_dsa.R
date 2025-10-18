@@ -1,12 +1,21 @@
 
-#' Key-Pair Generation - Sphincs+
+#' Key-Pair Generation - SLH-DSA (FIPS 2025)
+#'
+#' @description
+#' On 13/Aug/2024 NIST published the final version of the Stateless-Hash-Based
+#' Digital Signature Standard (SLH-DSA), based on Sphincs+ submission.
+#' This function generates a keypair to be used by the proposed Digital
+#' Signature Algorithm.
 #'
 #' @param hash_type  Type of hash to use. Accepts 'shake' (default) or 'sha2'.
-#' @param category   Security category: 128 (claimed security category 1), 192 (default, claimed
-#'    security category 2) and 256 (claimed security category 3).
-#'    For more details regarding security categories please refer to the vignette.
-#' @param type       Type of signature to produce: 'fast' (but having a larger size) or 'small'
-#'    (but being slower to compute).
+#' @param category   Security category: 128 (claimed security category 1), 192
+#'    (default, claimed security category 2) and 256 (claimed security category
+#'    3). For more details regarding security categories please refer to the
+#'    vignette.
+#' @param type       Type of signature to produce: 'fast' (but having a larger
+#'    size) or 'small' (but being slower to compute).
+#'
+#' @seealso https://csrc.nist.gov/pubs/fips/205/final
 #'
 #' @return A `pqcrypto_keypair` object.
 #'
@@ -14,16 +23,16 @@
 #'
 #' @examples
 #' # Generate key with default parameters
-#' key1 <- keygen_sphincs()
+#' key1 <- keygen_slh_dsa()
 #' key1$algorithm
 #' key1$param$hash
 #'
 #' # Generate key with custom parameters
-#' key2 <- keygen_sphincs("sha2", 128, "small")
+#' key2 <- keygen_slh_dsa("sha2", 128, "small")
 #' key2$algorithm
 #' key2$param$hash
 #'
-keygen_sphincs <- function(hash_type = "shake", category = 192, type = "fast") {
+keygen_slh_dsa <- function(hash_type = "shake", category = 192, type = "fast") {
 
   if (!(hash_type %in% c("shake", "sha2"))) {
     pq_stop(c(x = "Wrong 'hash_type' choosen.",
@@ -109,4 +118,34 @@ keygen_sphincs <- function(hash_type = "shake", category = 192, type = "fast") {
 
   rm(key)
   return(keypair)
+}
+
+
+#' Key-Pair Generation - Sphincs+
+#'
+#' `r lifecycle::badge("deprecated")`
+#'
+#' @param hash_type  Type of hash to use. Accepts 'shake' (default) or 'sha2'.
+#' @param category   Security category: 128 (claimed security category 1), 192 (default, claimed
+#'    security category 2) and 256 (claimed security category 3).
+#'    For more details regarding security categories please refer to the vignette.
+#' @param type       Type of signature to produce: 'fast' (but having a larger size) or 'small'
+#'    (but being slower to compute).
+#'
+#' @return A `pqcrypto_keypair` object.
+#'
+#' @export
+#'
+#' @examples
+#' # Generate key with default parameters
+#' key <- keygen_sphincs()
+#' # ->
+#' key <- keygen_slh_dsa()
+#' print(key)
+#'
+keygen_sphincs <- function(hash_type = "shake", category = 192, type = "fast") {
+  lifecycle::deprecate_soft("0.4.0", "keygen_sphincs()", "keygen_slh_dsa()")
+
+  keygen_slh_dsa(hash_type, category, type)
+
 }

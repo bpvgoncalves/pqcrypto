@@ -1,13 +1,14 @@
 
-#' Sphincs+ Digital Signature - Verify
+#' Digital Signature - Verify SLH-DSA (FIPS 205)
 #'
+#' @description
 #' Verifies that the signature of a given message is valid.
 #'
 #' @param message     The message that has been signed.
-#'    As in `sign_sphincs()`, message may be interpreted in lax terms. It is
+#'    As in `sign_slh_dsa()`, message may be interpreted in lax terms. It is
 #'    possible to sign any type of R objects, not only text strings.
-#' @param signature   The signature produced by `sign_sphincs()`.
-#' @param public_key  The public key created by `keygen_sphincs()` that is
+#' @param signature   The signature produced by `sign_slh_dsa()`.
+#' @param public_key  The public key created by `keygen_slh_dsa()` that is
 #'    paired with the private key used for signing.
 #'
 #' @return  Prints the signature validation outcome and silently returns TRUE
@@ -16,14 +17,14 @@
 #' @export
 #'
 #' @examples
-#' key <- keygen_sphincs("sha2", 256, "fast")
+#' key <- keygen_slh_dsa("sha2", 256, "fast")
 #' important_message <- "Hello world!!"
-#' signature <- sign_sphincs(key$private, important_message)
-#' verify_sphincs(important_message, signature, key$public)   # Should be OK
+#' signature <- sign_slh_dsa(key$private, important_message)
+#' verify_slh_dsa(important_message, signature, key$public)   # Should be OK
 #'
 #' # Try to verify a tampered message
-#' verify_sphincs("not_the_message", signature, key$public)   # Should Fail
-verify_sphincs <- function(message, signature, public_key) {
+#' verify_slh_dsa("not_the_message", signature, key$public)   # Should Fail
+verify_slh_dsa <- function(message, signature, public_key) {
 
   if (!inherits(signature, "pqcrypto_cms_id_signed_data")) {
     pq_stop(c(x = "'signature' parameter does not have the expected class.",
@@ -37,7 +38,7 @@ verify_sphincs <- function(message, signature, public_key) {
 
   if (!grepl("2.16.840.1.101.3.4.3.[20-31]", attr(public_key, "algorithm"))) {
     pq_stop(c(x = "Wrong public key algorithm.",
-              i = "Make sure you are using a 'Sphincs+' public key."))
+              i = "Make sure you are using a 'SLH-DSA' public key."))
   }
 
   if (!identical(signature$signer_infos$sid, unclass(openssl::sha3(public_key, 224)))) {
@@ -82,4 +83,43 @@ verify_sphincs <- function(message, signature, public_key) {
   }
 
   invisible(result)
+}
+
+
+#' Sphincs+ Digital Signature - Verify
+#'
+#' Verifies that the signature of a given message is valid.
+#'
+#' @param message     The message that has been signed.
+#'    As in `sign_sphincs()`, message may be interpreted in lax terms. It is
+#'    possible to sign any type of R objects, not only text strings.
+#' @param signature   The signature produced by `sign_sphincs()`.
+#' @param public_key  The public key created by `keygen_sphincs()` that is
+#'    paired with the private key used for signing.
+#'
+#' @return  Prints the signature validation outcome and silently returns TRUE
+#'    if the signature verifies successfully or FALSE otherwise.
+#'
+#' @export
+#'
+#' @examples
+#' key <- keygen_sphincs("sha2", 256, "fast")
+#' important_message <- "Hello world!!"
+#' signature <- sign_sphincs(key$private, important_message)
+#' verify_sphincs(important_message, signature, key$public)   # Should be OK
+#'
+#' # Try to verify a tampered message
+#' verify_sphincs("not_the_message", signature, key$public)   # Should Fail
+#'
+#' #' key <- keygen_slh_dsa())
+#' important_message <- "Hello world!!"
+#' signature <- sign_slh_dsa(key$private, important_message)
+#' verify_sphincs(important_message, signature, key$public)
+#' # ->
+#' verify_slh_dsa(important_message, signature, key$public)
+#'
+verify_sphincs <- function(message, signature, public_key) {
+  lifecycle::deprecate_soft("0.4.0", "verify_sphincs()", "verify_slh_dsa()")
+
+  verify_slh_dsa(message, signature, public_key)
 }

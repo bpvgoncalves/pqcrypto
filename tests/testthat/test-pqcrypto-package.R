@@ -20,8 +20,8 @@ test_that("cli", {
         print(sig)
       })
 
-      key <- keygen_sphincs()
-      sig <- sign_sphincs(key$private, "My message")
+      key <- keygen_slh_dsa()
+      sig <- sign_slh_dsa(key$private, "My message")
       expect_snapshot({
         print(key)
         print(key$private)

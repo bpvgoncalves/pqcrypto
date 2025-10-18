@@ -1,4 +1,5 @@
 test_that("Sphincs+ signature validation (shake, 128, small)", {
+  withr::local_options(lifecycle_verbosity = "quiet")
 
   key <- keygen_sphincs(category = 128, type = "small")
   important_message <- "Hello world!!"
@@ -22,6 +23,7 @@ test_that("Sphincs+ signature validation (shake, 128, small)", {
 })
 
 test_that("Sphincs+ signature validation (shake, 128, fast)", {
+  withr::local_options(lifecycle_verbosity = "quiet")
 
   key <- keygen_sphincs(category = 128, type = "fast")
   important_message <- "Hello world!!"
@@ -45,6 +47,7 @@ test_that("Sphincs+ signature validation (shake, 128, fast)", {
 })
 
 test_that("Sphincs+ signature validation (shake, 192, small)", {
+  withr::local_options(lifecycle_verbosity = "quiet")
 
   key <- keygen_sphincs(category = 192, type = "small")
   important_message <- "Hello world!!"
@@ -68,6 +71,7 @@ test_that("Sphincs+ signature validation (shake, 192, small)", {
 })
 
 test_that("Sphincs+ signature validation (shake, 192, fast)", {
+  withr::local_options(lifecycle_verbosity = "quiet")
 
   key <- keygen_sphincs(category = 192, type = "fast")
   important_message <- "Hello world!!"
@@ -91,6 +95,7 @@ test_that("Sphincs+ signature validation (shake, 192, fast)", {
 })
 
 test_that("Sphincs+ signature validation (shake, 256, small)", {
+  withr::local_options(lifecycle_verbosity = "quiet")
 
   key <- keygen_sphincs(category = 256, type = "small")
   important_message <- "Hello world!!"
@@ -114,6 +119,7 @@ test_that("Sphincs+ signature validation (shake, 256, small)", {
 })
 
 test_that("Sphincs+ signature validation (shake, 256, fast)", {
+  withr::local_options(lifecycle_verbosity = "quiet")
 
   key <- keygen_sphincs(category = 256, type = "fast")
   important_message <- "Hello world!!"
@@ -137,6 +143,7 @@ test_that("Sphincs+ signature validation (shake, 256, fast)", {
 })
 
 test_that("Sphincs+ signature validation (sha2, 128, small)", {
+  withr::local_options(lifecycle_verbosity = "quiet")
 
   key <- keygen_sphincs(hash_type = "sha2", category = 128, type = "small")
   important_message <- "Hello world!!"
@@ -160,6 +167,7 @@ test_that("Sphincs+ signature validation (sha2, 128, small)", {
 })
 
 test_that("Sphincs+ signature validation (sha2, 128, fast)", {
+  withr::local_options(lifecycle_verbosity = "quiet")
 
   key <- keygen_sphincs(hash_type = "sha2", category = 128, type = "fast")
   important_message <- "Hello world!!"
@@ -183,6 +191,7 @@ test_that("Sphincs+ signature validation (sha2, 128, fast)", {
 })
 
 test_that("Sphincs+ signature validation (sha2, 192, small)", {
+  withr::local_options(lifecycle_verbosity = "quiet")
 
   key <- keygen_sphincs(hash_type = "sha2", category = 192, type = "small")
   important_message <- "Hello world!!"
@@ -206,6 +215,7 @@ test_that("Sphincs+ signature validation (sha2, 192, small)", {
 })
 
 test_that("Sphincs+ signature validation (sha2, 192, fast)", {
+  withr::local_options(lifecycle_verbosity = "quiet")
 
   key <- keygen_sphincs(hash_type = "sha2", category = 192, type = "fast")
   important_message <- "Hello world!!"
@@ -229,6 +239,7 @@ test_that("Sphincs+ signature validation (sha2, 192, fast)", {
 })
 
 test_that("Sphincs+ signature validation (sha2, 256, small)", {
+  withr::local_options(lifecycle_verbosity = "quiet")
 
   key <- keygen_sphincs(hash_type = "sha2", category = 256, type = "small")
   important_message <- "Hello world!!"
@@ -252,6 +263,7 @@ test_that("Sphincs+ signature validation (sha2, 256, small)", {
 })
 
 test_that("Sphincs+ signature validation (sha2, 256, fast)", {
+  withr::local_options(lifecycle_verbosity = "quiet")
 
   key <- keygen_sphincs(hash_type = "sha2", category = 256, type = "fast")
   important_message <- "Hello world!!"
@@ -276,6 +288,7 @@ test_that("Sphincs+ signature validation (sha2, 256, fast)", {
 
 
 test_that("Sphincs+ digital signatures verification fails with bad parameters", {
+  withr::local_options(lifecycle_verbosity = "quiet")
 
   key <- keygen_sphincs()
   important_message <- "Hello world!!"
@@ -304,6 +317,7 @@ test_that("Sphincs+ digital signatures verification fails with bad parameters", 
 })
 
 test_that("Sphincs+ digital signatures verification fails with bad parameters", {
+  withr::local_options(lifecycle_verbosity = "quiet")
 
   key <- keygen_sphincs("sha2")
   important_message <- "Hello world!!"

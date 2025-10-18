@@ -28,11 +28,11 @@ test_that("Signature Writing works: ML-DSA", {
 })
 
 
-test_that("Signature Writing works: Sphincs+", {
+test_that("Signature Writing works: SLH-DSA", {
 
-  key <- keygen_sphincs()
+  key <- keygen_slh_dsa()
   important_message <- "Hello world!!"
-  signature <- sign_sphincs(key$private, important_message)
+  signature <- sign_slh_dsa(key$private, important_message)
   dest <- tempfile()
 
   fn <- write_signature(signature, dest)

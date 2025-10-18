@@ -1,9 +1,10 @@
 
-#' Sphincs+ Digital Signature - Sign
+#' Digital Signature - Sign SLH-DSA (FIPS 205)
 #'
-#' Produces a digital signature of a given message.
+#' @description
+#' Produces a digital signature of a given message using a SLH-DSA algorithm.
 #'
-#' @param private_key A private key produced by `keygen_sphincs()` to be used
+#' @param private_key A private key produced by `keygen_slh_dsa()` to be used
 #'    for message signing.
 #' @param message     The message to be signed. Message may be interpreted in
 #'    very lax terms. Pretty much any R object can be signed, not only
@@ -14,12 +15,12 @@
 #' @export
 #'
 #' @examples
-#' key <- keygen_sphincs()
+#' key <- keygen_slh_dsa()
 #' important_message <- "Hello world!!"
-#' signature <- sign_sphincs(key$private, important_message)
+#' signature <- sign_slh_dsa(key$private, important_message)
 #' signature[1:16]   # first 16 bytes of the signature
 #'
-sign_sphincs <- function(private_key, message) {
+sign_slh_dsa <- function(private_key, message) {
 
   if (!inherits(private_key, "pqcrypto_private_key")) {
     pq_stop(c(x = "'private_key' parameter does not have the expected class.",
@@ -28,12 +29,12 @@ sign_sphincs <- function(private_key, message) {
 
   if (!grepl("2.16.840.1.101.3.4.3.[20-31]", attr(private_key, "algorithm"))) {
     pq_stop(c(x = "Wrong private key algorithm.",
-              i = "Make sure you are using a 'Sphincs+' private key."))
+              i = "Make sure you are using a 'SLH-DSA' private key."))
   }
 
   if (!(length(private_key) %in% c(64, 96, 128))) {
     pq_stop(c(x = "Wrong private key size.",
-              i = "Make sure you are using a 'Sphincs+' private key."))
+              i = "Make sure you are using a 'SLH-DSA' private key."))
   }
 
   ts <- get_timestamp()
@@ -76,4 +77,33 @@ sign_sphincs <- function(private_key, message) {
   signed_data <- as.cms_signed_data(content, s_info)
 
   invisible(signed_data)
+}
+
+
+
+#' Sphincs+ Digital Signature - Sign
+#'
+#' Produces a digital signature of a given message.
+#'
+#' @param private_key A private key produced by `keygen_sphincs()` to be used
+#'    for message signing.
+#' @param message     The message to be signed. Message may be interpreted in
+#'    very lax terms. Pretty much any R object can be signed, not only
+#'    character strings.
+#'
+#' @return A `pqcrypto_signature`' object.
+#'
+#' @export
+#'
+#' @examples
+#' key <- keygen_slh_dsa()
+#' important_message <- "Hello world!!"
+#' sig <- sign_sphincs(key$private, important_message)
+#' # ->
+#' sig <- sign_slh_dsa(key$private, important_message)
+#' sig[1:16]
+sign_sphincs <- function(private_key, message) {
+  lifecycle::deprecate_soft("0.4.0", "sign_sphincs()", "sign_slh_dsa()")
+
+  sign_slh_dsa(private_key, message)
 }
