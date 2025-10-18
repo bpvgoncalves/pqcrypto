@@ -4,10 +4,10 @@ test_that("Sphincs+ keys generation (shake, 128, small)", {
   expect_s3_class(k, "pqcrypto_keypair")
   expect_s3_class(k$private, "pqcrypto_private_key")
   expect_equal(length(k$private), 64)
-  expect_equal(attr(k$private, "algorithm"), "1.3.6.1.4.1.54392.5.1859.1.3.2")
+  expect_equal(attr(k$private, "algorithm"), "2.16.840.1.101.3.4.3.26")
   expect_s3_class(k$public, "pqcrypto_public_key")
   expect_equal(length(k$public), 32)
-  expect_equal(attr(k$public, "algorithm"), "1.3.6.1.4.1.54392.5.1859.1.3.2")
+  expect_equal(attr(k$public, "algorithm"), "2.16.840.1.101.3.4.3.26")
 })
 
 test_that("Sphincs+ keys generation (shake, 128, fast)", {
@@ -16,10 +16,10 @@ test_that("Sphincs+ keys generation (shake, 128, fast)", {
   expect_s3_class(k, "pqcrypto_keypair")
   expect_s3_class(k$private, "pqcrypto_private_key")
   expect_equal(length(k$private), 64)
-  expect_equal(attr(k$private, "algorithm"), "1.3.6.1.4.1.54392.5.1859.1.3.4")
+  expect_equal(attr(k$private, "algorithm"), "2.16.840.1.101.3.4.3.27")
   expect_s3_class(k$public, "pqcrypto_public_key")
   expect_equal(length(k$public), 32)
-  expect_equal(attr(k$public, "algorithm"), "1.3.6.1.4.1.54392.5.1859.1.3.4")
+  expect_equal(attr(k$public, "algorithm"), "2.16.840.1.101.3.4.3.27")
 })
 
 test_that("Sphincs+ keys generation (shake, 192, small)", {
@@ -28,10 +28,10 @@ test_that("Sphincs+ keys generation (shake, 192, small)", {
   expect_s3_class(k, "pqcrypto_keypair")
   expect_s3_class(k$private, "pqcrypto_private_key")
   expect_equal(length(k$private), 96)
-  expect_equal(attr(k$private, "algorithm"), "1.3.6.1.4.1.54392.5.1859.1.3.6")
+  expect_equal(attr(k$private, "algorithm"), "2.16.840.1.101.3.4.3.28")
   expect_s3_class(k$public, "pqcrypto_public_key")
   expect_equal(length(k$public), 48)
-  expect_equal(attr(k$public, "algorithm"), "1.3.6.1.4.1.54392.5.1859.1.3.6")
+  expect_equal(attr(k$public, "algorithm"), "2.16.840.1.101.3.4.3.28")
 })
 
 test_that("Sphincs+ keys generation (shake, 192, fast)", {
@@ -40,10 +40,10 @@ test_that("Sphincs+ keys generation (shake, 192, fast)", {
   expect_s3_class(k, "pqcrypto_keypair")
   expect_s3_class(k$private, "pqcrypto_private_key")
   expect_equal(length(k$private), 96)
-  expect_equal(attr(k$private, "algorithm"), "1.3.6.1.4.1.54392.5.1859.1.3.8")
+  expect_equal(attr(k$private, "algorithm"), "2.16.840.1.101.3.4.3.29")
   expect_s3_class(k$public, "pqcrypto_public_key")
   expect_equal(length(k$public), 48)
-  expect_equal(attr(k$public, "algorithm"), "1.3.6.1.4.1.54392.5.1859.1.3.8")
+  expect_equal(attr(k$public, "algorithm"), "2.16.840.1.101.3.4.3.29")
 })
 
 test_that("Sphincs+ keys generation (default, default, default)", {
@@ -52,10 +52,10 @@ test_that("Sphincs+ keys generation (default, default, default)", {
   expect_s3_class(k, "pqcrypto_keypair")
   expect_s3_class(k$private, "pqcrypto_private_key")
   expect_equal(length(k$private), 96)
-  expect_equal(attr(k$private, "algorithm"), "1.3.6.1.4.1.54392.5.1859.1.3.8")
+  expect_equal(attr(k$private, "algorithm"), "2.16.840.1.101.3.4.3.29")
   expect_s3_class(k$public, "pqcrypto_public_key")
   expect_equal(length(k$public), 48)
-  expect_equal(attr(k$public, "algorithm"), "1.3.6.1.4.1.54392.5.1859.1.3.8")
+  expect_equal(attr(k$public, "algorithm"), "2.16.840.1.101.3.4.3.29")
 })
 
 test_that("Sphincs+ keys generation (shake, 256, small)", {
@@ -63,10 +63,10 @@ test_that("Sphincs+ keys generation (shake, 256, small)", {
   k <- keygen_sphincs(category = 256, type = "small")
   expect_s3_class(k$private, "pqcrypto_private_key")
   expect_equal(length(k$private), 128)
-  expect_equal(attr(k$private, "algorithm"), "1.3.6.1.4.1.54392.5.1859.1.3.10")
+  expect_equal(attr(k$private, "algorithm"), "2.16.840.1.101.3.4.3.30")
   expect_s3_class(k$public, "pqcrypto_public_key")
   expect_equal(length(k$public), 64)
-  expect_equal(attr(k$public, "algorithm"), "1.3.6.1.4.1.54392.5.1859.1.3.10")
+  expect_equal(attr(k$public, "algorithm"), "2.16.840.1.101.3.4.3.30")
 })
 
 test_that("Sphincs+ keys generation (shake, 256, fast)", {
@@ -74,10 +74,10 @@ test_that("Sphincs+ keys generation (shake, 256, fast)", {
   k <- keygen_sphincs(category = 256, type = "fast")
   expect_s3_class(k$private, "pqcrypto_private_key")
   expect_equal(length(k$private), 128)
-  expect_equal(attr(k$private, "algorithm"), "1.3.6.1.4.1.54392.5.1859.1.3.12")
+  expect_equal(attr(k$private, "algorithm"), "2.16.840.1.101.3.4.3.31")
   expect_s3_class(k$public, "pqcrypto_public_key")
   expect_equal(length(k$public), 64)
-  expect_equal(attr(k$public, "algorithm"), "1.3.6.1.4.1.54392.5.1859.1.3.12")
+  expect_equal(attr(k$public, "algorithm"), "2.16.840.1.101.3.4.3.31")
 })
 
 test_that("Sphincs+ keys generation (sha2, 128, small)", {
@@ -86,10 +86,10 @@ test_that("Sphincs+ keys generation (sha2, 128, small)", {
   expect_s3_class(k, "pqcrypto_keypair")
   expect_s3_class(k$private, "pqcrypto_private_key")
   expect_equal(length(k$private), 64)
-  expect_equal(attr(k$private, "algorithm"), "1.3.6.1.4.1.54392.5.1859.1.3.1")
+  expect_equal(attr(k$private, "algorithm"), "2.16.840.1.101.3.4.3.20")
   expect_s3_class(k$public, "pqcrypto_public_key")
   expect_equal(length(k$public), 32)
-  expect_equal(attr(k$public, "algorithm"), "1.3.6.1.4.1.54392.5.1859.1.3.1")
+  expect_equal(attr(k$public, "algorithm"), "2.16.840.1.101.3.4.3.20")
 })
 
 test_that("Sphincs+ keys generation (sha2, 128, fast)", {
@@ -98,10 +98,10 @@ test_that("Sphincs+ keys generation (sha2, 128, fast)", {
   expect_s3_class(k, "pqcrypto_keypair")
   expect_s3_class(k$private, "pqcrypto_private_key")
   expect_equal(length(k$private), 64)
-  expect_equal(attr(k$private, "algorithm"), "1.3.6.1.4.1.54392.5.1859.1.3.3")
+  expect_equal(attr(k$private, "algorithm"), "2.16.840.1.101.3.4.3.21")
   expect_s3_class(k$public, "pqcrypto_public_key")
   expect_equal(length(k$public), 32)
-  expect_equal(attr(k$public, "algorithm"), "1.3.6.1.4.1.54392.5.1859.1.3.3")
+  expect_equal(attr(k$public, "algorithm"), "2.16.840.1.101.3.4.3.21")
 })
 
 test_that("Sphincs+ keys generation (sha2, 192, small)", {
@@ -110,10 +110,10 @@ test_that("Sphincs+ keys generation (sha2, 192, small)", {
   expect_s3_class(k, "pqcrypto_keypair")
   expect_s3_class(k$private, "pqcrypto_private_key")
   expect_equal(length(k$private), 96)
-  expect_equal(attr(k$private, "algorithm"), "1.3.6.1.4.1.54392.5.1859.1.3.5")
+  expect_equal(attr(k$private, "algorithm"), "2.16.840.1.101.3.4.3.22")
   expect_s3_class(k$public, "pqcrypto_public_key")
   expect_equal(length(k$public), 48)
-  expect_equal(attr(k$public, "algorithm"), "1.3.6.1.4.1.54392.5.1859.1.3.5")
+  expect_equal(attr(k$public, "algorithm"), "2.16.840.1.101.3.4.3.22")
 })
 
 test_that("Sphincs+ keys generation (sha2, 192, fast)", {
@@ -122,10 +122,10 @@ test_that("Sphincs+ keys generation (sha2, 192, fast)", {
   expect_s3_class(k, "pqcrypto_keypair")
   expect_s3_class(k$private, "pqcrypto_private_key")
   expect_equal(length(k$private), 96)
-  expect_equal(attr(k$private, "algorithm"), "1.3.6.1.4.1.54392.5.1859.1.3.7")
+  expect_equal(attr(k$private, "algorithm"), "2.16.840.1.101.3.4.3.23")
   expect_s3_class(k$public, "pqcrypto_public_key")
   expect_equal(length(k$public), 48)
-  expect_equal(attr(k$public, "algorithm"), "1.3.6.1.4.1.54392.5.1859.1.3.7")
+  expect_equal(attr(k$public, "algorithm"), "2.16.840.1.101.3.4.3.23")
 })
 
 test_that("Sphincs+ keys generation (sha2, 256, small)", {
@@ -134,10 +134,10 @@ test_that("Sphincs+ keys generation (sha2, 256, small)", {
   expect_s3_class(k, "pqcrypto_keypair")
   expect_s3_class(k$private, "pqcrypto_private_key")
   expect_equal(length(k$private), 128)
-  expect_equal(attr(k$private, "algorithm"), "1.3.6.1.4.1.54392.5.1859.1.3.9")
+  expect_equal(attr(k$private, "algorithm"), "2.16.840.1.101.3.4.3.24")
   expect_s3_class(k$public, "pqcrypto_public_key")
   expect_equal(length(k$public), 64)
-  expect_equal(attr(k$public, "algorithm"), "1.3.6.1.4.1.54392.5.1859.1.3.9")
+  expect_equal(attr(k$public, "algorithm"), "2.16.840.1.101.3.4.3.24")
 })
 
 test_that("Sphincs+ keys generation (sha2, 256, fast)", {
@@ -146,10 +146,10 @@ test_that("Sphincs+ keys generation (sha2, 256, fast)", {
   expect_s3_class(k, "pqcrypto_keypair")
   expect_s3_class(k$private, "pqcrypto_private_key")
   expect_equal(length(k$private), 128)
-  expect_equal(attr(k$private, "algorithm"), "1.3.6.1.4.1.54392.5.1859.1.3.11")
+  expect_equal(attr(k$private, "algorithm"), "2.16.840.1.101.3.4.3.25")
   expect_s3_class(k$public, "pqcrypto_public_key")
   expect_equal(length(k$public), 64)
-  expect_equal(attr(k$public, "algorithm"), "1.3.6.1.4.1.54392.5.1859.1.3.11")
+  expect_equal(attr(k$public, "algorithm"), "2.16.840.1.101.3.4.3.25")
 })
 
 test_that("Keys generation fails on wrong parameters", {

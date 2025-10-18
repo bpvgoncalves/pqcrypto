@@ -53,8 +53,11 @@ object_mapper <- function(x) {
   #            1.3.6.1.4.1.54392.5.1859.1.2.x   - Algorithms - ML-DSA Family - Algorithm X
   #            1.3.6.1.4.1.54392.5.1859.1.3     - Algorithms - SLH-DSA/Sphincs+ Family
   #            1.3.6.1.4.1.54392.5.1859.1.3.x   - Algorithms - SLH-DSA/Sphincs+ Family - Algorithm X
-  # The above OIDs MUST be replaced by official ones once available.
+  # The above OIDs were replaced by official ones once these were registered.
 
+  # NIST Registered OIDs
+  # https://csrc.nist.gov/projects/computer-security-objects-register/algorithm-registration
+  #
   #           nistAlgorithms OBJECT IDENTIFIER ::= { joint-iso-ccitt(2) country(16) us(840)
   #                                                 organization(1) gov(101) csor(3)
   #                                                 nistAlgorithm(4) }
@@ -77,20 +80,30 @@ object_mapper <- function(x) {
               "2.16.840.1.101.3.4.3.18"    = c("ML-DSA-65"),
               "2.16.840.1.101.3.4.3.19"    = c("ML-DSA-87"),
 
-  #            1.3.6.1.4.1.54392.5.1859.1.3     - Algorithms - SLH-DSA/Sphincs+ Family
-              "1.3.6.1.4.1.54392.5.1859.1.3.1"  = c("Sphincs+ SHA2-128-S"),
-              "1.3.6.1.4.1.54392.5.1859.1.3.2"  = c("Sphincs+ SHAKE-128-S"),
-              "1.3.6.1.4.1.54392.5.1859.1.3.3"  = c("Sphincs+ SHA2-128-F"),
-              "1.3.6.1.4.1.54392.5.1859.1.3.4"  = c("Sphincs+ SHAKE-128-F"),
-              "1.3.6.1.4.1.54392.5.1859.1.3.5"  = c("Sphincs+ SHA2-192-S"),
-              "1.3.6.1.4.1.54392.5.1859.1.3.6"  = c("Sphincs+ SHAKE-192-S"),
-              "1.3.6.1.4.1.54392.5.1859.1.3.7"  = c("Sphincs+ SHA2-192-F"),
-              "1.3.6.1.4.1.54392.5.1859.1.3.8"  = c("Sphincs+ SHAKE-192-F"),
-              "1.3.6.1.4.1.54392.5.1859.1.3.9"  = c("Sphincs+ SHA2-256-S"),
-              "1.3.6.1.4.1.54392.5.1859.1.3.10" = c("Sphincs+ SHAKE-256-S"),
-              "1.3.6.1.4.1.54392.5.1859.1.3.11" = c("Sphincs+ SHA2-256-F"),
-              "1.3.6.1.4.1.54392.5.1859.1.3.12" = c("Sphincs+ SHAKE-256-F")
-  #            ....
+  #           id-slh-dsa-sha2-128s OBJECT IDENTIFIER ::= { sigAlgs 20 }
+  #           id-slh-dsa-sha2-128f OBJECT IDENTIFIER ::= { sigAlgs 21 }
+  #           id-slh-dsa-sha2-192s OBJECT IDENTIFIER ::= { sigAlgs 22 }
+  #           id-slh-dsa-sha2-192f OBJECT IDENTIFIER ::= { sigAlgs 23 }
+  #           id-slh-dsa-sha2-256s OBJECT IDENTIFIER ::= { sigAlgs 24 }
+  #           id-slh-dsa-sha2-256f OBJECT IDENTIFIER ::= { sigAlgs 25 }
+  #           id-slh-dsa-shake-128s OBJECT IDENTIFIER ::= { sigAlgs 26 }
+  #           id-slh-dsa-shake-128f OBJECT IDENTIFIER ::= { sigAlgs 27 }
+  #           id-slh-dsa-shake-192s OBJECT IDENTIFIER ::= { sigAlgs 28 }
+  #           id-slh-dsa-shake-192f OBJECT IDENTIFIER ::= { sigAlgs 29 }
+  #           id-slh-dsa-shake-256s OBJECT IDENTIFIER ::= { sigAlgs 30 }
+  #           id-slh-dsa-shake-256f OBJECT IDENTIFIER ::= { sigAlgs 31 }
+              "2.16.840.1.101.3.4.3.20"    = c("SLH-DSA-SHA2-128S"),
+              "2.16.840.1.101.3.4.3.21"    = c("SLH-DSA-SHA2-128F"),
+              "2.16.840.1.101.3.4.3.22"    = c("SLH-DSA-SHA2-192S"),
+              "2.16.840.1.101.3.4.3.23"    = c("SLH-DSA-SHA2-192F"),
+              "2.16.840.1.101.3.4.3.24"    = c("SLH-DSA-SHA2-256S"),
+              "2.16.840.1.101.3.4.3.25"    = c("SLH-DSA-SHA2-256F"),
+              "2.16.840.1.101.3.4.3.26"    = c("SLH-DSA-SHAKE-128S"),
+              "2.16.840.1.101.3.4.3.27"    = c("SLH-DSA-SHAKE-128F"),
+              "2.16.840.1.101.3.4.3.28"    = c("SLH-DSA-SHAKE-192S"),
+              "2.16.840.1.101.3.4.3.29"    = c("SLH-DSA-SHAKE-192F"),
+              "2.16.840.1.101.3.4.3.30"    = c("SLH-DSA-SHAKE-256S"),
+              "2.16.840.1.101.3.4.3.31"    = c("SLH-DSA-SHAKE-256F")
   )
   mapper[x]
 }

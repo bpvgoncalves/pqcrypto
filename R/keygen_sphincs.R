@@ -44,52 +44,52 @@ keygen_sphincs <- function(hash_type = "shake", category = 192, type = "fast") {
     if (category == 128) {
       if (type == "fast") {
         key <- cpp_keygen_sphincsshake128f()
-        algo <- "1.3.6.1.4.1.54392.5.1859.1.3.4"
+        algo <- "2.16.840.1.101.3.4.3.27"
       } else {
         key <- cpp_keygen_sphincsshake128s()
-        algo <- "1.3.6.1.4.1.54392.5.1859.1.3.2"
+        algo <- "2.16.840.1.101.3.4.3.26"
       }
     } else if (category == 192) {
       if (type == "fast") {
         key <- cpp_keygen_sphincsshake192f()
-        algo <- "1.3.6.1.4.1.54392.5.1859.1.3.8"
+        algo <- "2.16.840.1.101.3.4.3.29"
       } else {
         key <- cpp_keygen_sphincsshake192s()
-        algo <- "1.3.6.1.4.1.54392.5.1859.1.3.6"
+        algo <- "2.16.840.1.101.3.4.3.28"
       }
     } else {
       if (type == "fast") {
         key <- cpp_keygen_sphincsshake256f()
-        algo <- "1.3.6.1.4.1.54392.5.1859.1.3.12"
+        algo <- "2.16.840.1.101.3.4.3.31"
       } else {
         key <- cpp_keygen_sphincsshake256s()
-        algo <- "1.3.6.1.4.1.54392.5.1859.1.3.10"
+        algo <- "2.16.840.1.101.3.4.3.30"
       }
     }
   } else {
     if (category == 128) {
       if (type == "fast") {
         key <- cpp_keygen_sphincssha128f()
-        algo <- "1.3.6.1.4.1.54392.5.1859.1.3.3"
+        algo <- "2.16.840.1.101.3.4.3.21"
       } else {
         key <- cpp_keygen_sphincssha128s()
-        algo <- "1.3.6.1.4.1.54392.5.1859.1.3.1"
+        algo <- "2.16.840.1.101.3.4.3.20"
       }
     } else if (category == 192) {
       if (type == "fast") {
         key <- cpp_keygen_sphincssha192f()
-        algo <- "1.3.6.1.4.1.54392.5.1859.1.3.7"
+        algo <- "2.16.840.1.101.3.4.3.23"
       } else {
         key <- cpp_keygen_sphincssha192s()
-        algo <- "1.3.6.1.4.1.54392.5.1859.1.3.5"
+        algo <- "2.16.840.1.101.3.4.3.22"
       }
     } else {
       if (type == "fast") {
         key <- cpp_keygen_sphincssha256f()
-        algo <- "1.3.6.1.4.1.54392.5.1859.1.3.11"
+        algo <- "2.16.840.1.101.3.4.3.25"
       } else {
         key <- cpp_keygen_sphincssha256s()
-        algo <- "1.3.6.1.4.1.54392.5.1859.1.3.9"
+        algo <- "2.16.840.1.101.3.4.3.24"
       }
     }
   }

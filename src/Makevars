@@ -30,7 +30,7 @@ PKG_LIBS          = $(BUILD_DIR)/libkyber512.a    \
 
 BUILD_DIR         = ../build
 
-#### Kyber config ####
+#### ML-KEM/Kyber config ####
 # Based on information provided by the pq-crystal's original Makefile
 HEADS_KYBER       = kyber/params.h  kyber/kem.h  kyber/indcpa.h  kyber/polyvec.h  kyber/poly.h    \
                     kyber/ntt.h  kyber/cbd.h  kyber/reduce.c  kyber/verify.h  kyber/symmetric.h   \
@@ -43,7 +43,7 @@ OBJS_KYBER512     = $(SRCS_KYBER:%=$(BUILD_DIR)/%.k512.o)
 OBJS_KYBER768     = $(SRCS_KYBER:%=$(BUILD_DIR)/%.k768.o)
 OBJS_KYBER1024    = $(SRCS_KYBER:%=$(BUILD_DIR)/%.k1024.o)
 
-#### Dilithium config ####
+#### ML-DSA/Dilithium config ####
 # Based on information provided by the pq-crystal's original Makefile
 HEADS_DILITHIUM   = dilithium/config.h  dilithium/params.h  dilithium/api.h  dilithium/sign.h      \
                     dilithium/packing.h  dilithium/polyvec.h  dilithium/poly.h  dilithium/ntt.h    \
@@ -57,7 +57,7 @@ OBJS_DILITHIUM2   = $(SRCS_DILITHIUM:%=$(BUILD_DIR)/%.d2.o)
 OBJS_DILITHIUM3   = $(SRCS_DILITHIUM:%=$(BUILD_DIR)/%.d3.o)
 OBJS_DILITHIUM5   = $(SRCS_DILITHIUM:%=$(BUILD_DIR)/%.d5.o)
 
-#### Sphincs+ config ####
+#### SLH-DSA/Sphincs+ config ####
 # Based on information provided by the sphincs+ original Makefile
 HEADS_SPHINCS     = sphincs/params.h  sphincs/address.h  sphincs/randombytes.h  sphincs/merkle.h  \
                     sphincs/wots.h  sphincs/wotsx1.h  sphincs/utils.h  sphincs/utilsx1.h  \

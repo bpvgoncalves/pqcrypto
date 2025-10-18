@@ -26,7 +26,7 @@ sign_sphincs <- function(private_key, message) {
               i = "'private_key' must have `pqcrypto_private_key` class."))
   }
 
-  if (!grepl("1.3.6.1.4.1.54392.5.1859.1.3.?", attr(private_key, "algorithm"))) {
+  if (!grepl("2.16.840.1.101.3.4.3.[20-31]", attr(private_key, "algorithm"))) {
     pq_stop(c(x = "Wrong private key algorithm.",
               i = "Make sure you are using a 'Sphincs+' private key."))
   }
@@ -45,7 +45,7 @@ sign_sphincs <- function(private_key, message) {
 
   last_digit <- as.integer(substring(attr(private_key, "algorithm"),
                                      regexpr("\\.[^\\.]*$", attr(private_key, "algorithm"))+1))
-  fast_signature <- ifelse(last_digit %in% c(3, 4, 7, 8, 11, 12), TRUE, FALSE)
+  fast_signature <- ifelse(last_digit %% 2 == 1, TRUE, FALSE)
 
   content <- as.cms_data(message)
 
@@ -66,9 +66,9 @@ sign_sphincs <- function(private_key, message) {
   der_attrs <- as.der(signed_attrs)
   attrs_digest <- openssl::sha3(der_attrs, 512)
 
-  if (last_digit %% 2 == 0) {
+  if (last_digit >= 26) {
     dig_signature <- cpp_sign_sphincs_shake(attrs_digest, private_key, fast_signature)
-  } else if (last_digit %% 2 == 1) {
+  } else if (last_digit <= 25) {
     dig_signature <- cpp_sign_sphincs_sha2(attrs_digest, private_key, fast_signature)
   }
 
